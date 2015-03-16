@@ -1,0 +1,8 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Projekt Labyrinth do pøedmìtu IJA
+${licensePrefix}Autoøi: Miroslav Pospíšil (xpospi73) & David Dressler (xdress00)
+<#if licenseLast??>
+${licenseLast}
+</#if>
