@@ -5,7 +5,7 @@ package board;
 
 /**
  *
- * @author xpospi73
+ * @author xpospi73, xdress00
  */
 public class MazeCard {
     

@@ -1,12 +1,12 @@
 /*
  * IJA 2015: Homework 3
  */
-package board;
+package client.board;
 
 import java.util.Random;
 /**
  *
- * @author xpospi73
+ * @author xpospi73, xdress00
  */
 public class MazeBoard {
     
