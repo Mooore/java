@@ -1,7 +1,7 @@
 /*
  * IJA 2015: Homework 3
  */
-package board;
+package client.board;
 
 /**
  *
