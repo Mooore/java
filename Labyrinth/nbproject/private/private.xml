@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Mirinda/Documents/GitHub/java/java/Labyrinth/src/board/MazeField.java</file>
-            <file>file:/C:/Users/Mirinda/Documents/GitHub/java/java/Labyrinth/src/board/MazeBoard.java</file>
-            <file>file:/C:/Users/Mirinda/Documents/GitHub/java/java/Labyrinth/src/board/MazeCard.java</file>
+            <file>file:/C:/Users/Mirinda/Documents/GitHub/java/java/Labyrinth/src/client/board/MazeCard.java</file>
+            <file>file:/C:/Users/Mirinda/Documents/GitHub/java/java/Labyrinth/src/client/Client.java</file>
+            <file>file:/C:/Users/Mirinda/Documents/GitHub/java/java/Labyrinth/src/client/board/MazeBoard.java</file>
+            <file>file:/C:/Users/Mirinda/Documents/GitHub/java/java/Labyrinth/src/client/board/MazeField.java</file>
         </group>
     </open-files>
 </project-private>
