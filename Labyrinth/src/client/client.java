@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
  *
  * @author xpospi73, xdress00
  */
-public class Client {
+public class client {
     
     // Main GAME object representing game board.
     private static MazeBoard game = new MazeBoard();
@@ -43,6 +43,8 @@ public class Client {
                     System.out.println("Printing game board...");
                     
                     // TODO: Print actual game board.
+                    printBoard();
+
                 }
                 else if (input.matches("n|(-n)") == true){
                     // Starting new game
@@ -94,5 +96,51 @@ public class Client {
         printHelp();
         System.out.println("Type your command for getting started.");
         System.out.print(">> ");
+    }
+    
+    private static void printBoard() {
+      //  System.out.println("board");
+        
+        System.out.println();
+        if(game.get(1, 1).getCard() == null) {
+            System.out.println("Nothing to print!");
+        }
+        else {
+            for(int i = 1; i <= size;i++) {
+                for(int j = 1; j <= size;j++) {
+                    if(game.get(i, j).getCard().canGo(MazeCard.CANGO.UP) == true) {
+                        if(game.get(i, j).getCard().canGo(MazeCard.CANGO.RIGHT) == true) {
+                            // Zleva nahoru a doprava.
+                            System.out.print("F ");
+                        }
+                        else {
+                            // Zleva nahoru.
+                            System.out.print("C ");
+                        }
+                    }
+                    else {
+                        // Zleva doprava.
+                        System.out.print("L ");
+                    }
+                }
+                System.out.println();
+            }
+            System.out.println();           
+            if(game.getFreeCard().canGo(MazeCard.CANGO.UP) == true) {
+                if(game.getFreeCard().canGo(MazeCard.CANGO.RIGHT) == true) {
+                    // Zleva nahoru a doprava.
+                    System.out.print("Free card: F");
+                }
+                else {
+                    // Zleva nahoru.
+                    System.out.print("Free card: C");
+                }
+            }
+            else {
+                // Zleva doprava.
+                System.out.print("Free card: L");
+            }
+            System.out.println();
+        }
     }
 }
