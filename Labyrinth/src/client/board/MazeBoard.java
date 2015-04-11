@@ -29,7 +29,7 @@ public class MazeBoard {
     }
     
     private MazeCard getNewCard(MazeCard c){
-        int randomInt = randomGenerator.nextInt(2);
+        int randomInt = randomGenerator.nextInt(3);
         switch (randomInt) {
             case 0: c = MazeCard.create("C");
                     break;
