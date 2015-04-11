@@ -154,8 +154,7 @@ public class client {
                                 else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == false) {
                                     System.out.print("╚");
                                 }
-                            }
-                            
+                            }                           
                         } 
                         else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.UP) == false) {
                             if(game.get(i, j).getCard().canGo(MazeCard.CANGO.RIGHT) == true) {
@@ -169,19 +168,62 @@ public class client {
                 System.out.println();
             }
             System.out.println();           
-            if(game.getFreeCard().canGo(MazeCard.CANGO.UP) == true) {
-                if(game.getFreeCard().canGo(MazeCard.CANGO.RIGHT) == true) {
-                    // Zleva nahoru a doprava.
-                    System.out.print("Free card: F");
-                }
-                else {
-                    // Zleva nahoru.
-                    System.out.print("Free card: C");
+
+            if(game.getFreeCard().canGo(MazeCard.CANGO.LEFT) == true) {
+                if(game.getFreeCard().canGo(MazeCard.CANGO.UP) == false) {
+                    if(game.getFreeCard().canGo(MazeCard.CANGO.RIGHT) == true) {
+                        if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == false) {
+                            System.out.print("Free Card ═");
+                        }
+                        else if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == true) {
+                            System.out.print("Free Card ╦");
+                        }
+                    }
+                    else if(game.getFreeCard().canGo(MazeCard.CANGO.RIGHT) == false) {
+                        if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == true) {
+                            System.out.print("Free Card ╗");
+                        }
+                    }
+                }           
+                else if(game.getFreeCard().canGo(MazeCard.CANGO.UP) == true) {
+                    if(game.getFreeCard().canGo(MazeCard.CANGO.RIGHT) == true) {
+                        if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == false) {
+                            System.out.print("Free Card ╩");
+                        }
+                    }
+                    else if(game.getFreeCard().canGo(MazeCard.CANGO.RIGHT) == false) {
+                        if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == true) {
+                            System.out.print("Free Card ╣");
+                        }
+                        else if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == false) {
+                            System.out.print("Free Card ╝");
+                        }
+                    }
                 }
             }
-            else {
-                // Zleva doprava.
-                System.out.print("Free card: L");
+            else if(game.getFreeCard().canGo(MazeCard.CANGO.LEFT) == false) {
+                if(game.getFreeCard().canGo(MazeCard.CANGO.UP) == true) {
+                    if(game.getFreeCard().canGo(MazeCard.CANGO.RIGHT) == false) {
+                        if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == true) {
+                            System.out.print("Free Card ║");
+                        }
+                    }
+                    else if(game.getFreeCard().canGo(MazeCard.CANGO.RIGHT) == true) {
+                        if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == true) {
+                            System.out.print("Free Card ╠");
+                        }
+                        else if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == false) {
+                            System.out.print("Free Card ╚");
+                        }
+                    }                          
+                } 
+                else if(game.getFreeCard().canGo(MazeCard.CANGO.UP) == false) {
+                    if(game.getFreeCard().canGo(MazeCard.CANGO.RIGHT) == true) {
+                        if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == true) {
+                            System.out.print("Free Card ╔");
+                        }
+                    }
+                }
             }
             System.out.println();
         }
