@@ -108,19 +108,62 @@ public class client {
         else {
             for(int i = 1; i <= size;i++) {
                 for(int j = 1; j <= size;j++) {
-                    if(game.get(i, j).getCard().canGo(MazeCard.CANGO.UP) == true) {
-                        if(game.get(i, j).getCard().canGo(MazeCard.CANGO.RIGHT) == true) {
-                            // Zleva nahoru a doprava.
-                            System.out.print("F ");
-                        }
-                        else {
-                            // Zleva nahoru.
-                            System.out.print("C ");
+                    if(game.get(i, j).getCard().canGo(MazeCard.CANGO.LEFT) == true) {
+                        if(game.get(i, j).getCard().canGo(MazeCard.CANGO.UP) == false) {
+                            if(game.get(i, j).getCard().canGo(MazeCard.CANGO.RIGHT) == true) {
+                                if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == false) {
+                                    System.out.print("═");
+                                }
+                                else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == true) {
+                                    System.out.print("╦");
+                                }
+                            }
+                            else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.RIGHT) == false) {
+                                if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == true) {
+                                    System.out.print("╗");
+                                }
+                            }
+                        }           
+                        else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.UP) == true) {
+                            if(game.get(i, j).getCard().canGo(MazeCard.CANGO.RIGHT) == true) {
+                                if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == false) {
+                                    System.out.print("╩");
+                                }
+                            }
+                            else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.RIGHT) == false) {
+                                if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == true) {
+                                    System.out.print("╣");
+                                }
+                                else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == false) {
+                                    System.out.print("╝");
+                                }
+                            }
                         }
                     }
-                    else {
-                        // Zleva doprava.
-                        System.out.print("L ");
+                    else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.LEFT) == false) {
+                        if(game.get(i, j).getCard().canGo(MazeCard.CANGO.UP) == true) {
+                            if(game.get(i, j).getCard().canGo(MazeCard.CANGO.RIGHT) == false) {
+                                if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == true) {
+                                    System.out.print("║");
+                                }
+                            }
+                            else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.RIGHT) == true) {
+                                if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == true) {
+                                    System.out.print("╠");
+                                }
+                                else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == false) {
+                                    System.out.print("╚");
+                                }
+                            }
+                            
+                        } 
+                        else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.UP) == false) {
+                            if(game.get(i, j).getCard().canGo(MazeCard.CANGO.RIGHT) == true) {
+                                if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == true) {
+                                    System.out.print("╔");
+                                }
+                            }
+                        }
                     }
                 }
                 System.out.println();
