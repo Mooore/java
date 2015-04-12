@@ -108,124 +108,74 @@ public class client {
         else {
             for(int i = 1; i <= size;i++) {
                 for(int j = 1; j <= size;j++) {
-                    if(game.get(i, j).getCard().canGo(MazeCard.CANGO.LEFT) == true) {
-                        if(game.get(i, j).getCard().canGo(MazeCard.CANGO.UP) == false) {
-                            if(game.get(i, j).getCard().canGo(MazeCard.CANGO.RIGHT) == true) {
-                                if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == false) {
-                                    System.out.print("═");
-                                }
-                                else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == true) {
-                                    System.out.print("╦");
-                                }
-                            }
-                            else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.RIGHT) == false) {
-                                if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == true) {
-                                    System.out.print("╗");
-                                }
-                            }
-                        }           
-                        else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.UP) == true) {
-                            if(game.get(i, j).getCard().canGo(MazeCard.CANGO.RIGHT) == true) {
-                                if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == false) {
-                                    System.out.print("╩");
-                                }
-                            }
-                            else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.RIGHT) == false) {
-                                if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == true) {
-                                    System.out.print("╣");
-                                }
-                                else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == false) {
-                                    System.out.print("╝");
-                                }
-                            }
-                        }
-                    }
-                    else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.LEFT) == false) {
-                        if(game.get(i, j).getCard().canGo(MazeCard.CANGO.UP) == true) {
-                            if(game.get(i, j).getCard().canGo(MazeCard.CANGO.RIGHT) == false) {
-                                if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == true) {
-                                    System.out.print("║");
-                                }
-                            }
-                            else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.RIGHT) == true) {
-                                if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == true) {
-                                    System.out.print("╠");
-                                }
-                                else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == false) {
-                                    System.out.print("╚");
-                                }
-                            }                           
-                        } 
-                        else if(game.get(i, j).getCard().canGo(MazeCard.CANGO.UP) == false) {
-                            if(game.get(i, j).getCard().canGo(MazeCard.CANGO.RIGHT) == true) {
-                                if(game.get(i, j).getCard().canGo(MazeCard.CANGO.DOWN) == true) {
-                                    System.out.print("╔");
-                                }
-                            }
-                        }
-                    }
+                    printChar(game.get(i, j).getCard());
                 }
                 System.out.println();
             }
             System.out.println();           
-
-            if(game.getFreeCard().canGo(MazeCard.CANGO.LEFT) == true) {
-                if(game.getFreeCard().canGo(MazeCard.CANGO.UP) == false) {
-                    if(game.getFreeCard().canGo(MazeCard.CANGO.RIGHT) == true) {
-                        if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == false) {
-                            System.out.print("Free Card ═");
-                        }
-                        else if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == true) {
-                            System.out.print("Free Card ╦");
-                        }
-                    }
-                    else if(game.getFreeCard().canGo(MazeCard.CANGO.RIGHT) == false) {
-                        if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == true) {
-                            System.out.print("Free Card ╗");
-                        }
-                    }
-                }           
-                else if(game.getFreeCard().canGo(MazeCard.CANGO.UP) == true) {
-                    if(game.getFreeCard().canGo(MazeCard.CANGO.RIGHT) == true) {
-                        if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == false) {
-                            System.out.print("Free Card ╩");
-                        }
-                    }
-                    else if(game.getFreeCard().canGo(MazeCard.CANGO.RIGHT) == false) {
-                        if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == true) {
-                            System.out.print("Free Card ╣");
-                        }
-                        else if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == false) {
-                            System.out.print("Free Card ╝");
-                        }
-                    }
-                }
-            }
-            else if(game.getFreeCard().canGo(MazeCard.CANGO.LEFT) == false) {
-                if(game.getFreeCard().canGo(MazeCard.CANGO.UP) == true) {
-                    if(game.getFreeCard().canGo(MazeCard.CANGO.RIGHT) == false) {
-                        if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == true) {
-                            System.out.print("Free Card ║");
-                        }
-                    }
-                    else if(game.getFreeCard().canGo(MazeCard.CANGO.RIGHT) == true) {
-                        if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == true) {
-                            System.out.print("Free Card ╠");
-                        }
-                        else if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == false) {
-                            System.out.print("Free Card ╚");
-                        }
-                    }                          
-                } 
-                else if(game.getFreeCard().canGo(MazeCard.CANGO.UP) == false) {
-                    if(game.getFreeCard().canGo(MazeCard.CANGO.RIGHT) == true) {
-                        if(game.getFreeCard().canGo(MazeCard.CANGO.DOWN) == true) {
-                            System.out.print("Free Card ╔");
-                        }
-                    }
-                }
-            }
+            
+            printChar(game.getFreeCard());
+            
             System.out.println();
+        }
+    }
+    
+    private static void printChar(MazeCard card) {
+        if(card.canGo(MazeCard.CANGO.LEFT) == true) {
+            if(card.canGo(MazeCard.CANGO.UP) == false) {
+                if(card.canGo(MazeCard.CANGO.RIGHT) == true) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == false) {
+                        System.out.print("═");
+                    }
+                    else if(card.canGo(MazeCard.CANGO.DOWN) == true) {
+                        System.out.print("╦");
+                    }
+                }
+                else if(card.canGo(MazeCard.CANGO.RIGHT) == false) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == true) {
+                        System.out.print("╗");
+                    }
+                }
+            }           
+            else if(card.canGo(MazeCard.CANGO.UP) == true) {
+                if(card.canGo(MazeCard.CANGO.RIGHT) == true) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == false) {
+                        System.out.print("╩");
+                    }
+                }
+                else if(card.canGo(MazeCard.CANGO.RIGHT) == false) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == true) {
+                        System.out.print("╣");
+                    }
+                    else if(card.canGo(MazeCard.CANGO.DOWN) == false) {
+                        System.out.print("╝");
+                    }
+                }
+            }
+        }
+        else if(card.canGo(MazeCard.CANGO.LEFT) == false) {
+            if(card.canGo(MazeCard.CANGO.UP) == true) {
+                if(card.canGo(MazeCard.CANGO.RIGHT) == false) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == true) {
+                        System.out.print("║");
+                    }
+                }
+                else if(card.canGo(MazeCard.CANGO.RIGHT) == true) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == true) {
+                        System.out.print("╠");
+                    }
+                    else if(card.canGo(MazeCard.CANGO.DOWN) == false) {
+                        System.out.print("╚");
+                    }
+                }                           
+            } 
+            else if(card.canGo(MazeCard.CANGO.UP) == false) {
+                if(card.canGo(MazeCard.CANGO.RIGHT) == true) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == true) {
+                        System.out.print("╔");
+                    }
+                }
+            }
         }
     }
 }
