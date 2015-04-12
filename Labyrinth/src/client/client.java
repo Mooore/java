@@ -105,8 +105,19 @@ public class client {
         }
         // Print board.
         else {
-            System.out.println("  1  2  3  4  5  6  7"); 
-            System.out.println("   ─ ─ ─ ─ ─ ─ ─");
+            for(int i = 1;i <= size;i++) {
+               System.out.print("  ");  
+               System.out.print(i);  
+            }
+            
+            System.out.println();
+            System.out.print("   ");
+            
+            for(int i = 1;i <= size;i++) {
+                System.out.print("─ ");  
+            }
+            System.out.println();
+
             for(int i = 1; i <= size;i++) {    
                 System.out.print(i);
                 System.out.print(" |"); 
