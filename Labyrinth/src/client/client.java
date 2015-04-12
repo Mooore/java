@@ -126,8 +126,13 @@ public class client {
                 }
                 System.out.println();
             }
-            System.out.println("   ─ ─ ─ ─ ─ ─ ─");
-            System.out.println();           
+            
+            System.out.print("   ");
+            
+            for(int i = 1;i <= size;i++) {
+                System.out.print("─ ");  
+            }
+            System.out.println();
             
             System.out.print("Free Card: |");
             printChar(game.getFreeCard());
