@@ -42,9 +42,7 @@ public class client {
                 if (input.matches("p|(-p)") == true){
                     System.out.println("Printing game board...");
                     
-                    // TODO: Print actual game board.
                     printBoard();
-
                 }
                 else if (input.matches("n|(-n)") == true){
                     // Starting new game
@@ -98,13 +96,14 @@ public class client {
         System.out.print(">> ");
     }
     
-    private static void printBoard() {
-      //  System.out.println("board");
-        
+    // Printing actual game board.
+    private static void printBoard() {  
         System.out.println();
+        // New game does not created yet.
         if(game.get(1, 1).getCard() == null) {
             System.out.println("Nothing to print!");
         }
+        // Print board.
         else {
             System.out.println("  1  2  3  4  5  6  7"); 
             System.out.println("   ─ ─ ─ ─ ─ ─ ─");
@@ -126,6 +125,7 @@ public class client {
         }
     }
     
+    // Print value of field.
     private static void printChar(MazeCard card) {
         if(card.canGo(MazeCard.CANGO.LEFT) == true) {
             if(card.canGo(MazeCard.CANGO.UP) == false) {
