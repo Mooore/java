@@ -106,14 +106,20 @@ public class client {
             System.out.println("Nothing to print!");
         }
         else {
-            for(int i = 1; i <= size;i++) {
+            System.out.println("  1  2  3  4  5  6  7"); 
+            System.out.println("   ─ ─ ─ ─ ─ ─ ─");
+            for(int i = 1; i <= size;i++) {    
+                System.out.print(i);
+                System.out.print(" |"); 
                 for(int j = 1; j <= size;j++) {
                     printChar(game.get(i, j).getCard());
                 }
                 System.out.println();
             }
+            System.out.println("   ─ ─ ─ ─ ─ ─ ─");
             System.out.println();           
             
+            System.out.print("Free Card: |");
             printChar(game.getFreeCard());
             
             System.out.println();
@@ -125,30 +131,30 @@ public class client {
             if(card.canGo(MazeCard.CANGO.UP) == false) {
                 if(card.canGo(MazeCard.CANGO.RIGHT) == true) {
                     if(card.canGo(MazeCard.CANGO.DOWN) == false) {
-                        System.out.print("═");
+                        System.out.print("═|");
                     }
                     else if(card.canGo(MazeCard.CANGO.DOWN) == true) {
-                        System.out.print("╦");
+                        System.out.print("╦|");
                     }
                 }
                 else if(card.canGo(MazeCard.CANGO.RIGHT) == false) {
                     if(card.canGo(MazeCard.CANGO.DOWN) == true) {
-                        System.out.print("╗");
+                        System.out.print("╗|");
                     }
                 }
             }           
             else if(card.canGo(MazeCard.CANGO.UP) == true) {
                 if(card.canGo(MazeCard.CANGO.RIGHT) == true) {
                     if(card.canGo(MazeCard.CANGO.DOWN) == false) {
-                        System.out.print("╩");
+                        System.out.print("╩|");
                     }
                 }
                 else if(card.canGo(MazeCard.CANGO.RIGHT) == false) {
                     if(card.canGo(MazeCard.CANGO.DOWN) == true) {
-                        System.out.print("╣");
+                        System.out.print("╣|");
                     }
                     else if(card.canGo(MazeCard.CANGO.DOWN) == false) {
-                        System.out.print("╝");
+                        System.out.print("╝|");
                     }
                 }
             }
@@ -157,22 +163,22 @@ public class client {
             if(card.canGo(MazeCard.CANGO.UP) == true) {
                 if(card.canGo(MazeCard.CANGO.RIGHT) == false) {
                     if(card.canGo(MazeCard.CANGO.DOWN) == true) {
-                        System.out.print("║");
+                        System.out.print("║|");
                     }
                 }
                 else if(card.canGo(MazeCard.CANGO.RIGHT) == true) {
                     if(card.canGo(MazeCard.CANGO.DOWN) == true) {
-                        System.out.print("╠");
+                        System.out.print("╠|");
                     }
                     else if(card.canGo(MazeCard.CANGO.DOWN) == false) {
-                        System.out.print("╚");
+                        System.out.print("╚|");
                     }
                 }                           
             } 
             else if(card.canGo(MazeCard.CANGO.UP) == false) {
                 if(card.canGo(MazeCard.CANGO.RIGHT) == true) {
                     if(card.canGo(MazeCard.CANGO.DOWN) == true) {
-                        System.out.print("╔");
+                        System.out.print("╔|");
                     }
                 }
             }
