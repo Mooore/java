@@ -67,6 +67,18 @@ public class client {
                     // Print help - available commands;
                     printHelp();
                 }
+                else if (input.matches("^(t|(-t))([0-9]{2})$") == true){
+                    if(game.get(1, 1).getCard() == null) {
+                        System.out.println("Nothing to turn!");
+                    }
+                    else {
+                        rc = input.replaceAll("(t|(-t))", "");
+                        int row = Character.getNumericValue(rc.charAt(0));
+                        int col = Character.getNumericValue(rc.charAt(1));
+                        game.get(row,col).getCard().turnRight();
+                        System.out.println("Field [" + row + "," + col + "] turned.");
+                    }
+                }
                 else {
                     System.out.println("Wrong command. Try again or type h / -h for help.");
                 }
@@ -85,6 +97,7 @@ public class client {
         System.out.println("  n / -n   : Start new game");
         System.out.println("  q / -q   : Quit game");
         System.out.println("sRC / -sRC : Insert free card to positions [R,C]");
+        System.out.println("tRC / -tRC : Turn right specific card on position [R,C]");
         System.out.println("  h / -h   : Print help");
     }
     
