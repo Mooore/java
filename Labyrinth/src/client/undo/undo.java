@@ -13,8 +13,8 @@ import java.util.List;
  */
 public class undo {
     
-    private List<String> commands;
-    private int lastCommand;
+    public List<String> commands;
+    public int lastCommand;
     
     public undo() {
         lastCommand = 0;   
@@ -26,25 +26,24 @@ public class undo {
         lastCommand++;
     }
     
-    private String readLastCommand() {
+    public String readLastCommand() {
         return commands.get(lastCommand-1);
     }
     
-    private String invertCommand(String command) {
-        String invertedCommand = null;
-        
+    public String invertCommand(String command) {
+        String invertedCommand = null,rc;
+        if(command.matches("^(t|(-t))([0-9]{2})$") == true) {
+            rc = command.replaceAll("(t|(-t))", "");
+            int row = Character.getNumericValue(rc.charAt(0));
+            int col = Character.getNumericValue(rc.charAt(1));
+            invertedCommand = ("tl" + row + col);
+        }     
+        else if(command.matches("^(tl|(-tl))([0-9]{2})$") == true) {
+            rc = command.replaceAll("(tl|(-tl))", "");
+            int row = Character.getNumericValue(rc.charAt(0));
+            int col = Character.getNumericValue(rc.charAt(1));
+            invertedCommand = ("t" + row + col);
+        }     
         return invertedCommand;
-    }
-    
-    public void undoLastCommand() {
-        if(lastCommand > 0) {
-            System.out.println(readLastCommand());
-            commands.remove(lastCommand - 1);
-            lastCommand--;
-        }
-        else {
-            System.out.println("Nothing to undo.");
-        }
-    }
-  
+    } 
 }

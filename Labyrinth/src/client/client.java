@@ -68,7 +68,7 @@ public class client {
                     game.shift(field);                   
                 }
                 else if (input.matches("u|(-u)") == true){
-                    undo.undoLastCommand();
+                    undoLastCommand();
                 }
                 else if (input.matches("h|(-h)") == true){
                     // Print help - available commands;
@@ -233,6 +233,31 @@ public class client {
                     }
                 }
             }
+        }
+    }
+    
+    public static void undoLastCommand() {
+        String undoCommand,rc;
+        if(undo.lastCommand > 0) {
+            undoCommand = undo.invertCommand(undo.readLastCommand());
+            if(undoCommand.matches("^(tl|(-tl))([0-9]{2})$") == true) {
+                rc = undoCommand.replaceAll("(tl|(-tl))", "");
+                int row = Character.getNumericValue(rc.charAt(0));
+                int col = Character.getNumericValue(rc.charAt(1));
+                game.get(row,col).getCard().turnLeft();
+            }
+            else if(undoCommand.matches("^(t|(-t))([0-9]{2})$") == true) {
+                rc = undoCommand.replaceAll("(t|(-t))", "");
+                int row = Character.getNumericValue(rc.charAt(0));
+                int col = Character.getNumericValue(rc.charAt(1));
+                game.get(row,col).getCard().turnRight();
+            }
+            System.out.println("Command " + undo.readLastCommand() + " undone.");
+            undo.commands.remove(undo.lastCommand - 1);
+            undo.lastCommand--;
+        }
+        else {
+            System.out.println("Nothing to undo.");
         }
     }
 }
