@@ -4,6 +4,7 @@
 package client;
 
 import client.board.*;
+import client.undo.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class client {
      */
     private static MazeField field = null;
     
+    private static undo undo;
     // Size of board. Set to 7 by task assignment.
     private static final int size = 7;
     
@@ -47,6 +49,7 @@ public class client {
                 else if (input.matches("n|(-n)") == true){
                     // Starting new game
                     game.newGame();
+                    undo = new undo();
                     System.out.println("New game has started!");
                 }
                 else if (input.matches("q|(-q)") == true){
@@ -56,18 +59,23 @@ public class client {
                     /* Getting [row,col] int values. Creating new field object 
                      * with [row,col]. Shifting game board.
                      */
+                    undo.storeCommand(input);
                     rc = input.replaceAll("(s|(-s))", "");
                     field = new MazeField(  Character.getNumericValue(rc.charAt(0)),
                                             Character.getNumericValue(rc.charAt(1)));
                     System.out.println( "Shifting to: " + field.row() + 
                                         " - "           + field.col());
-                    game.shift(field);
+                    game.shift(field);                   
+                }
+                else if (input.matches("u|(-u)") == true){
+                    undo.undoLastCommand();
                 }
                 else if (input.matches("h|(-h)") == true){
                     // Print help - available commands;
                     printHelp();
                 }
                 else if (input.matches("^(t|(-t))([0-9]{2})$") == true){
+                    undo.storeCommand(input);
                     if(game.get(1, 1).getCard() == null) {
                         System.out.println("Nothing to turn!");
                     }
