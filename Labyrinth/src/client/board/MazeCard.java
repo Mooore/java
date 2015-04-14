@@ -51,4 +51,19 @@ public class MazeCard {
             }
 	}
     }
+    
+    public void turnLeft(){
+        boolean tmp[] = new boolean[4];
+        for (int i = 0; i <= 3; i++){
+            tmp[i] = canGoArr[i];
+        }
+        for (int i = 0; i <= 3; i++){
+            if (i == 3) {
+                canGoArr[i] = tmp[0];
+            }
+            else {
+                canGoArr[i] = tmp[i + 1];
+            }
+	}
+    }
 }

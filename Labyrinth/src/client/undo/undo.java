@@ -13,11 +13,12 @@ import java.util.List;
  */
 public class undo {
     
-    private List<String> commands = new ArrayList<String>();
+    private List<String> commands;
     private int lastCommand;
     
     public undo() {
         lastCommand = 0;   
+        commands =  new ArrayList<>();
     }
     
     public void storeCommand(String command) {
@@ -27,6 +28,12 @@ public class undo {
     
     private String readLastCommand() {
         return commands.get(lastCommand-1);
+    }
+    
+    private String invertCommand(String command) {
+        String invertedCommand = null;
+        
+        return invertedCommand;
     }
     
     public void undoLastCommand() {
