@@ -1,5 +1,5 @@
 /*
- * IJA 2015: Homework 3
+ * IJA 2015: The Labyrinth
  */
 package client.undo;
 

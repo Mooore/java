@@ -1,14 +1,16 @@
 /*
- * IJA 2015: Homework 3
+ * IJA 2015: The Labyrinth
  */
 package client;
 
 import client.board.*;
 import client.undo.*;
+import client.view.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import javax.swing.JFrame;
 
 /**
  *
@@ -30,13 +32,29 @@ public class client {
     
     // Main function. Set as sturtup main class.
     public static void main(String[] args) {
+        if (args.length != 1){
+            gui();
+        }
+        else if("-tui".equals(args[0])){
+            tui();
+        }
+    }
+    
+    public static void gui(){
+        menu gameView = new menu();
+        gameView.setVisible(true);
+        gameView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gameView.setSize(300,200);
+    }
+    
+    public static void tui(){
         // Call function for printing introduction messages.
         printIntroduction();
         // Creating new Maze Board
         game = MazeBoard.createMazeBoard(size);
         try {
-            // Buffered Reader and strings for reading from STDIN
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            BufferedReader br;
+            br = new BufferedReader(new InputStreamReader(System.in));
             String input, rc;
             
             // Main loop
