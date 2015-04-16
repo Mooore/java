@@ -14,7 +14,8 @@ public class client {
     
     public static void main(String[] args) {
         if (args.length != 1){
-            Menu gameView = new Menu();
+            Gui gui = new Gui();
+            gui.Menu();
         }
         else if("-tui".equals(args[0])){
             Tui tui = new Tui(7);
