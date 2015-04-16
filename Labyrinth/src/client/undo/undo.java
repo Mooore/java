@@ -11,12 +11,12 @@ import java.util.List;
  *
  * @author xpospi73, xdress00
  */
-public class undo {
+public class Undo {
     
     public List<String> commands;
     public int lastCommand;
     
-    public undo() {
+    public Undo() {
         lastCommand = 0;   
         commands =  new ArrayList<>();
     }

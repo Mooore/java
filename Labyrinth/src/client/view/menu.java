@@ -3,7 +3,11 @@
  */
 package client.view;
 
+import client.view.menu.*;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -14,7 +18,7 @@ import javax.swing.border.EmptyBorder;
  *
  * @author xpospi73, xdress00
  */
-public class menu extends JFrame {
+public class Menu extends JFrame {
     public JButton buttonNewGame;
     public JButton buttonLoadGame;
     public JButton buttonHelp;
@@ -28,7 +32,7 @@ public class menu extends JFrame {
     
     String path = System.getProperty("user.dir");
     
-    public menu() {
+    public Menu() {
         super("The Labyrinth");
         
         GridLayout layoutMenu;
@@ -66,10 +70,28 @@ public class menu extends JFrame {
         buttonCredits = new JButton("Credits");
         buttonExit = new JButton("Exit");
         
+        buttonNewGame.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                NewGame newGameView = new NewGame();
+            }
+            
+        });
+            
+        
         panelButtons.add(buttonNewGame);
         panelButtons.add(buttonLoadGame);
         panelButtons.add(buttonHelp);
         panelButtons.add(buttonCredits);
         panelButtons.add(buttonExit);
+        
+        pack();
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1000,700);
+        setLocationRelativeTo(null);
+        setResizable(false);
     }
 }
