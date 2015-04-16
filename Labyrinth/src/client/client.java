@@ -6,11 +6,16 @@ package client;
 import client.board.*;
 import client.undo.*;
 import client.view.*;
+import java.awt.Color;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import javax.swing.JFrame;
+import javax.imageio.*;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  *
@@ -41,10 +46,29 @@ public class client {
     }
     
     public static void gui(){
-        menu gameView = new menu();
+        String path;
+        path = System.getProperty("user.dir");
+        
+        menu gameView;
+        gameView = new menu();
+        
+        /*JLabel contentPane = new JLabel();
+        try {
+            contentPane.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/Labyrinth.jpg"))));
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        gameView.setContentPane(contentPane);*/
+        
+        gameView.getContentPane().setBackground(Color.DARK_GRAY);
+        gameView.pack();
         gameView.setVisible(true);
         gameView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gameView.setSize(300,200);
+        gameView.setSize(1000,700);
+        gameView.setLocationRelativeTo(null);
+        gameView.setResizable(false);
+        
     }
     
     public static void tui(){
