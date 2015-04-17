@@ -3,7 +3,7 @@
  */
 package client;
 
-import client.view.*;
+import client.gui.Gui;
 import client.tui.*;
 
 /**
@@ -12,13 +12,16 @@ import client.tui.*;
  */
 public class client {
     
+    public static Gui gui;
+    public static Tui tui;
+    
     public static void main(String[] args) {
         if (args.length != 1){
-            Gui gui = new Gui();
-            gui.Menu();
+            gui = new Gui();
+            gui.setMenu();
         }
         else if("-tui".equals(args[0])){
-            Tui tui = new Tui(7);
+            tui = new Tui(7);
             tui.tuiRun();
         }
     }
