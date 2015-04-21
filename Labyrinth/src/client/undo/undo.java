@@ -3,6 +3,7 @@
  */
 package client.undo;
 
+import static client.client.tui;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,12 +12,12 @@ import java.util.List;
  *
  * @author xpospi73, xdress00
  */
-public class Undo {
+public class undo {
     
     public List<String> commands;
     public int lastCommand;
     
-    public Undo() {
+    public undo() {
         lastCommand = 0;   
         commands =  new ArrayList<>();
     }
@@ -44,6 +45,23 @@ public class Undo {
             int col = Character.getNumericValue(rc.charAt(1));
             invertedCommand = ("t" + row + col);
         }     
+        else if(command.matches("^(s|(-s))([0-9]{2})$") == true) {
+            rc = command.replaceAll("(s|(-s))", "");
+            int row = Character.getNumericValue(rc.charAt(0));
+            int col = Character.getNumericValue(rc.charAt(1));
+            if (row == 1) {
+                invertedCommand = ("s" + tui.getSize() + col);
+            }
+            else if(row == tui.getSize()) {
+                invertedCommand = ("s" + 1 + col);
+            }
+            else if (col == 1) {
+                invertedCommand = ("s" + row + tui.getSize());
+            }
+            else if (col == tui.getSize()) {
+                invertedCommand = ("s" + row + 1);
+            }
+        }
         return invertedCommand;
     } 
 }

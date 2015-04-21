@@ -6,7 +6,7 @@ package client.tui;
 import client.board.MazeBoard;
 import client.board.MazeCard;
 import client.board.MazeField;
-import client.undo.Undo;
+import client.undo.undo;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,11 +24,15 @@ public class Tui {
      * Field object is required by MazeBoard.shift(MazeField field).
      */
     private static MazeField field = null;
-    private static Undo undo;
+    private static undo undo;
     private static int size;
     
     public Tui(int n){
         size = n;
+    }
+    
+    public int getSize() {
+        return size;
     }
     
     public void tuiRun(){
@@ -50,7 +54,7 @@ public class Tui {
                 else if (input.matches("n|(-n)") == true){
                     // Starting new game
                     game.newGame();
-                    undo = new Undo();
+                    undo = new undo();
                     System.out.println("New game has started!");
                 }
                 else if (input.matches("q|(-q)") == true){
@@ -59,14 +63,19 @@ public class Tui {
                 else if (input.matches("^(s|(-s))([0-9]{2})$") == true){
                     /* Getting [row,col] int values. Creating new field object 
                      * with [row,col]. Shifting game board.
-                     */
-                    undo.storeCommand(input);
+                     */                   
                     rc = input.replaceAll("(s|(-s))", "");
                     field = new MazeField(  Character.getNumericValue(rc.charAt(0)),
                                             Character.getNumericValue(rc.charAt(1)));
                     System.out.println( "Shifting to: " + field.row() + 
                                         " - "           + field.col());
-                    game.shift(field);                   
+                    game.shift(field);      
+                    if (((field.row() == 1) && ((field.col() > 0) && (field.col() < size)) && (field.col() % 2 == 0)) ||
+                        ((field.row() == size) && ((field.col() > 0) && (field.col() < size)) && (field.col() % 2 == 0)) ||
+                        ((field.col() == 1) && ((field.row() > 0) && (field.row() < size)) && (field.row() % 2 == 0)) ||
+                        ((field.col() == size) && ((field.row() > 0) && (field.row() < size)) && (field.row() % 2 == 0))) {
+                            undo.storeCommand(input);
+                    }                   
                 }
                 else if (input.matches("u|(-u)") == true){
                     undoLastCommand();
@@ -253,6 +262,13 @@ public class Tui {
                 int row = Character.getNumericValue(rc.charAt(0));
                 int col = Character.getNumericValue(rc.charAt(1));
                 game.get(row,col).getCard().turnRight();
+            }
+            else if(undoCommand.matches("^(s|(-s))([0-9]{2})$") == true) {
+                System.out.println(undoCommand);
+                rc = undoCommand.replaceAll("(s|(-s))", "");
+                field = new MazeField(  Character.getNumericValue(rc.charAt(0)),
+                                            Character.getNumericValue(rc.charAt(1)));
+                game.shift(field); 
             }
             System.out.println("Command " + undo.readLastCommand() + " undone.");
             undo.commands.remove(undo.lastCommand - 1);
