@@ -3,10 +3,8 @@
  */
 package client.tui;
 
-import client.board.MazeBoard;
-import client.board.MazeCard;
-import client.board.MazeField;
-import client.undo.undo;
+import client.board.*;
+import client.game.Game;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,15 +15,9 @@ import java.io.InputStreamReader;
  * @author xpospi73, xdress00
  */
 public class Tui {
-    // Main GAME object representing game board.
-    private static MazeBoard game = new MazeBoard();
+    public static Game game;
     
-    /* Field object for creating field with [row,col] gived by -sRC command.
-     * Field object is required by MazeBoard.shift(MazeField field).
-     */
-    private static MazeField field = null;
-    private static undo undo;
-    private static int size;
+    public int size;
     
     public Tui(int n){
         size = n;
@@ -37,8 +29,9 @@ public class Tui {
     
     public void tuiRun(){
         printIntroduction();
-        // Creating new Maze Board
-        game = MazeBoard.createMazeBoard(size);
+    
+        game = new Game(size, 2, 12);
+        
         try {
             BufferedReader br;
             br = new BufferedReader(new InputStreamReader(System.in));
@@ -53,8 +46,8 @@ public class Tui {
                 }
                 else if (input.matches("n|(-n)") == true){
                     // Starting new game
-                    game.newGame();
-                    undo = new undo();
+                    game.startNewGame();
+                    
                     System.out.println("New game has started!");
                 }
                 else if (input.matches("q|(-q)") == true){
@@ -65,17 +58,11 @@ public class Tui {
                      * with [row,col]. Shifting game board.
                      */                   
                     rc = input.replaceAll("(s|(-s))", "");
-                    field = new MazeField(  Character.getNumericValue(rc.charAt(0)),
-                                            Character.getNumericValue(rc.charAt(1)));
-                    System.out.println( "Shifting to: " + field.row() + 
-                                        " - "           + field.col());
-                    game.shift(field);      
-                    if (((field.row() == 1) && ((field.col() > 0) && (field.col() < size)) && (field.col() % 2 == 0)) ||
-                        ((field.row() == size) && ((field.col() > 0) && (field.col() < size)) && (field.col() % 2 == 0)) ||
-                        ((field.col() == 1) && ((field.row() > 0) && (field.row() < size)) && (field.row() % 2 == 0)) ||
-                        ((field.col() == size) && ((field.row() > 0) && (field.row() < size)) && (field.row() % 2 == 0))) {
-                            undo.storeCommand(input);
-                    }                   
+                    int r = Character.getNumericValue(rc.charAt(0));
+                    int c = Character.getNumericValue(rc.charAt(1));
+                    System.out.println( "Shifting to: " + r + 
+                                        " - "           + c);
+                    game.shift(r, c);
                 }
                 else if (input.matches("u|(-u)") == true){
                     undoLastCommand();
@@ -85,29 +72,27 @@ public class Tui {
                     printHelp();
                 }
                 else if (input.matches("^(t|(-t))([0-9]{2})$") == true){
-                    undo.storeCommand(input);
-                    if(game.get(1, 1).getCard() == null) {
+                    if(Game.mazeboard.get(1, 1).getCard() == null) {
                         System.out.println("Nothing to turn!");
                     }
                     else {
                         rc = input.replaceAll("(t|(-t))", "");
-                        int row = Character.getNumericValue(rc.charAt(0));
-                        int col = Character.getNumericValue(rc.charAt(1));
-                        game.get(row,col).getCard().turnRight();
-                        System.out.println("Field [" + row + "," + col + "] turned.");
+                        int r = Character.getNumericValue(rc.charAt(0));
+                        int c = Character.getNumericValue(rc.charAt(1));
+                        game.turnRight(r, c);
+                        System.out.println("Field [" + r + "," + c + "] turned.");
                     }
                 }
                 else if (input.matches("^(tl|(-tl))([0-9]{2})$") == true){
-                    undo.storeCommand(input);
-                    if(game.get(1, 1).getCard() == null) {
+                    if(Game.mazeboard.get(1, 1).getCard() == null) {
                         System.out.println("Nothing to turn!");
                     }
                     else {
                         rc = input.replaceAll("(tl|(-tl))", "");
-                        int row = Character.getNumericValue(rc.charAt(0));
-                        int col = Character.getNumericValue(rc.charAt(1));
-                        game.get(row,col).getCard().turnLeft();
-                        System.out.println("Field [" + row + "," + col + "] turned left.");
+                        int r = Character.getNumericValue(rc.charAt(0));
+                        int c = Character.getNumericValue(rc.charAt(1));
+                        game.turnLeft(r, c);
+                        System.out.println("Field [" + r + "," + c + "] turned left.");
                     }
                 }
                 else {
@@ -136,7 +121,7 @@ public class Tui {
     
     // Printing introduction and welcome text messages.
     private static void printIntroduction(){
-        System.out.println("Welcome to the our application 3. Homework to IJA");
+        System.out.println("Welcome to the our TUI version of project to IJA");
         printHelp();
         System.out.println("Type your command for getting started.");
         System.out.print(">> ");
@@ -146,12 +131,12 @@ public class Tui {
     private static void printBoard() {  
         System.out.println();
         // New game does not created yet.
-        if(game.get(1, 1).getCard() == null) {
+        if(Game.mazeboard.get(1, 1).getCard() == null) {
             System.out.println("Nothing to print!");
         }
         // Print board.
         else {
-            for(int i = 1;i <= size;i++) {
+            for(int i = 1;i <= game.boardSize;i++) {
                System.out.print("  ");  
                System.out.print(i);  
             }
@@ -159,29 +144,29 @@ public class Tui {
             System.out.println();
             System.out.print("   ");
             
-            for(int i = 1;i <= size;i++) {
+            for(int i = 1;i <= game.boardSize;i++) {
                 System.out.print("─ ");  
             }
             System.out.println();
 
-            for(int i = 1; i <= size;i++) {    
+            for(int i = 1; i <= game.boardSize;i++) {    
                 System.out.print(i);
                 System.out.print(" |"); 
-                for(int j = 1; j <= size;j++) {
-                    printChar(game.get(i, j).getCard());
+                for(int j = 1; j <= game.boardSize;j++) {
+                    printChar(Game.mazeboard.get(i, j).getCard());
                 }
                 System.out.println();
             }
             
             System.out.print("   ");
             
-            for(int i = 1;i <= size;i++) {
+            for(int i = 1;i <= game.boardSize;i++) {
                 System.out.print("─ ");  
             }
             System.out.println();
             
             System.out.print("Free Card: |");
-            printChar(game.getFreeCard());
+            printChar(Game.mazeboard.getFreeCard());
             
             System.out.println();
         }
@@ -245,34 +230,12 @@ public class Tui {
                 }
             }
         }
-    }
+    }   
     
     public static void undoLastCommand() {
-        String undoCommand,rc;
-        if(undo.lastCommand > 0) {
-            undoCommand = undo.invertCommand(undo.readLastCommand());
-            if(undoCommand.matches("^(tl|(-tl))([0-9]{2})$") == true) {
-                rc = undoCommand.replaceAll("(tl|(-tl))", "");
-                int row = Character.getNumericValue(rc.charAt(0));
-                int col = Character.getNumericValue(rc.charAt(1));
-                game.get(row,col).getCard().turnLeft();
-            }
-            else if(undoCommand.matches("^(t|(-t))([0-9]{2})$") == true) {
-                rc = undoCommand.replaceAll("(t|(-t))", "");
-                int row = Character.getNumericValue(rc.charAt(0));
-                int col = Character.getNumericValue(rc.charAt(1));
-                game.get(row,col).getCard().turnRight();
-            }
-            else if(undoCommand.matches("^(s|(-s))([0-9]{2})$") == true) {
-                System.out.println(undoCommand);
-                rc = undoCommand.replaceAll("(s|(-s))", "");
-                field = new MazeField(  Character.getNumericValue(rc.charAt(0)),
-                                            Character.getNumericValue(rc.charAt(1)));
-                game.shift(field); 
-            }
-            System.out.println("Command " + undo.readLastCommand() + " undone.");
-            undo.commands.remove(undo.lastCommand - 1);
-            undo.lastCommand--;
+        if(Game.undo.lastCommand > 0) {
+            String lastCommand = game.undoCommand(true);         // boolean tuiflag
+            System.out.println("Command " + lastCommand + " undone.");
         }
         else {
             System.out.println("Nothing to undo.");
