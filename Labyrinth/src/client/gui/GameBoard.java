@@ -13,7 +13,7 @@ import javax.swing.border.EmptyBorder;
  *
  * @author xpospi73, xdress00
  */
-public class NewGame {
+public class GameBoard {
     public JButton buttonNewGameStartGame = new JButton("Start Game");
     public JButton buttonNewGameBack = new JButton("Back");
     
@@ -43,7 +43,7 @@ public class NewGame {
     private final BoxLayout boxLayoutLeft = new BoxLayout(panelNewGameControlsLeft, BoxLayout.Y_AXIS);
     private final BoxLayout boxLayoutRight = new BoxLayout(panelNewGameControlsRight, BoxLayout.Y_AXIS);
     
-    public NewGame() {
+    public GameBoard(){
         panelNewGameTitle.setBackground(new Color(0,0,0, (float) 0.5));
         panelNewGameControls.setBackground(new Color(0,0,0, (float) 0.5));
         

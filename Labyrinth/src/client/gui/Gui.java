@@ -5,6 +5,7 @@ package client.gui;
 
 
 import static client.client.gui;
+import client.game.Game;
 import java.awt.*;
 import java.io.*;
 import javax.imageio.ImageIO;
@@ -23,6 +24,9 @@ public class Gui extends JFrame {
     public static Help help = new Help();
     public static Credits credits = new Credits();
     public static LoadGame loadgame = new LoadGame();
+    
+    public static Game game;
+    public static GameBoard gameboard;
     
     String path = System.getProperty("user.dir");
     
@@ -115,6 +119,54 @@ public class Gui extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 1;
         gui.add(loadgame.panelLoadGameContent, gbc);
+        validate();
+        repaint();
+    }
+
+    public void startNewGame() {
+        int boardSize, numberOfPlayers, numberOfTreasures;
+        if (newgame.radioButtonNewGameBoardSize5.isSelected()){
+            boardSize = 5;
+        }
+        else if (newgame.radioButtonNewGameBoardSize7.isSelected()){
+            boardSize = 7;
+        }
+        else {
+            boardSize = 11;
+        }
+        
+        if (newgame.radioButtonNewGameNumberOfPlayers2.isSelected()){
+            numberOfPlayers = 2;
+        }
+        else if (newgame.radioButtonNewGameNumberOfPlayers4.isSelected()){
+            numberOfPlayers = 3;
+        }
+        else {
+            numberOfPlayers = 4;
+        }
+        
+        if (newgame.radioButtonNewGameNumberOfTreasures12.isSelected()){
+            numberOfTreasures = 12;
+        }
+        else {
+            numberOfTreasures = 24;
+        }
+        game = new Game(boardSize, numberOfPlayers, numberOfTreasures);
+        setGame();
+    }
+    
+    public void setGame() {
+        gameboard = new GameBoard();
+        
+        gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = gbc.weighty = 1.0;
+        gui.add(gameboard.panelNewGameTitle, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gui.add(gameboard.panelNewGameControls, gbc);
         validate();
         repaint();
     }

@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -34,7 +33,7 @@ public class Menu {
         panelMenuButtons.setBackground(new Color(0,0,0, (float) 0.5));
         
         
-        labelMenuTheLabyrinth.setFont(new Font("Calibri", Font.ITALIC, 30));
+        labelMenuTheLabyrinth.setFont(new Font("Calibri", Font.ITALIC, 50));
         labelMenuTheLabyrinth.setForeground(Color.WHITE);
         panelMenuTitle.add(labelMenuTheLabyrinth);
         

@@ -3,12 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/David/Documents/fit/6.semestr/IJA/java/Labyrinth/src/client/tui/Tui.java</file>
-            <file>file:/C:/Users/David/Documents/fit/6.semestr/IJA/java/Labyrinth/src/client/undo/undo.java</file>
-            <file>file:/C:/Users/David/Documents/fit/6.semestr/IJA/java/Labyrinth/src/client/board/MazeCard.java</file>
-            <file>file:/C:/Users/David/Documents/fit/6.semestr/IJA/java/Labyrinth/src/client/board/MazeField.java</file>
-            <file>file:/C:/Users/David/Documents/fit/6.semestr/IJA/java/Labyrinth/src/client/board/MazeBoard.java</file>
-            <file>file:/C:/Users/David/Documents/fit/6.semestr/IJA/java/Labyrinth/src/client/client.java</file>
+            <file>file:/C:/Users/Mirinda/Documents/GitHub/java/java/Labyrinth/src/client/gui/Menu.java</file>
+            <file>file:/C:/Users/Mirinda/Documents/GitHub/java/java/Labyrinth/src/client/gui/LoadGame.java</file>
+            <file>file:/C:/Users/Mirinda/Documents/GitHub/java/java/Labyrinth/src/client/tui/Tui.java</file>
+            <file>file:/C:/Users/Mirinda/Documents/GitHub/java/java/Labyrinth/src/client/gui/Help.java</file>
+            <file>file:/C:/Users/Mirinda/Documents/GitHub/java/java/Labyrinth/src/client/gui/NewGame.java</file>
+            <file>file:/C:/Users/Mirinda/Documents/GitHub/java/java/Labyrinth/src/client/gui/GameBoard.java</file>
+            <file>file:/C:/Users/Mirinda/Documents/GitHub/java/java/Labyrinth/src/client/gui/Gui.java</file>
+            <file>file:/C:/Users/Mirinda/Documents/GitHub/java/java/Labyrinth/src/client/game/Game.java</file>
+            <file>file:/C:/Users/Mirinda/Documents/GitHub/java/java/Labyrinth/src/client/client.java</file>
+            <file>file:/C:/Users/Mirinda/Documents/GitHub/java/java/Labyrinth/src/client/gui/Credits.java</file>
         </group>
     </open-files>
 </project-private>
