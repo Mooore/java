@@ -163,10 +163,10 @@ public class Gui extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = gbc.weighty = 1.0;
-        gui.add(gameboard.panelNewGameTitle, gbc);
+        gui.add(gameboard.panelGameHeader, gbc);
         gbc.gridx = 0;
         gbc.gridy = 1;
-        gui.add(gameboard.panelNewGameControls, gbc);
+        gui.add(gameboard.panelGame, gbc);
         validate();
         repaint();
     }

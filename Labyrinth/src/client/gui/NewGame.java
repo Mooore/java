@@ -27,6 +27,7 @@ public class NewGame {
     public JRadioButton radioButtonNewGameNumberOfPlayers4 = new JRadioButton("4");
     public JRadioButton radioButtonNewGameBoardSize5 = new JRadioButton("5");
     public JRadioButton radioButtonNewGameBoardSize7 = new JRadioButton("7");
+    public JRadioButton radioButtonNewGameBoardSize9 = new JRadioButton("9");
     public JRadioButton radioButtonNewGameBoardSize11 = new JRadioButton("11");
     public JRadioButton radioButtonNewGameNumberOfTreasures12 = new JRadioButton("12");
     public JRadioButton radioButtonNewGameNumberOfTreasures24 = new JRadioButton("24");
@@ -86,18 +87,22 @@ public class NewGame {
         
         radioButtonsBoardSize.add(radioButtonNewGameBoardSize5);
         radioButtonsBoardSize.add(radioButtonNewGameBoardSize7);
+        radioButtonsBoardSize.add(radioButtonNewGameBoardSize9);
         radioButtonsBoardSize.add(radioButtonNewGameBoardSize11);
         
         radioButtonNewGameBoardSize7.setSelected(true);
         
         radioButtonNewGameBoardSize5.setAlignmentX(Component.CENTER_ALIGNMENT);
         radioButtonNewGameBoardSize7.setAlignmentX(Component.CENTER_ALIGNMENT);
+        radioButtonNewGameBoardSize9.setAlignmentX(Component.CENTER_ALIGNMENT);
         radioButtonNewGameBoardSize11.setAlignmentX(Component.CENTER_ALIGNMENT);
         radioButtonNewGameBoardSize5.setBorder(new EmptyBorder(15,40,15,40));
         radioButtonNewGameBoardSize7.setBorder(new EmptyBorder(15,40,15,40));
+        radioButtonNewGameBoardSize9.setBorder(new EmptyBorder(15,40,15,40));
         radioButtonNewGameBoardSize11.setBorder(new EmptyBorder(15,35,15,38));
         radioButtonNewGameBoardSize5.setBackground(Color.WHITE);
         radioButtonNewGameBoardSize7.setBackground(Color.WHITE);
+        radioButtonNewGameBoardSize9.setBackground(Color.WHITE);
         radioButtonNewGameBoardSize11.setBackground(Color.WHITE);
         
         labelNewGameNumberOfTreasures.setFont(new Font("Calibri", Font.PLAIN, 20));
@@ -154,6 +159,7 @@ public class NewGame {
 //        panelNewGameControlsLeft.add(Box.createRigidArea(new Dimension(0,20)));
         panelNewGameControlsLeft.add(radioButtonNewGameBoardSize7); 
 //        panelNewGameControlsLeft.add(Box.createRigidArea(new Dimension(0,20)));
+        panelNewGameControlsLeft.add(radioButtonNewGameBoardSize9); 
         panelNewGameControlsLeft.add(radioButtonNewGameBoardSize11); 
         panelNewGameControlsLeft.add(Box.createRigidArea(new Dimension(0,50)));
         

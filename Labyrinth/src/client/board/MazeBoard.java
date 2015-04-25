@@ -28,14 +28,35 @@ public class MazeBoard {
         return board;
     }
     
-    private MazeCard getNewCard(MazeCard c){
+    private MazeCard getRandomNewCard(MazeCard c){
         int randomInt = randomGenerator.nextInt(3);
         switch (randomInt) {
             case 0: c = MazeCard.create("C");
+                    for (int i = 0; i < randomGenerator.nextInt(5); i++){
+                        c.turnRight();
+                    }
                     break;
             case 1: c = MazeCard.create("L");
+                    for (int i = 0; i < randomGenerator.nextInt(3); i++){
+                        c.turnRight();
+                    }
                     break;
             case 2: c = MazeCard.create("F");
+                    for (int i = 0; i < randomGenerator.nextInt(5); i++){
+                        c.turnRight();
+                    }
+                    break;
+        }
+        return c;
+    }
+    
+    private MazeCard getSpecificNewCard(MazeCard c, String type){
+        switch (type) {
+            case "C": c = MazeCard.create("C");
+                    break;
+            case "L": c = MazeCard.create("L");
+                    break;
+            case "F": c = MazeCard.create("F");
                     break;
         }
         return c;
@@ -45,12 +66,48 @@ public class MazeBoard {
         for (int r = 1; r <= size; r++){
             for (int c = 1; c <= size; c++){
                 MazeCard card = new MazeCard();
-                card = getNewCard(card);
+                if ((r == 1) && (c == 1)){
+                    card = getSpecificNewCard(card, "C");
+                    card.turnLeft();
+                    card.turnLeft();
+                }
+                else if ((r == 1) && (c == size)){
+                    card = getSpecificNewCard(card, "C");
+                    card.turnLeft();
+                }
+                else if ((r == size) && (c == 1)){
+                    card = getSpecificNewCard(card, "C");
+                    card.turnRight();
+                }
+                else if ((r == size) && (c == size)){
+                    card = getSpecificNewCard(card, "C");
+                }
+                else if ((r % 2 == 1) && (c % 2 == 1)){
+                    card = getSpecificNewCard(card, "F");
+                    if (r == 1) {
+                        card.turnRight();
+                        card.turnRight();
+                    }
+                    else if (c == 1) {
+                        card.turnRight();
+                    }
+                    else if (c == size) {
+                        card.turnLeft();
+                    }
+                    else if (r != size){
+                        for (int i = 0; i < randomGenerator.nextInt(4); i++){
+                            card.turnRight();
+                        }
+                    }
+                }
+                else {
+                    card = getRandomNewCard(card);
+                }
                 field[r][c].putCard(card);
             }
         }
         freeCard = new MazeCard();
-        freeCard = getNewCard(freeCard);
+        freeCard = getRandomNewCard(freeCard);
     }
     
     public MazeField get(int r, int c){
@@ -74,7 +131,7 @@ public class MazeBoard {
             for (int r = 1; r < size; r++){
                 field[r + 1][mf.col()].putCard(tmpfield[r].getCard());
             }
-            System.out.println("Shifting done!");
+            //System.out.println("Shifting done!");
         }
         else if ((mf.row() == size) && ((mf.col() > 0) && (mf.col() < size)) && (mf.col() % 2 == 0)){
             // Posledni radek [size, mf.col()]
@@ -88,7 +145,7 @@ public class MazeBoard {
             for (int r = size; r > 1; r--){
                 field[r - 1][mf.col()].putCard(tmpfield[r].getCard());
             }
-            System.out.println("Shifting done!");
+            //System.out.println("Shifting done!");
         }
         else if ((mf.col() == 1) && ((mf.row() > 0) && (mf.row() < size)) && (mf.row() % 2 == 0)){
             // Prvni sloupec [mf.row(), 1]
@@ -102,7 +159,7 @@ public class MazeBoard {
             for (int c = 1; c < size; c++){
                 field[mf.row()][c + 1].putCard(tmpfield[c].getCard());
             }
-            System.out.println("Shifting done!");
+            //System.out.println("Shifting done!");
         }
         else if ((mf.col() == size) && ((mf.row() > 0) && (mf.row() < size)) && (mf.row() % 2 == 0)){
             // Posledni sloupec [mf.row(), size]
@@ -116,7 +173,7 @@ public class MazeBoard {
             for (int c = size; c > 1; c--){
                 field[mf.row()][c - 1].putCard(tmpfield[c].getCard());
             }
-            System.out.println("Shifting done!");
+            //System.out.println("Shifting done!");
         }
     }
 }
