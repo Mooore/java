@@ -31,6 +31,7 @@ public class Game {
     }
     
     public void startNewGame(){
+        //TODO vytvorit hrace - vytvorit tridu pro jednoho hrace ...
         mazeboard.newGame();
         undo = new undo();
     }
