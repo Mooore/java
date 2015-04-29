@@ -211,6 +211,7 @@ public class GameBoard {
         labelGameHistory.setForeground(Color.WHITE);
         labelGameHistory.setAlignmentX(Component.CENTER_ALIGNMENT);
         
+        
         labelGameControls.setFont(new Font("Calibri", Font.BOLD, 20));
         labelGameControls.setForeground(Color.WHITE);
         labelGameControls.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -324,30 +325,78 @@ public class GameBoard {
     
     void printGameMatrix(Game game){
         JPanel panelBoard = new JPanel();
-        panelBoard.setLayout(new GridLayout(game.boardSize, game.boardSize));
-        //panelBoard.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        panelBoard.setLayout(new GridLayout(game.boardSize + 2, game.boardSize + 2));
         panelBoard.setBackground(new Color(0,0,0, (float) 0.0));
-        JPanel[] panel = new JPanel[(game.boardSize + 1) * (game.boardSize + 1)];
+        JPanel[][] panel = new JPanel[(game.boardSize + 2)][(game.boardSize + 2)];
+       
+        JPanel blank[] = new JPanel[3];
+        blank[0] = new JPanel();
+        blank[0].setBackground(new Color(0,0,0, (float) 0.0));
+        panelBoard.add(blank[0]);
         
-        int r = 1, c = 1;
-        for (int i = 1; i <= (game.boardSize * game.boardSize); i++){
-            panel[i] = new JPanel();
-            //panel[i].setBorder(BorderFactory.createLineBorder(Color.WHITE));
-            panel[i].setPreferredSize(new Dimension(50,50));
-            panel[i].setBackground(new Color(0,0,0, (float) 0.0));
-            panel[i].add(printImage(Game.mazeboard.get(r, c).getCard()));
-            panelBoard.add(panel[i]);
-            
-            //Tui.printChar(Game.mazeboard.get(r, c).getCard());
-             
-            if(c == game.boardSize){
-                System.out.println();
-                r++;
-                c = 1;
+        for (int c = 1; c <= game.boardSize; c++){
+            panel[0][c] = new JPanel();
+            panel[0][c].setBackground(new Color(0,0,0, (float) 0.0));
+            panel[0][c].setBorder(new EmptyBorder(20,0,0,0));
+            JLabel num = new JLabel(Integer.toString(c));
+            num.setFont(new Font("Calibri", Font.BOLD, 20));
+            num.setForeground(Color.WHITE);
+            panel[0][c].add(num);
+            panelBoard.add(panel[0][c]);
+        }
+        
+        blank[1] = new JPanel();
+        blank[1].setBackground(new Color(0,0,0, (float) 0.0));
+        panelBoard.add(blank[1]);
+        
+        for (int r = 1; r <= game.boardSize; r++){
+            for (int c = 0; c < game.boardSize + 2; c++) {
+                if(c == 0){
+                    panel[r][0] = new JPanel();
+                    //panel[r][0].setPreferredSize(new Dimension(40,40));
+                    panel[r][0].setBackground(new Color(0,0,0, (float) 0.0));
+                    panel[r][0].setBorder(new EmptyBorder(10,10,0,0));
+                    JLabel num = new JLabel(Integer.toString(r));
+                    num.setFont(new Font("Calibri", Font.BOLD, 20));
+                    num.setForeground(Color.WHITE);
+                    panel[r][0].add(num);
+                    panelBoard.add(panel[r][0]);
+                }
+                else if(c == game.boardSize + 1){
+                    panel[r][game.boardSize + 1] = new JPanel();
+                    //panel[r][game.boardSize + 1].setPreferredSize(new Dimension(50,50));
+                    panel[r][game.boardSize + 1].setBackground(new Color(0,0,0, (float) 0.0));
+                    panel[r][game.boardSize + 1].setBorder(new EmptyBorder(10,0,0,10));
+                    JLabel num = new JLabel(Integer.toString(r));
+                    num.setFont(new Font("Calibri", Font.BOLD, 20));
+                    num.setForeground(Color.WHITE);
+                    panel[r][game.boardSize + 1].add(num);
+                    panelBoard.add(panel[r][game.boardSize + 1]);
+                }
+                else {
+                    panel[r][c] = new JPanel();
+                    panel[r][c].setPreferredSize(new Dimension(50,50));
+                    panel[r][c].setBackground(new Color(0,0,0, (float) 0.0));
+                    //panel[r][c].setBorder(new EmptyBorder(0,0,10,0));
+                    panel[r][c].add(printImage(Game.mazeboard.get(r, c).getCard()));
+                    panelBoard.add(panel[r][c]);
+                }
             }
-            else {
-                c++;
-            }
+        }
+        
+        blank[2] = new JPanel();
+        blank[2].setBackground(new Color(0,0,0, (float) 0.0));
+        panelBoard.add(blank[2]);
+        
+        for (int c = 1; c <= game.boardSize; c++){
+            panel[game.boardSize + 1][c] = new JPanel();
+            panel[game.boardSize + 1][c].setBackground(new Color(0,0,0, (float) 0.0));
+            panel[game.boardSize + 1][c].setBorder(new EmptyBorder(0,0,20,0));
+            JLabel num = new JLabel(Integer.toString(c));
+            num.setFont(new Font("Calibri", Font.BOLD, 20));
+            num.setForeground(Color.WHITE);
+            panel[game.boardSize + 1][c].add(num);
+            panelBoard.add(panel[game.boardSize + 1][c]);
         }
         
         switch(game.boardSize){
@@ -357,7 +406,7 @@ public class GameBoard {
                         break;
             case 9:     panelGameBoard.setBorder(new EmptyBorder(70,96,70,0));
                         break;
-            case 11:    panelGameBoard.setBorder(new EmptyBorder(20,45,20,0));
+            case 11:    panelGameBoard.setBorder(new EmptyBorder(0,70,0,0));
                         break;
         }
         panelGameBoard.add(panelBoard);
@@ -365,7 +414,6 @@ public class GameBoard {
     
     private static JLabel printImage(MazeCard card) {
         JLabel label = new JLabel();
-        //ImageIcon image;
         if(card.canGo(MazeCard.CANGO.LEFT) == true) {
             if(card.canGo(MazeCard.CANGO.UP) == false) {
                 if(card.canGo(MazeCard.CANGO.RIGHT) == true) {
