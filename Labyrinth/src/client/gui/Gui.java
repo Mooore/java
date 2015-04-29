@@ -28,7 +28,7 @@ public class Gui extends JFrame {
     public static Game game;
     public static GameBoard gameboard;
     
-    String path = System.getProperty("user.dir");
+    public static String path = System.getProperty("user.dir");
     
     public Gui() {
         super("The Labyrinth");
@@ -131,6 +131,9 @@ public class Gui extends JFrame {
         else if (newgame.radioButtonNewGameBoardSize7.isSelected()){
             boardSize = 7;
         }
+        else if (newgame.radioButtonNewGameBoardSize9.isSelected()){
+            boardSize = 9;
+        }
         else {
             boardSize = 11;
         }
@@ -152,12 +155,18 @@ public class Gui extends JFrame {
             numberOfTreasures = 24;
         }
         game = new Game(boardSize, numberOfPlayers, numberOfTreasures);
+        game.startNewGame();
         setGame();
+        
     }
     
     public void setGame() {
         gameboard = new GameBoard();
-        
+        refresh();
+    }
+    
+    public void refresh(){
+        gameboard.printGameMatrix(game);
         gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 0;

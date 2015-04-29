@@ -173,7 +173,7 @@ public class Tui {
     }
     
     // Print value of field.
-    private static void printChar(MazeCard card) {
+    public static void printChar(MazeCard card) {
         if(card.canGo(MazeCard.CANGO.LEFT) == true) {
             if(card.canGo(MazeCard.CANGO.UP) == false) {
                 if(card.canGo(MazeCard.CANGO.RIGHT) == true) {

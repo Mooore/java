@@ -148,17 +148,13 @@ public class NewGame {
         panelNewGameControlsLeft.add(labelNewGameNumberOfPlayers);
         panelNewGameControlsLeft.add(Box.createRigidArea(new Dimension(0,20)));
         panelNewGameControlsLeft.add(radioButtonNewGameNumberOfPlayers2);    
-//        panelNewGameControlsLeft.add(Box.createRigidArea(new Dimension(0,20)));
         panelNewGameControlsLeft.add(radioButtonNewGameNumberOfPlayers3); 
-//        panelNewGameControlsLeft.add(Box.createRigidArea(new Dimension(0,20)));
         panelNewGameControlsLeft.add(radioButtonNewGameNumberOfPlayers4); 
         panelNewGameControlsLeft.add(Box.createRigidArea(new Dimension(0,50)));
         panelNewGameControlsLeft.add(labelNewGameBoardSize);
         panelNewGameControlsLeft.add(Box.createRigidArea(new Dimension(0,20)));
         panelNewGameControlsLeft.add(radioButtonNewGameBoardSize5);    
-//        panelNewGameControlsLeft.add(Box.createRigidArea(new Dimension(0,20)));
         panelNewGameControlsLeft.add(radioButtonNewGameBoardSize7); 
-//        panelNewGameControlsLeft.add(Box.createRigidArea(new Dimension(0,20)));
         panelNewGameControlsLeft.add(radioButtonNewGameBoardSize9); 
         panelNewGameControlsLeft.add(radioButtonNewGameBoardSize11); 
         panelNewGameControlsLeft.add(Box.createRigidArea(new Dimension(0,50)));
@@ -166,7 +162,6 @@ public class NewGame {
         panelNewGameControlsRight.add(labelNewGameNumberOfTreasures);
         panelNewGameControlsRight.add(Box.createRigidArea(new Dimension(0,20)));
         panelNewGameControlsRight.add(radioButtonNewGameNumberOfTreasures12); 
-//        panelNewGameControlsRight.add(Box.createRigidArea(new Dimension(0,20)));
         panelNewGameControlsRight.add(radioButtonNewGameNumberOfTreasures24); 
         panelNewGameControlsRight.add(Box.createRigidArea(new Dimension(0,150)));        
         panelNewGameControlsRight.add(buttonNewGameStartGame);  

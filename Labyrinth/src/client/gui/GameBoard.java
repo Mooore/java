@@ -3,9 +3,16 @@
  */
 package client.gui;
 
+import client.board.MazeCard;
 import static client.client.gui;
+import client.game.*;
+import static client.gui.Gui.path;
+import client.tui.Tui;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -34,9 +41,19 @@ public class GameBoard {
     private final JLabel labelGamePlayer4 = new JLabel("Player 4");
     private final JLabel labelGameHistory = new JLabel("History");
     private final JLabel labelGameControls = new JLabel("Controls");
-    private final JLabel labelGameHr = new JLabel("----------------------------------------");
     private final JLabel labelGameTreasure = new JLabel("Treasure");
     private final JLabel labelGameFreeCard = new JLabel("Free card");
+    
+    public JTextField textFieldGameTurnRightCardX = new JTextField("");
+    public JTextField textFieldGameTurnRightCardY = new JTextField("");
+    public JTextField textFieldGameTurnLeftCardX = new JTextField("");
+    public JTextField textFieldGameTurnLeftCardY = new JTextField("");
+    public JTextField textFieldGameShiftRight = new JTextField("");
+    public JTextField textFieldGameShiftLeft = new JTextField("");
+    public JTextField textFieldGameShiftDown = new JTextField("");
+    public JTextField textFieldGameShiftUp = new JTextField("");
+    public JTextField textFieldGameGoX = new JTextField("");
+    public JTextField textFieldGameGoY = new JTextField("");
     
     public JPanel panelGameHeader = new JPanel();
     public JPanel panelGame = new JPanel(new BorderLayout());
@@ -46,7 +63,19 @@ public class GameBoard {
     public JPanel panelGameHistoryField = new JPanel();
     public JPanel panelGameControlsButtons = new JPanel();
     public JPanel panelGameControlsButtonsLeft = new JPanel();
+    public JPanel panelGameControlsButtonsLeftInner = new JPanel();
     public JPanel panelGameControlsButtonsRight = new JPanel();
+    public JPanel panelGameControlsButtonsRightInner = new JPanel();
+    public JPanel panelGameControlsTitle = new JPanel();
+    public JPanel panelGameControlsTurnRight = new JPanel();
+    public JPanel panelGameControlsTurnLeft = new JPanel();
+    public JPanel panelGameControlsTurnRightFreeCard = new JPanel();
+    public JPanel panelGameControlsTurnLeftFreeCard = new JPanel();
+    public JPanel panelGameControlsShiftRight = new JPanel();
+    public JPanel panelGameControlsShiftLeft = new JPanel();
+    public JPanel panelGameControlsShiftDown = new JPanel();
+    public JPanel panelGameControlsShiftUp = new JPanel();
+    public JPanel panelGameControlsGo = new JPanel();
     public JPanel panelGameTreasureFreeCard = new JPanel();
     public JPanel panelGameTreasure = new JPanel();
     public JPanel panelGameFreeCard = new JPanel();
@@ -54,8 +83,8 @@ public class GameBoard {
     private final BoxLayout boxLayoutGameBoard = new BoxLayout(panelGameBoard, BoxLayout.Y_AXIS);
     private final BoxLayout boxLayoutGameHistory = new BoxLayout(panelGameHistory, BoxLayout.Y_AXIS);
     private final BoxLayout boxLayoutGameHistoryField = new BoxLayout(panelGameHistoryField, BoxLayout.Y_AXIS);
-    private final BoxLayout boxLayoutGameControlsButtonsLeft = new BoxLayout(panelGameControlsButtonsLeft, BoxLayout.Y_AXIS);
-    private final BoxLayout boxLayoutGameControlsButtonsRight = new BoxLayout(panelGameControlsButtonsRight, BoxLayout.Y_AXIS);
+    private final BoxLayout boxLayoutGameControlsButtonsLeftInner = new BoxLayout(panelGameControlsButtonsLeftInner, BoxLayout.Y_AXIS);
+    private final BoxLayout boxLayoutGameControlsButtonsRightInner = new BoxLayout(panelGameControlsButtonsRightInner, BoxLayout.Y_AXIS);
     private final BoxLayout boxLayoutGameTreasure = new BoxLayout(panelGameTreasure, BoxLayout.Y_AXIS);
     private final BoxLayout boxLayoutGameFreeCard = new BoxLayout(panelGameFreeCard, BoxLayout.Y_AXIS);
     
@@ -107,7 +136,6 @@ public class GameBoard {
         
         panelGame.setBackground(new Color(0,0,0, (float) 0.5));
         
-        panelGameBoard.setBorder(new EmptyBorder(20,20,20,20));
         panelGameBoard.setBackground(new Color(0,0,0, (float) 0.0));
         
         panelGameControls.setBackground(new Color(0,0,0, (float) 0.0));
@@ -117,9 +145,23 @@ public class GameBoard {
         panelGameControlsButtonsLeft.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.WHITE));
         panelGameControlsButtonsLeft.setAlignmentX(Component.CENTER_ALIGNMENT);
         
+        panelGameControlsButtonsLeftInner.setBackground(new Color(0,0,0, (float) 0.0));
+        panelGameControlsButtonsRightInner.setBackground(new Color(0,0,0, (float) 0.0));
+        
         panelGameControlsButtonsRight.setBackground(new Color(0,0,0, (float) 0.0));
         panelGameControlsButtonsRight.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.WHITE));
         panelGameControlsButtonsRight.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        panelGameControlsTurnRight.setBackground(new Color(0,0,0, (float) 0.0));
+        panelGameControlsTurnLeft.setBackground(new Color(0,0,0, (float) 0.0));
+        panelGameControlsTurnRightFreeCard.setBackground(new Color(0,0,0, (float) 0.0));
+        panelGameControlsTurnLeftFreeCard.setBackground(new Color(0,0,0, (float) 0.0));
+        panelGameControlsShiftRight.setBackground(new Color(0,0,0, (float) 0.0));
+        panelGameControlsShiftLeft.setBackground(new Color(0,0,0, (float) 0.0));
+        panelGameControlsShiftDown.setBackground(new Color(0,0,0, (float) 0.0));
+        panelGameControlsShiftUp.setBackground(new Color(0,0,0, (float) 0.0));
+        panelGameControlsGo.setBackground(new Color(0,0,0, (float) 0.0));
+        panelGameControlsTitle.setBackground(new Color(0,0,0, (float) 0.0));
                         
         panelGameHistory.setBackground(new Color(0,0,0, (float) 0.0));
         panelGameHistory.setBorder(BorderFactory.createMatteBorder(0, 0, 5, 0, Color.WHITE));
@@ -132,7 +174,6 @@ public class GameBoard {
         panelGameControlsButtons.setBackground(new Color(0,0,0, (float) 0.0));
         panelGameControlsButtons.setBorder(BorderFactory.createMatteBorder(0, 0, 5, 0, Color.WHITE));
         
-        //panelGameTreasureFreeCard.setBorder(new EmptyBorder(10,10,10,10));
         panelGameTreasureFreeCard.setBackground(new Color(0,0,0, (float) 0.0));
         
         panelGameTreasure.setBackground(new Color(0,0,0, (float) 0.0));
@@ -153,13 +194,16 @@ public class GameBoard {
         panelGameControlsButtons.add(panelGameControlsButtonsLeft, BorderLayout.WEST);
         panelGameControlsButtons.add(panelGameControlsButtonsRight, BorderLayout.EAST);
         
+        panelGameControlsButtonsLeft.add(panelGameControlsButtonsLeftInner);
+        panelGameControlsButtonsRight.add(panelGameControlsButtonsRightInner);
+        
         panelGameTreasureFreeCard.setLayout(new GridLayout(1,2));
         panelGameTreasureFreeCard.add(panelGameTreasure, BorderLayout.WEST);
         panelGameTreasureFreeCard.add(panelGameFreeCard, BorderLayout.EAST);
         
         /*************************************************************************/
         
-        panelGameBoard.add(Box.createRigidArea(new Dimension(0,570)));
+        //panelGameBoard.add(Box.createRigidArea(new Dimension(0,570)));
         
         /*************************************************************************/
         
@@ -170,10 +214,6 @@ public class GameBoard {
         labelGameControls.setFont(new Font("Calibri", Font.BOLD, 20));
         labelGameControls.setForeground(Color.WHITE);
         labelGameControls.setAlignmentX(Component.LEFT_ALIGNMENT);
-        labelGameControls.setBorder(new EmptyBorder(10,50,0,0));
-        
-        labelGameHr.setForeground(Color.WHITE);
-        labelGameHr.setBorder(new EmptyBorder(10,5,0,0));
         
         labelGameTreasure.setFont(new Font("Calibri", Font.BOLD, 15));
         labelGameTreasure.setForeground(Color.WHITE);
@@ -219,33 +259,55 @@ public class GameBoard {
         
         buttonGameGo.setFont(new Font("Calibri", Font.BOLD, 15));
         buttonGameGo.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        textFieldGameTurnRightCardX.setColumns(2);
+        textFieldGameTurnRightCardY.setColumns(2);
+        textFieldGameTurnLeftCardX.setColumns(2);
+        textFieldGameTurnLeftCardY.setColumns(2);
+        textFieldGameShiftRight.setColumns(2);
+        textFieldGameShiftLeft.setColumns(2);
+        textFieldGameShiftDown.setColumns(2);
+        textFieldGameShiftUp.setColumns(2);
+        textFieldGameGoX.setColumns(2);
+        textFieldGameGoY.setColumns(2);
+        
                         
         panelGameHistory.add(labelGameHistory);
         panelGameHistory.add(Box.createRigidArea(new Dimension(350,10)));
         panelGameHistory.add(panelGameHistoryField);
         panelGameHistory.add(Box.createRigidArea(new Dimension(0,10)));
         
-        panelGameControlsButtonsLeft.add(labelGameControls);
-        panelGameControlsButtonsLeft.add(Box.createRigidArea(new Dimension(0,10)));
-        panelGameControlsButtonsLeft.add(buttonGameTurnRightCard);
-        panelGameControlsButtonsLeft.add(Box.createRigidArea(new Dimension(0,10)));
-        panelGameControlsButtonsLeft.add(buttonGameTurnLeftCard);
-        panelGameControlsButtonsLeft.add(Box.createRigidArea(new Dimension(0,10)));
-        panelGameControlsButtonsLeft.add(buttonGameTurnRightFreeCard);
-        panelGameControlsButtonsLeft.add(Box.createRigidArea(new Dimension(0,10)));
-        panelGameControlsButtonsLeft.add(buttonGameTurnLeftFreeCard);
-        panelGameControlsButtonsLeft.add(Box.createRigidArea(new Dimension(0,10)));
-        panelGameControlsButtonsRight.add(buttonGameShiftRight);
-        panelGameControlsButtonsRight.add(Box.createRigidArea(new Dimension(0,10)));
-        panelGameControlsButtonsRight.add(buttonGameShiftLeft);
-        panelGameControlsButtonsRight.add(Box.createRigidArea(new Dimension(0,10)));
-        panelGameControlsButtonsRight.add(buttonGameShiftDown);
-        panelGameControlsButtonsRight.add(Box.createRigidArea(new Dimension(0,10)));
-        panelGameControlsButtonsRight.add(buttonGameShiftUp);
-        //panelGameControlsButtonsRight.add(Box.createRigidArea(new Dimension(0,10)));
-        panelGameControlsButtonsRight.add(labelGameHr);
-        panelGameControlsButtonsRight.add(buttonGameGo);
-        //panelGameControlsButtonsRight.add(Box.createRigidArea(new Dimension(0,10)));
+        panelGameControlsTitle.add(labelGameControls);
+        panelGameControlsTurnRight.add(buttonGameTurnRightCard);
+        panelGameControlsTurnRight.add(textFieldGameTurnRightCardX);
+        panelGameControlsTurnRight.add(textFieldGameTurnRightCardY);
+        panelGameControlsTurnLeft.add(buttonGameTurnLeftCard);
+        panelGameControlsTurnLeft.add(textFieldGameTurnLeftCardX);
+        panelGameControlsTurnLeft.add(textFieldGameTurnLeftCardY);
+        panelGameControlsTurnRightFreeCard.add(buttonGameTurnRightFreeCard);
+        panelGameControlsTurnLeftFreeCard.add(buttonGameTurnLeftFreeCard);
+        panelGameControlsShiftRight.add(buttonGameShiftRight);
+        panelGameControlsShiftRight.add(textFieldGameShiftRight);
+        panelGameControlsShiftLeft.add(buttonGameShiftLeft);
+        panelGameControlsShiftLeft.add(textFieldGameShiftLeft);
+        panelGameControlsShiftDown.add(buttonGameShiftDown);
+        panelGameControlsShiftDown.add(textFieldGameShiftDown);
+        panelGameControlsShiftUp.add(buttonGameShiftUp);
+        panelGameControlsShiftUp.add(textFieldGameShiftUp);
+        panelGameControlsGo.add(buttonGameGo);
+        panelGameControlsGo.add(textFieldGameGoX);
+        panelGameControlsGo.add(textFieldGameGoY);
+        
+        panelGameControlsButtonsLeftInner.add(panelGameControlsTitle);
+        panelGameControlsButtonsLeftInner.add(panelGameControlsTurnRight);
+        panelGameControlsButtonsLeftInner.add(panelGameControlsTurnLeft);
+        panelGameControlsButtonsLeftInner.add(panelGameControlsTurnRightFreeCard);
+        panelGameControlsButtonsLeftInner.add(panelGameControlsTurnLeftFreeCard);
+        panelGameControlsButtonsRightInner.add(panelGameControlsShiftRight);
+        panelGameControlsButtonsRightInner.add(panelGameControlsShiftLeft);
+        panelGameControlsButtonsRightInner.add(panelGameControlsShiftDown);
+        panelGameControlsButtonsRightInner.add(panelGameControlsShiftUp);
+        panelGameControlsButtonsRightInner.add(panelGameControlsGo);
         
         panelGameTreasure.add(labelGameTreasure);
         
@@ -254,9 +316,172 @@ public class GameBoard {
         panelGameBoard.setLayout(boxLayoutGameBoard);
         panelGameHistory.setLayout(boxLayoutGameHistory);
         panelGameHistoryField.setLayout(boxLayoutGameHistoryField);
-        panelGameControlsButtonsLeft.setLayout(boxLayoutGameControlsButtonsLeft);
-        panelGameControlsButtonsRight.setLayout(boxLayoutGameControlsButtonsRight);
+        panelGameControlsButtonsLeftInner.setLayout(boxLayoutGameControlsButtonsLeftInner);
+        panelGameControlsButtonsRightInner.setLayout(boxLayoutGameControlsButtonsRightInner);
         panelGameTreasure.setLayout(boxLayoutGameTreasure);
         panelGameFreeCard.setLayout(boxLayoutGameFreeCard);
+    }
+    
+    void printGameMatrix(Game game){
+        JPanel panelBoard = new JPanel();
+        panelBoard.setLayout(new GridLayout(game.boardSize, game.boardSize));
+        //panelBoard.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        panelBoard.setBackground(new Color(0,0,0, (float) 0.0));
+        JPanel[] panel = new JPanel[game.boardSize * game.boardSize];
+        
+        int r = 1, c = 1;
+        for (int i = 0; i < (game.boardSize * game.boardSize); i++){
+            panel[i] = new JPanel();
+            //panel[i].setBorder(BorderFactory.createLineBorder(Color.WHITE));
+            panel[i].setPreferredSize(new Dimension(50,50));
+            panel[i].setBackground(new Color(0,0,0, (float) 0.0));
+            panel[i].add(printImage(Game.mazeboard.get(r, c).getCard()));
+            panelBoard.add(panel[i]);
+            
+            Tui.printChar(Game.mazeboard.get(r, c).getCard());
+             
+            if(r == game.boardSize){
+                System.out.println();
+                c++;
+                r = 1;
+            }
+            else {
+                r++;
+            }
+        }
+        
+        switch(game.boardSize){
+            case 5:     panelGameBoard.setBorder(new EmptyBorder(170,200,170,0));
+                        break;
+            case 7:     panelGameBoard.setBorder(new EmptyBorder(120,147,120,0));
+                        break;
+            case 9:     panelGameBoard.setBorder(new EmptyBorder(70,96,70,0));
+                        break;
+            case 11:    panelGameBoard.setBorder(new EmptyBorder(20,45,20,0));
+                        break;
+        }
+        panelGameBoard.add(panelBoard);
+    }
+    
+    private static JLabel printImage(MazeCard card) {
+        JLabel label = new JLabel();
+        //ImageIcon image;
+        if(card.canGo(MazeCard.CANGO.LEFT) == true) {
+            if(card.canGo(MazeCard.CANGO.UP) == false) {
+                if(card.canGo(MazeCard.CANGO.RIGHT) == true) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == false) {
+                        //System.out.print("═|");
+                        try {
+                            label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/wayL_true_false_true_false.jpg"))));
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else if(card.canGo(MazeCard.CANGO.DOWN) == true) {
+                        //System.out.print("╦|");
+                        try {
+                            label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/wayF_true_false_true_true.jpg"))));
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                else if(card.canGo(MazeCard.CANGO.RIGHT) == false) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == true) {
+                        //System.out.print("╗|");
+                        try {
+                            label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/wayC_true_false_false_true.jpg"))));
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }           
+            else if(card.canGo(MazeCard.CANGO.UP) == true) {
+                if(card.canGo(MazeCard.CANGO.RIGHT) == true) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == false) {
+                        //System.out.print("╩|");
+                        try {
+                            label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/wayF_true_true_true_false.jpg"))));
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                else if(card.canGo(MazeCard.CANGO.RIGHT) == false) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == true) {
+                        //System.out.print("╣|");
+                        try {
+                            label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/wayF_true_true_false_true.jpg"))));
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else if(card.canGo(MazeCard.CANGO.DOWN) == false) {
+                        //System.out.print("╝|");
+                        try {
+                            label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/wayC_true_true_false_false.jpg"))));
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+        else if(card.canGo(MazeCard.CANGO.LEFT) == false) {
+            if(card.canGo(MazeCard.CANGO.UP) == true) {
+                if(card.canGo(MazeCard.CANGO.RIGHT) == false) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == true) {
+                        //System.out.print("║|");
+                        try {
+                            label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/wayL_false_true_false_true.jpg"))));
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                else if(card.canGo(MazeCard.CANGO.RIGHT) == true) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == true) {
+                        //System.out.print("╠|");
+                        try {
+                            label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/wayF_false_true_true_true.jpg"))));
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else if(card.canGo(MazeCard.CANGO.DOWN) == false) {
+                        //System.out.print("╚|");
+                        try {
+                            label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/wayC_false_true_true_false.jpg"))));
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }                           
+            } 
+            else if(card.canGo(MazeCard.CANGO.UP) == false) {
+                if(card.canGo(MazeCard.CANGO.RIGHT) == true) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == true) {
+                        //System.out.print("╔|");
+                        try {
+                            label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/wayC_false_false_true_true.jpg"))));
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+        return label;
     }
 }
