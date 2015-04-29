@@ -327,10 +327,10 @@ public class GameBoard {
         panelBoard.setLayout(new GridLayout(game.boardSize, game.boardSize));
         //panelBoard.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         panelBoard.setBackground(new Color(0,0,0, (float) 0.0));
-        JPanel[] panel = new JPanel[game.boardSize * game.boardSize];
+        JPanel[] panel = new JPanel[(game.boardSize + 1) * (game.boardSize + 1)];
         
         int r = 1, c = 1;
-        for (int i = 0; i < (game.boardSize * game.boardSize); i++){
+        for (int i = 1; i <= (game.boardSize * game.boardSize); i++){
             panel[i] = new JPanel();
             //panel[i].setBorder(BorderFactory.createLineBorder(Color.WHITE));
             panel[i].setPreferredSize(new Dimension(50,50));
@@ -338,15 +338,15 @@ public class GameBoard {
             panel[i].add(printImage(Game.mazeboard.get(r, c).getCard()));
             panelBoard.add(panel[i]);
             
-            Tui.printChar(Game.mazeboard.get(r, c).getCard());
+            //Tui.printChar(Game.mazeboard.get(r, c).getCard());
              
-            if(r == game.boardSize){
+            if(c == game.boardSize){
                 System.out.println();
-                c++;
-                r = 1;
+                r++;
+                c = 1;
             }
             else {
-                r++;
+                c++;
             }
         }
         

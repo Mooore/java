@@ -27,7 +27,7 @@ public class Game {
         numberOfPlayers = players;
         numberOfTreasures = treasures;
         mazeboard = new MazeBoard();
-        System.out.println(boardSize);
+        //System.out.println(boardSize);
         mazeboard = MazeBoard.createMazeBoard(boardSize);
     }
     
