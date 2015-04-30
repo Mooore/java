@@ -154,7 +154,6 @@ public class Gui extends JFrame {
         else {
             numberOfTreasures = 24;
         }
-        System.out.println(Integer.toString(numberOfPlayers));
         game = new Game(boardSize, numberOfPlayers, numberOfTreasures);
         game.startNewGame();
         setGame();
@@ -175,9 +174,11 @@ public class Gui extends JFrame {
             case "TurnRightCard":   x = Integer.parseInt(gameboard.textFieldGameTurnRightCardX.getText());
                                     y = Integer.parseInt(gameboard.textFieldGameTurnRightCardY.getText());
                                     
-                                    if (((x <= Game.boardSize) && (x >= 0)) && ((y <= Game.boardSize) && (y >= 0))){
-                                        game.turnRight(x, y);
-                                        storeTurnCommand();
+                                    if(isAvailable("turn")){
+                                        if (((x <= Game.boardSize) && (x >= 0)) && ((y <= Game.boardSize) && (y >= 0))){
+                                            game.turnRight(x, y);
+                                            storeTurnCommand();
+                                        }
                                     }
                                     
                                     break;
@@ -185,54 +186,71 @@ public class Gui extends JFrame {
             case "TurnLeftCard":    x = Integer.parseInt(gameboard.textFieldGameTurnLeftCardX.getText());
                                     y = Integer.parseInt(gameboard.textFieldGameTurnLeftCardY.getText());
                                     
-                                    if (((x <= Game.boardSize) && (x >= 0)) && ((y <= Game.boardSize) && (y >= 0))){
-                                        game.turnLeft(x, y);
-                                        storeTurnCommand();
+                                    if(isAvailable("turn")){
+                                        if (((x <= Game.boardSize) && (x >= 0)) && ((y <= Game.boardSize) && (y >= 0))){
+                                            game.turnLeft(x, y);
+                                            storeTurnCommand();
+                                        }
                                     }
                                     
                                     break;
                 
-            case "TurnRightFreeCard":   game.turnRightFreeCard();
-                                        storeTurnCommand();
+            case "TurnRightFreeCard":   if(isAvailable("turn")){
+                                            System.out.println("otacim doprava ...");
+                                            game.turnRightFreeCard();
+                                            storeTurnCommand();
+                                        }
                                         break;
                 
-            case "TurnLeftFreeCard":    game.turnLeftFreeCard();
-                                        storeTurnCommand();
+            case "TurnLeftFreeCard":    if(isAvailable("turn")){
+                                            game.turnLeftFreeCard();
+                                            storeTurnCommand();
+                                        }
                                         break;
                 
             case "ShiftRight":  x = Integer.parseInt(gameboard.textFieldGameShiftRight.getText());
                                     
-                                if (((x <= Game.boardSize) && (x >= 0)) && (x % 2 == 0)){
-                                    game.shift(x, 1);
-                                    storeShiftCommand();
+                                if(isAvailable("shift")){                    
+                                    if (((x <= Game.boardSize) && (x >= 0)) && (x % 2 == 0)){
+                                        game.shift(x, 1);
+                                        storeShiftCommand();
+                                    }
                                 } 
                                 break;
                 
             case "ShiftLeft":   x = Integer.parseInt(gameboard.textFieldGameShiftLeft.getText());
                                     
-                                if (((x <= Game.boardSize) && (x >= 0)) && (x % 2 == 0)){
-                                    game.shift(x, Game.boardSize);
-                                    storeShiftCommand();
+                                if(isAvailable("shift")){ 
+                                    if (((x <= Game.boardSize) && (x >= 0)) && (x % 2 == 0)){
+                                        game.shift(x, Game.boardSize);
+                                        storeShiftCommand();
+                                    }
                                 } 
                                 break;
                 
             case "ShiftDown":   x = Integer.parseInt(gameboard.textFieldGameShiftDown.getText());
                                     
-                                if (((x <= Game.boardSize) && (x >= 0)) && (x % 2 == 0)){
-                                    game.shift(1, x);
-                                    storeShiftCommand();
+                                if(isAvailable("shift")){ 
+                                    if (((x <= Game.boardSize) && (x >= 0)) && (x % 2 == 0)){
+                                        game.shift(1, x);
+                                        storeShiftCommand();
+                                    }
                                 } 
                                 break;
                 
             case "ShiftUp":     x = Integer.parseInt(gameboard.textFieldGameShiftUp.getText());
                                     
-                                if (((x <= Game.boardSize) && (x >= 0)) && (x % 2 == 0)){
-                                    game.shift(Game.boardSize, x);
-                                    storeShiftCommand();
+                                if(isAvailable("shift")){ 
+                                    if (((x <= Game.boardSize) && (x >= 0)) && (x % 2 == 0)){
+                                        game.shift(Game.boardSize, x);
+                                        storeShiftCommand();
+                                    }
                                 } 
                                 break;
                 
-            case "Go":  storeGoCommand(); 
+            case "Go":  if(isAvailable("go")){ 
+                            storeGoCommand(); 
+                        }
                         break;
         }
         
@@ -320,6 +338,71 @@ public class Gui extends JFrame {
         }
         
         refresh();
+    }
+    
+    public boolean isAvailable(String command){
+        switch(command){
+            case "turn":    switch(game.currentPlayer){
+                                case 1: if(Game.player1.turnCommand == false){
+                                            System.out.println("FALSE vracim TRUE");
+                                            return true;
+                                        }
+                                        return false;
+                                case 2: if(Game.player2.turnCommand == false){
+                                            return true;
+                                        }
+                                        return false;
+                                case 3: if(Game.player3.turnCommand == false){
+                                            return true;
+                                        }
+                                        return false;
+                                case 4: if(Game.player4.turnCommand == false){
+                                            return true;
+                                        }
+                                        return false;
+                            }
+                            break;
+            case "shift":   switch(game.currentPlayer){
+                                case 1: if(Game.player1.shiftCommand == false){
+                                            return true;
+                                        }
+                                        return false;
+                                case 2: if(Game.player2.shiftCommand == false){
+                                            return true;
+                                        }
+                                        return false;
+                                case 3: if(Game.player3.shiftCommand == false){
+                                            return true;
+                                        }
+                                        return false;
+                                case 4: if(Game.player4.shiftCommand == false){
+                                            return true;
+                                        }
+                                        return false;
+                            }
+                            break;
+            case "go":  switch(game.currentPlayer){
+                            case 1: if(Game.player1.goCommand == false){
+                                        return true;
+                                    }
+                                    return false;
+                            case 2: if(Game.player2.goCommand == false){
+                                        return true;
+                                    }
+                                    return false;
+                            case 3: if(Game.player3.goCommand == false){
+                                        return true;
+                                    }
+                                    return false;
+                            case 4: if(Game.player4.goCommand == false){
+                                        return true;
+                                    }
+                                    return false;
+                        }
+                        break;
+            
+        }
+        return false;
     }
     
     public void storeTurnCommand(){
