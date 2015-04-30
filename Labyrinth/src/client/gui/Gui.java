@@ -162,11 +162,72 @@ public class Gui extends JFrame {
     
     public void setGame() {
         gameboard = new GameBoard();
+        mainPlayingCycle("Start");
+    }
+    
+    public void mainPlayingCycle(String command){
+        int x, y;
+        switch(command){
+            case "Start": 
+                            break;
+                
+            case "TurnRightCard":   x = y = 0;
+                                    x = Integer.parseInt(gameboard.textFieldGameTurnRightCardX.getText());
+                                    y = Integer.parseInt(gameboard.textFieldGameTurnRightCardY.getText());
+                                    
+                                    if (((x <= game.boardSize) && (x >= 0)) && ((y <= game.boardSize) && (y >= 0))){
+                                        game.turnRight(x, y);
+                                    }
+                                    
+                                    break;
+                
+            case "TurnLeftCard":    x = y = 0;
+                                    x = Integer.parseInt(gameboard.textFieldGameTurnLeftCardX.getText());
+                                    y = Integer.parseInt(gameboard.textFieldGameTurnLeftCardY.getText());
+                                    
+                                    if (((x <= game.boardSize) && (x >= 0)) && ((y <= game.boardSize) && (y >= 0))){
+                                        game.turnLeft(x, y);
+                                    }
+                                    
+                                    break;
+            case "TurnRightFreeCard":   
+                                        break;
+            case "TurnLeftFreeCard":   
+                                        break;
+            case "ShiftRight":   
+                                break;
+            case "ShiftLeft":   
+                                break;
+            case "ShiftDown":   
+                                break;
+            case "Go":   
+                        break;
+        }
+        
         refresh();
     }
     
     public void refresh(){
+        //gameboard.panelGame = gameboard.panelGameBoard = gameboard.panelGameHeader = null;
+        gameboard.printHeader();
+        switch(game.currentPlayer){
+            case 1: gameboard.printObtainedTreasures(game.player1);
+                    break;
+            case 2: gameboard.printObtainedTreasures(game.player2);
+                    break;
+            case 3: gameboard.printObtainedTreasures(game.player3);
+                    break;
+            case 4: gameboard.printObtainedTreasures(game.player4);
+                    break;
+        }
+        gameboard.printGameBoard();
         gameboard.printGameMatrix(game);
+        gameboard.printFreeCard();
+        gameboard.printTreasure();
+        gameboard.printTreasureFreeCard();
+        gameboard.printControls();
+        gameboard.printGame();
+        gui.getContentPane().removeAll();
         gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = 0;

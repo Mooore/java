@@ -7,7 +7,6 @@ import client.board.MazeCard;
 import static client.client.gui;
 import client.game.*;
 import static client.gui.Gui.path;
-import client.tui.Tui;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -39,21 +38,22 @@ public class GameBoard {
     private final JLabel labelGamePlayer2 = new JLabel("Player 2");
     private final JLabel labelGamePlayer3 = new JLabel("Player 3");
     private final JLabel labelGamePlayer4 = new JLabel("Player 4");
+    private final JLabel labelGameObtainedTreasures = new JLabel("Obtained treasures: ");
     private final JLabel labelGameHistory = new JLabel("History");
     private final JLabel labelGameControls = new JLabel("Controls");
     private final JLabel labelGameTreasure = new JLabel("Treasure");
     private final JLabel labelGameFreeCard = new JLabel("Free card");
     
-    public JTextField textFieldGameTurnRightCardX = new JTextField("");
-    public JTextField textFieldGameTurnRightCardY = new JTextField("");
-    public JTextField textFieldGameTurnLeftCardX = new JTextField("");
-    public JTextField textFieldGameTurnLeftCardY = new JTextField("");
-    public JTextField textFieldGameShiftRight = new JTextField("");
-    public JTextField textFieldGameShiftLeft = new JTextField("");
-    public JTextField textFieldGameShiftDown = new JTextField("");
-    public JTextField textFieldGameShiftUp = new JTextField("");
-    public JTextField textFieldGameGoX = new JTextField("");
-    public JTextField textFieldGameGoY = new JTextField("");
+    public JTextField textFieldGameTurnRightCardX = new JTextField("1");
+    public JTextField textFieldGameTurnRightCardY = new JTextField("1");
+    public JTextField textFieldGameTurnLeftCardX = new JTextField("1");
+    public JTextField textFieldGameTurnLeftCardY = new JTextField("1");
+    public JTextField textFieldGameShiftRight = new JTextField("1");
+    public JTextField textFieldGameShiftLeft = new JTextField("1");
+    public JTextField textFieldGameShiftDown = new JTextField("1");
+    public JTextField textFieldGameShiftUp = new JTextField("1");
+    public JTextField textFieldGameGoX = new JTextField("1");
+    public JTextField textFieldGameGoY = new JTextField("1");
     
     public JPanel panelGameHeader = new JPanel();
     public JPanel panelGame = new JPanel(new BorderLayout());
@@ -80,18 +80,12 @@ public class GameBoard {
     public JPanel panelGameTreasure = new JPanel();
     public JPanel panelGameFreeCard = new JPanel();
     
-    private final BoxLayout boxLayoutGameBoard = new BoxLayout(panelGameBoard, BoxLayout.Y_AXIS);
     private final BoxLayout boxLayoutGameHistory = new BoxLayout(panelGameHistory, BoxLayout.Y_AXIS);
     private final BoxLayout boxLayoutGameHistoryField = new BoxLayout(panelGameHistoryField, BoxLayout.Y_AXIS);
     private final BoxLayout boxLayoutGameControlsButtonsLeftInner = new BoxLayout(panelGameControlsButtonsLeftInner, BoxLayout.Y_AXIS);
     private final BoxLayout boxLayoutGameControlsButtonsRightInner = new BoxLayout(panelGameControlsButtonsRightInner, BoxLayout.Y_AXIS);
-    private final BoxLayout boxLayoutGameTreasure = new BoxLayout(panelGameTreasure, BoxLayout.Y_AXIS);
-    private final BoxLayout boxLayoutGameFreeCard = new BoxLayout(panelGameFreeCard, BoxLayout.Y_AXIS);
     
     public GameBoard(){
-        panelGameHeader.setBackground(new Color(0,0,0, (float) 0.5));
-        panelGameHeader.setBorder(BorderFactory.createMatteBorder(0, 0, 5, 0, Color.WHITE));
-        
         buttonGameMenu.setFont(new Font("Calibri", Font.BOLD, 20));
         buttonGameMenu.addActionListener(new ActionListener(){
 
@@ -122,24 +116,10 @@ public class GameBoard {
         labelGamePlayer4.setFont(new Font("Calibri", Font.BOLD, 20));
         labelGamePlayer4.setForeground(Color.WHITE);
         
-        panelGameHeader.add(buttonGameMenu);
-        panelGameHeader.add(Box.createRigidArea(new Dimension(10,0)));
-        panelGameHeader.add(buttonGameSave);
-        panelGameHeader.add(Box.createRigidArea(new Dimension(10,0)));
-        panelGameHeader.add(buttonGameUndo);
-        panelGameHeader.add(Box.createRigidArea(new Dimension(200,0)));
-        panelGameHeader.add(labelGamePlaying);
-        panelGameHeader.add(Box.createRigidArea(new Dimension(10,0)));
-        panelGameHeader.add(labelGamePlayer1);
+        labelGameObtainedTreasures.setFont(new Font("Calibri", Font.BOLD, 20));
+        labelGameObtainedTreasures.setForeground(Color.WHITE);       
         
         /*************************************************************************/
-        
-        panelGame.setBackground(new Color(0,0,0, (float) 0.5));
-        
-        panelGameBoard.setBackground(new Color(0,0,0, (float) 0.0));
-        
-        panelGameControls.setBackground(new Color(0,0,0, (float) 0.0));
-        panelGameControls.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 0, Color.WHITE));
         
         panelGameControlsButtonsLeft.setBackground(new Color(0,0,0, (float) 0.0));
         panelGameControlsButtonsLeft.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.WHITE));
@@ -174,22 +154,6 @@ public class GameBoard {
         panelGameControlsButtons.setBackground(new Color(0,0,0, (float) 0.0));
         panelGameControlsButtons.setBorder(BorderFactory.createMatteBorder(0, 0, 5, 0, Color.WHITE));
         
-        panelGameTreasureFreeCard.setBackground(new Color(0,0,0, (float) 0.0));
-        
-        panelGameTreasure.setBackground(new Color(0,0,0, (float) 0.0));
-        panelGameTreasure.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 5, Color.WHITE));
-        
-        panelGameFreeCard.setBackground(new Color(0,0,0, (float) 0.0));
-        panelGameFreeCard.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.WHITE));
-        
-        panelGame.add(panelGameBoard, BorderLayout.WEST);
-        panelGame.add(panelGameControls, BorderLayout.EAST);
-        
-        panelGameControls.setLayout(new GridLayout(3,1));   
-        panelGameControls.add(panelGameHistory, BorderLayout.NORTH);
-        panelGameControls.add(panelGameControlsButtons, BorderLayout.CENTER);
-        panelGameControls.add(panelGameTreasureFreeCard, BorderLayout.SOUTH);
-
         panelGameControlsButtons.setLayout(new GridLayout(1,2));
         panelGameControlsButtons.add(panelGameControlsButtonsLeft, BorderLayout.WEST);
         panelGameControlsButtons.add(panelGameControlsButtonsRight, BorderLayout.EAST);
@@ -197,20 +161,11 @@ public class GameBoard {
         panelGameControlsButtonsLeft.add(panelGameControlsButtonsLeftInner);
         panelGameControlsButtonsRight.add(panelGameControlsButtonsRightInner);
         
-        panelGameTreasureFreeCard.setLayout(new GridLayout(1,2));
-        panelGameTreasureFreeCard.add(panelGameTreasure, BorderLayout.WEST);
-        panelGameTreasureFreeCard.add(panelGameFreeCard, BorderLayout.EAST);
-        
-        /*************************************************************************/
-        
-        //panelGameBoard.add(Box.createRigidArea(new Dimension(0,570)));
-        
         /*************************************************************************/
         
         labelGameHistory.setFont(new Font("Calibri", Font.BOLD, 20));
         labelGameHistory.setForeground(Color.WHITE);
         labelGameHistory.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
         
         labelGameControls.setFont(new Font("Calibri", Font.BOLD, 20));
         labelGameControls.setForeground(Color.WHITE);
@@ -229,10 +184,24 @@ public class GameBoard {
         buttonGameTurnRightCard.setFont(new Font("Calibri", Font.BOLD, 13));
         buttonGameTurnRightCard.setAlignmentX(Component.LEFT_ALIGNMENT);
         buttonGameTurnRightCard.setMargin(new Insets(1,1,1,1));
+        buttonGameTurnRightCard.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gui.mainPlayingCycle("TurnRightCard");
+            }
+        });
         
         buttonGameTurnLeftCard.setFont(new Font("Calibri", Font.BOLD, 13));
         buttonGameTurnLeftCard.setAlignmentX(Component.LEFT_ALIGNMENT);
         buttonGameTurnLeftCard.setMargin(new Insets(1,1,1,1));
+        buttonGameTurnLeftCard.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gui.mainPlayingCycle("TurnLeftCard");
+            }
+        });
         
         buttonGameTurnRightFreeCard.setFont(new Font("Calibri", Font.BOLD, 13));
         buttonGameTurnRightFreeCard.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -271,8 +240,7 @@ public class GameBoard {
         textFieldGameShiftUp.setColumns(2);
         textFieldGameGoX.setColumns(2);
         textFieldGameGoY.setColumns(2);
-        
-                        
+                                
         panelGameHistory.add(labelGameHistory);
         panelGameHistory.add(Box.createRigidArea(new Dimension(350,10)));
         panelGameHistory.add(panelGameHistoryField);
@@ -310,20 +278,100 @@ public class GameBoard {
         panelGameControlsButtonsRightInner.add(panelGameControlsShiftUp);
         panelGameControlsButtonsRightInner.add(panelGameControlsGo);
         
-        panelGameTreasure.add(labelGameTreasure);
-        
-        panelGameFreeCard.add(labelGameFreeCard);
-        
-        panelGameBoard.setLayout(boxLayoutGameBoard);
         panelGameHistory.setLayout(boxLayoutGameHistory);
         panelGameHistoryField.setLayout(boxLayoutGameHistoryField);
         panelGameControlsButtonsLeftInner.setLayout(boxLayoutGameControlsButtonsLeftInner);
         panelGameControlsButtonsRightInner.setLayout(boxLayoutGameControlsButtonsRightInner);
-        panelGameTreasure.setLayout(boxLayoutGameTreasure);
+    }
+    
+    void printHeader(){
+        panelGameHeader = new JPanel();
+        
+        panelGameHeader.setBackground(new Color(0,0,0, (float) 0.5));
+        panelGameHeader.setBorder(BorderFactory.createMatteBorder(0, 0, 5, 0, Color.WHITE));
+        
+        panelGameHeader.add(buttonGameMenu);
+        panelGameHeader.add(Box.createRigidArea(new Dimension(10,0)));
+        panelGameHeader.add(buttonGameSave);
+        panelGameHeader.add(Box.createRigidArea(new Dimension(10,0)));
+        panelGameHeader.add(buttonGameUndo);
+        panelGameHeader.add(Box.createRigidArea(new Dimension(170,0)));
+        panelGameHeader.add(labelGamePlaying);
+        panelGameHeader.add(Box.createRigidArea(new Dimension(10,0)));
+        panelGameHeader.add(labelGamePlayer1);
+        panelGameHeader.add(Box.createRigidArea(new Dimension(60,0)));
+        panelGameHeader.add(labelGameObtainedTreasures);
+    }
+    
+    public void printGameBoard(){
+        panelGameBoard = new JPanel();
+        panelGameBoard.setBackground(new Color(0,0,0, (float) 0.0));
+        BoxLayout boxLayoutGameBoard = new BoxLayout(panelGameBoard, BoxLayout.Y_AXIS);
+        panelGameBoard.setLayout(boxLayoutGameBoard);
+    }
+    
+    public void printGame(){
+        panelGame = new JPanel(new BorderLayout());
+        panelGame.setBackground(new Color(0,0,0, (float) 0.5));
+        panelGame.add(panelGameBoard, BorderLayout.WEST);
+        panelGame.add(panelGameControls, BorderLayout.EAST);
+    }
+    
+    public void printObtainedTreasures(Player player){
+        JLabel labelObtained = new JLabel(Integer.toString(player.getObtainedTreasures()));
+        labelObtained.setFont(new Font("Calibri", Font.BOLD, 20));
+        labelObtained.setForeground(Color.WHITE);
+        panelGameHeader.add(Box.createRigidArea(new Dimension(10,0)));
+        panelGameHeader.add(labelObtained);
+    }
+    
+    public void printFreeCard(){
+        panelGameFreeCard = new JPanel();
+        panelGameFreeCard.setBackground(new Color(0,0,0, (float) 0.0));
+        panelGameFreeCard.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.WHITE));
+        panelGameFreeCard.add(labelGameFreeCard);
+        
+        JLabel free = printImage(Game.mazeboard.getFreeCard());
+        free.setAlignmentX(Component.CENTER_ALIGNMENT);
+        free.setBorder(new EmptyBorder(10,10,10,10));
+                
+        panelGameFreeCard.add(free);
+        
+        BoxLayout boxLayoutGameFreeCard = new BoxLayout(panelGameFreeCard, BoxLayout.Y_AXIS);
         panelGameFreeCard.setLayout(boxLayoutGameFreeCard);
     }
     
-    void printGameMatrix(Game game){
+    public void printTreasure(){
+        panelGameTreasure = new JPanel();
+        panelGameTreasure.setBackground(new Color(0,0,0, (float) 0.0));
+        panelGameTreasure.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 5, Color.WHITE));
+        
+        panelGameTreasure.add(labelGameTreasure);
+        BoxLayout boxLayoutGameTreasure = new BoxLayout(panelGameTreasure, BoxLayout.Y_AXIS);
+        panelGameTreasure.setLayout(boxLayoutGameTreasure);
+    }
+    
+    public void printTreasureFreeCard(){
+        panelGameTreasureFreeCard = new JPanel();
+        panelGameTreasureFreeCard.setBackground(new Color(0,0,0, (float) 0.0));
+
+        panelGameTreasureFreeCard.setLayout(new GridLayout(1,2));
+        panelGameTreasureFreeCard.add(panelGameTreasure, BorderLayout.WEST);
+        panelGameTreasureFreeCard.add(panelGameFreeCard, BorderLayout.EAST);
+    }
+    
+    public void printControls(){
+        panelGameControls = new JPanel();
+        panelGameControls.setBackground(new Color(0,0,0, (float) 0.0));
+        panelGameControls.setBorder(BorderFactory.createMatteBorder(0, 5, 0, 0, Color.WHITE));
+        
+        panelGameControls.setLayout(new GridLayout(3,1));   
+        panelGameControls.add(panelGameHistory, BorderLayout.NORTH);
+        panelGameControls.add(panelGameControlsButtons, BorderLayout.CENTER);
+        panelGameControls.add(panelGameTreasureFreeCard, BorderLayout.SOUTH);
+    }
+    
+    public void printGameMatrix(Game game){
         JPanel panelBoard = new JPanel();
         panelBoard.setLayout(new GridLayout(game.boardSize + 2, game.boardSize + 2));
         panelBoard.setBackground(new Color(0,0,0, (float) 0.0));
@@ -353,7 +401,6 @@ public class GameBoard {
             for (int c = 0; c < game.boardSize + 2; c++) {
                 if(c == 0){
                     panel[r][0] = new JPanel();
-                    //panel[r][0].setPreferredSize(new Dimension(40,40));
                     panel[r][0].setBackground(new Color(0,0,0, (float) 0.0));
                     panel[r][0].setBorder(new EmptyBorder(10,10,0,0));
                     JLabel num = new JLabel(Integer.toString(r));
@@ -364,7 +411,6 @@ public class GameBoard {
                 }
                 else if(c == game.boardSize + 1){
                     panel[r][game.boardSize + 1] = new JPanel();
-                    //panel[r][game.boardSize + 1].setPreferredSize(new Dimension(50,50));
                     panel[r][game.boardSize + 1].setBackground(new Color(0,0,0, (float) 0.0));
                     panel[r][game.boardSize + 1].setBorder(new EmptyBorder(10,0,0,10));
                     JLabel num = new JLabel(Integer.toString(r));
@@ -377,7 +423,6 @@ public class GameBoard {
                     panel[r][c] = new JPanel();
                     panel[r][c].setPreferredSize(new Dimension(50,50));
                     panel[r][c].setBackground(new Color(0,0,0, (float) 0.0));
-                    //panel[r][c].setBorder(new EmptyBorder(0,0,10,0));
                     panel[r][c].add(printImage(Game.mazeboard.get(r, c).getCard()));
                     panelBoard.add(panel[r][c]);
                 }
@@ -400,11 +445,11 @@ public class GameBoard {
         }
         
         switch(game.boardSize){
-            case 5:     panelGameBoard.setBorder(new EmptyBorder(170,200,170,0));
+            case 5:     panelGameBoard.setBorder(new EmptyBorder(170,230,170,0));
                         break;
-            case 7:     panelGameBoard.setBorder(new EmptyBorder(120,147,120,0));
+            case 7:     panelGameBoard.setBorder(new EmptyBorder(120,170,120,0));
                         break;
-            case 9:     panelGameBoard.setBorder(new EmptyBorder(70,96,70,0));
+            case 9:     panelGameBoard.setBorder(new EmptyBorder(70,110,70,0));
                         break;
             case 11:    panelGameBoard.setBorder(new EmptyBorder(0,70,0,0));
                         break;

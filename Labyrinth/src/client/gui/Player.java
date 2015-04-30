@@ -12,6 +12,14 @@ import java.awt.Color;
 public class Player {
     private int playerNumber;
     private Color playerColor;
+    private int obtainedTreasures;
+    //private Treasure
+    
+    public Player(int playerNumber) {
+        setPlayerNumber(playerNumber);
+        setPlayerColor();
+        obtainedTreasures = 0;
+    }
     
     public int getPlayerNumber() {
         return this.playerNumber;
@@ -19,6 +27,14 @@ public class Player {
     
     public Color getPlayerColor() {
         return this.playerColor; 
+    }
+    
+    public int getObtainedTreasures(){
+        return obtainedTreasures;
+    }
+    
+    public void icreaseObtainedTreasures(){
+        obtainedTreasures++;
     }
     
     private void setPlayerNumber(int number) {
@@ -45,10 +61,5 @@ public class Player {
         else if(number == 4) {
             this.playerColor = Color.YELLOW;
         }
-    }
-    
-    public Player(int playerNumber) {
-        setPlayerNumber(playerNumber);
-        setPlayerColor();
     }
 }

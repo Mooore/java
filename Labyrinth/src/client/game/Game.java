@@ -6,6 +6,7 @@ package client.game;
 import client.board.*;
 import client.gui.Player;
 import client.undo.undo;
+import client.treasure.*;
 
 /**
  *
@@ -14,7 +15,11 @@ import client.undo.undo;
 public class Game {
     public int boardSize, numberOfPlayers, numberOfTreasures;
     
-    public Player player1,player2,player3,player4;
+    public Player player1, player2, player3, player4;
+    public int currentPlayer;
+    
+    public CardPack pack;
+    
     // Main GAME object representing game board.
     public static MazeBoard mazeboard;
     
@@ -29,11 +34,11 @@ public class Game {
         numberOfPlayers = players;
         numberOfTreasures = treasures;
         mazeboard = new MazeBoard();
-        //System.out.println(boardSize);
         mazeboard = MazeBoard.createMazeBoard(boardSize);
     }
     
     public void setPlayers() {
+        currentPlayer = 1;
         if(numberOfPlayers == 2) {
             player1 = new Player(1);
             player2 = new Player(2);
@@ -55,10 +60,10 @@ public class Game {
     }
     
     public void startNewGame(){
-        //TODO vytvorit hrace - vytvorit tridu pro jednoho hrace ...
-        mazeboard.newGame();
         undo = new undo();
         setPlayers();
+        pack = new CardPack(numberOfTreasures, numberOfTreasures);
+        mazeboard.newGame();
     }
     
     public void shift(int r, int c){
