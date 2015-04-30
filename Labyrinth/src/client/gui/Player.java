@@ -60,7 +60,7 @@ public class Player {
             this.playerColor = Color.RED;
         }
         else if(number == 3) {
-            this.playerColor = Color.BLUE;
+            this.playerColor = Color.CYAN;
         }
         else if(number == 4) {
             this.playerColor = Color.YELLOW;
