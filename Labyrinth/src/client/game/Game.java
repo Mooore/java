@@ -117,12 +117,19 @@ public class Game {
             mazeboard.get(row,col).getCard().turnRight();
         }
         else if(undoCommand.matches("^(s|(-s))([0-9]{2})$") == true) {
-            System.out.println(undoCommand);
+            //System.out.println(undoCommand);
             rc = undoCommand.replaceAll("(s|(-s))", "");
             field = new MazeField(  Character.getNumericValue(rc.charAt(0)),
                                     Character.getNumericValue(rc.charAt(1)));
             mazeboard.shift(field); 
         }
+        else if(undoCommand.matches("^(tf|(-tf))$") == true) {
+            mazeboard.getFreeCard().turnRight();
+        }
+        else if(undoCommand.matches("^(tlf|(-tlf))$") == true) {
+            mazeboard.getFreeCard().turnLeft();
+        }
+        
         String lastcommand = undo.readLastCommand();
         undo.commands.remove(undo.lastCommand - 1);
         undo.lastCommand--;

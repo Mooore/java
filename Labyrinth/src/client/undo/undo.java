@@ -29,6 +29,7 @@ public class undo {
     
     public void cleanCommands() {
         commands =  new ArrayList<>();
+        lastCommand = 0;
     }
     
     public String readLastCommand() {
@@ -65,6 +66,12 @@ public class undo {
             else if (col == tui.getSize()) {
                 invertedCommand = ("s" + row + 1);
             }
+        }
+        else if(command.matches("^(tf|(-tf))$") == true) {
+            invertedCommand = "tlf";
+        }
+        else if(command.matches("^(tlf|(-tlf))$") == true) {
+            invertedCommand = "tf";
         }
         return invertedCommand;
     } 
