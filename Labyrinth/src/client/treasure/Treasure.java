@@ -2,7 +2,6 @@
  * IJA 2015: The Labyrinth
  */
 package client.treasure;
-
 /**
  *
  * @author xpospi73, xdress00
@@ -10,24 +9,11 @@ package client.treasure;
 public class Treasure {
     
     public final int code;
-    private static int cards;
+    public static int cards;
+    public final int picture;
     
-    public static Treasure[] set;
-
-    private Treasure(int code){
+    public Treasure(int code, int pic){
         this.code = code;
+        this.picture = pic;
     }
-    
-    public static void createSet(int cards){
-        Treasure.cards = cards;
-        Treasure.set = new Treasure[Treasure.cards];
-        for (int i = 0; i < Treasure.cards; i++){
-            Treasure.set[i] = new Treasure(i);
-        }
-    }
-    
-    public static Treasure getTreasure(int code){
-        return ((0 <= code) && (code < Treasure.cards)) ? Treasure.set[code] : null;
-    }
-    
 }

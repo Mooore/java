@@ -7,6 +7,7 @@ import client.board.MazeCard;
 import static client.client.gui;
 import client.game.*;
 import static client.gui.Gui.path;
+import client.treasure.Treasure;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -391,7 +392,7 @@ public class GameBoard {
         panelGameFreeCard.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.WHITE));
         panelGameFreeCard.add(labelGameFreeCard);
         
-        JLabel free = printImage(Game.mazeboard.getFreeCard());
+        JLabel free = printCard(Game.mazeboard.getFreeCard());
         free.setAlignmentX(Component.CENTER_ALIGNMENT);
         free.setBorder(new EmptyBorder(10,10,10,10));
                 
@@ -480,11 +481,15 @@ public class GameBoard {
                     panelBoard.add(panel[r][Game.boardSize + 1]);
                 }
                 else {
-                    panel[r][c] = new JPanel();
-                    panel[r][c].setPreferredSize(new Dimension(42,42));
-                    panel[r][c].setBackground(new Color(0,0,0, (float) 0.0));
-                    panel[r][c].add(printImage(Game.mazeboard.get(r, c).getCard()));
-                    //panel[r][c].setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.WHITE));
+                    //panel[r][c] = new JPanel();
+                    panel[r][c] = new BgPanel(Game.mazeboard.get(r, c).getCard());
+                    panel[r][c].setPreferredSize(new Dimension(40,40));
+                    //panel[r][c].setBackground(new Color(0,0,0, (float) 0.0));
+                    if (Treasure.cards > 0){
+                        Treasure pom = Game.popTreasure();
+                        panel[r][c].add(printTreasure(pom.picture));
+                    }
+                    panel[r][c].setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
                     panelBoard.add(panel[r][c]);
                 }
             }
@@ -522,7 +527,79 @@ public class GameBoard {
         panelGameBoard.add(panelBoard);
     }
     
-    private static JLabel printImage(MazeCard card) {
+    private static JLabel printTreasure(int card) {
+        JLabel label = new JLabel();
+        try {
+            switch(card){
+                case 1: label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure1.png"))));
+                        break;
+                case 2: label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure2.png"))));
+                        break;
+                case 3: label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure3.png"))));
+                        break;
+                case 4: label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure4.png"))));
+                        break;
+                case 5: label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure5.png"))));
+                        break;
+                case 6: label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure6.png"))));
+                        break;
+                case 7: label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure7.png"))));
+                        break;
+                case 8: label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure8.png"))));
+                        break;
+                case 9: label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure9.png"))));
+                        break;
+                case 10:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure10.png"))));
+                            break;
+                case 11:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure11.png"))));
+                            break;
+                case 12:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure12.png"))));
+                            break;
+                case 13:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure13.png"))));
+                            break;
+                case 14:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure14.png"))));
+                            break;
+                case 15:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure15.png"))));
+                            break;
+                case 16:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure16.png"))));
+                            break;
+                case 17:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure17.png"))));
+                            break;
+                case 18:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure18.png"))));
+                            break;
+                case 19:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure19.png"))));
+                            break;
+                case 20:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure20.png"))));
+                            break;
+                case 21:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure21.png"))));
+                            break;
+                case 22:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure22.png"))));
+                            break;
+                case 23:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure23.png"))));
+                            break;
+                case 24:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure24.png"))));
+                            break;
+                case 25:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure25.png"))));
+                            break;
+                case 26:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure26.png"))));
+                            break;
+                case 27:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure27.png"))));
+                            break;
+                case 28:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure28.png"))));
+                            break;
+                case 29:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure29.png"))));
+                            break;
+                case 30:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure30.png"))));
+                            break;
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return label;
+    }
+    
+    public JLabel printCard(MazeCard card){
         JLabel label = new JLabel();
         if(card.canGo(MazeCard.CANGO.LEFT) == true) {
             if(card.canGo(MazeCard.CANGO.UP) == false) {
@@ -641,5 +718,135 @@ public class GameBoard {
             }
         }
         return label;
+    }
+}
+
+class BgPanel extends JPanel {
+    public Image bg;
+    
+    public BgPanel(MazeCard card){
+        //bg = new ImageIcon(ImageIO.read(new File(path + "/lib/wayL_true_false_true_false.jpg"))).getImage();
+            
+        if(card.canGo(MazeCard.CANGO.LEFT) == true) {
+            if(card.canGo(MazeCard.CANGO.UP) == false) {
+                if(card.canGo(MazeCard.CANGO.RIGHT) == true) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == false) {
+                        //System.out.print("═|");
+                        try {
+                            bg = new ImageIcon(ImageIO.read(new File(path + "/lib/wayL_true_false_true_false.jpg"))).getImage();
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else if(card.canGo(MazeCard.CANGO.DOWN) == true) {
+                        //System.out.print("╦|");
+                        try {
+                            bg = new ImageIcon(ImageIO.read(new File(path + "/lib/wayF_true_false_true_true.jpg"))).getImage();
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                else if(card.canGo(MazeCard.CANGO.RIGHT) == false) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == true) {
+                        //System.out.print("╗|");
+                        try {
+                            bg = new ImageIcon(ImageIO.read(new File(path + "/lib/wayC_true_false_false_true.jpg"))).getImage();
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }           
+            else if(card.canGo(MazeCard.CANGO.UP) == true) {
+                if(card.canGo(MazeCard.CANGO.RIGHT) == true) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == false) {
+                        //System.out.print("╩|");
+                        try {
+                            bg = new ImageIcon(ImageIO.read(new File(path + "/lib/wayF_true_true_true_false.jpg"))).getImage();
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                else if(card.canGo(MazeCard.CANGO.RIGHT) == false) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == true) {
+                        //System.out.print("╣|");
+                        try {
+                            bg = new ImageIcon(ImageIO.read(new File(path + "/lib/wayF_true_true_false_true.jpg"))).getImage();
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else if(card.canGo(MazeCard.CANGO.DOWN) == false) {
+                        //System.out.print("╝|");
+                        try {
+                            bg = new ImageIcon(ImageIO.read(new File(path + "/lib/wayC_true_true_false_false.jpg"))).getImage();
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+        else if(card.canGo(MazeCard.CANGO.LEFT) == false) {
+            if(card.canGo(MazeCard.CANGO.UP) == true) {
+                if(card.canGo(MazeCard.CANGO.RIGHT) == false) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == true) {
+                        //System.out.print("║|");
+                        try {
+                            bg = new ImageIcon(ImageIO.read(new File(path + "/lib/wayL_false_true_false_true.jpg"))).getImage();
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                else if(card.canGo(MazeCard.CANGO.RIGHT) == true) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == true) {
+                        //System.out.print("╠|");
+                        try {
+                            bg = new ImageIcon(ImageIO.read(new File(path + "/lib/wayF_false_true_true_true.jpg"))).getImage();
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    else if(card.canGo(MazeCard.CANGO.DOWN) == false) {
+                        //System.out.print("╚|");
+                        try {
+                            bg = new ImageIcon(ImageIO.read(new File(path + "/lib/wayC_false_true_true_false.jpg"))).getImage();
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }                           
+            } 
+            else if(card.canGo(MazeCard.CANGO.UP) == false) {
+                if(card.canGo(MazeCard.CANGO.RIGHT) == true) {
+                    if(card.canGo(MazeCard.CANGO.DOWN) == true) {
+                        //System.out.print("╔|");
+                        try {
+                            bg = new ImageIcon(ImageIO.read(new File(path + "/lib/wayC_false_false_true_true.jpg"))).getImage();
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    @Override
+    public void paintComponent(Graphics g) {
+        g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
     }
 }

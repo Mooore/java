@@ -7,6 +7,7 @@ import client.board.*;
 import client.gui.Player;
 import client.undo.undo;
 import client.treasure.*;
+import java.util.Random;
 
 /**
  *
@@ -18,7 +19,7 @@ public class Game {
     public static Player player1, player2, player3, player4;
     public int currentPlayer;
     
-    public CardPack pack;
+    public static Treasure[] pack;
     
     // Main GAME object representing game board.
     public static MazeBoard mazeboard;
@@ -35,7 +36,7 @@ public class Game {
         numberOfTreasures = treasures;
         mazeboard = new MazeBoard();
         mazeboard = MazeBoard.createMazeBoard(boardSize);
-        pack = new CardPack(numberOfTreasures, numberOfTreasures);
+        createSet(numberOfTreasures);
     }
     
     public void setPlayers() {
@@ -131,5 +132,40 @@ public class Game {
         }
         
         return null;
+    }
+    
+    public static void createSet(int cards){
+        Treasure.cards = cards;
+        Random randomGenerator = new Random();
+        
+        pack = new Treasure[Treasure.cards];
+        
+        boolean pictures[] = new boolean[31];
+        for(int i = 0; i < 31; i++){
+            pictures[i] = false;
+        }
+        
+        for (int i = 0; i < Treasure.cards; i++){
+            int randomInt;
+            do {
+                randomInt = randomGenerator.nextInt(31);
+            } while((pictures[randomInt] == true) || (randomInt == 0));
+            pack[i] = new Treasure(i, randomInt);
+            pictures[randomInt] = true;
+            //System.out.println(Integer.toString(i) + " : " + Integer.toString(randomInt));
+        }
+    }
+        
+    public static Treasure popTreasure(){
+        Treasure tr = pack[0];              // pocet karet - 1 (indexace v poli od 0)
+        
+        for (int i = 0; i < Treasure.cards; i++){                    
+            if ((i + 1) < Treasure.cards){
+                pack[i] = pack[i + 1];
+            }
+        }
+        Treasure.cards--;
+        
+        return tr;
     }
 }
