@@ -469,6 +469,8 @@ public class Gui extends JFrame {
         gameboard.printFreeCard();
         gameboard.printTreasure();
         gameboard.printTreasureFreeCard();
+        gameboard.printHistoryField();
+        gameboard.printHistory();
         gameboard.printControls();
         gameboard.printGame();
         gui.getContentPane().removeAll();

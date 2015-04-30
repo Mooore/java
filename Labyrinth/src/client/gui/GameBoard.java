@@ -44,6 +44,7 @@ public class GameBoard {
     private final JLabel labelGameControls = new JLabel("Controls");
     private final JLabel labelGameTreasure = new JLabel("Treasure");
     private final JLabel labelGameFreeCard = new JLabel("Free card");
+    private JLabel labelGameHistory1 = new JLabel("");
     
     public JTextField textFieldGameTurnRightCardX = new JTextField("1");
     public JTextField textFieldGameTurnRightCardY = new JTextField("1");
@@ -81,8 +82,6 @@ public class GameBoard {
     public JPanel panelGameTreasure = new JPanel();
     public JPanel panelGameFreeCard = new JPanel();
     
-    private final BoxLayout boxLayoutGameHistory = new BoxLayout(panelGameHistory, BoxLayout.Y_AXIS);
-    private final BoxLayout boxLayoutGameHistoryField = new BoxLayout(panelGameHistoryField, BoxLayout.Y_AXIS);
     private final BoxLayout boxLayoutGameControlsButtonsLeftInner = new BoxLayout(panelGameControlsButtonsLeftInner, BoxLayout.Y_AXIS);
     private final BoxLayout boxLayoutGameControlsButtonsRightInner = new BoxLayout(panelGameControlsButtonsRightInner, BoxLayout.Y_AXIS);
     
@@ -147,14 +146,6 @@ public class GameBoard {
         panelGameControlsGo.setBackground(new Color(0,0,0, (float) 0.0));
         panelGameControlsTitle.setBackground(new Color(0,0,0, (float) 0.0));
                         
-        panelGameHistory.setBackground(new Color(0,0,0, (float) 0.0));
-        panelGameHistory.setBorder(BorderFactory.createMatteBorder(0, 0, 5, 0, Color.WHITE));
-        
-        panelGameHistoryField.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-        panelGameHistoryField.setMinimumSize(new Dimension(250, 200));
-        panelGameHistoryField.setMaximumSize(new Dimension(250, 200));
-        panelGameHistoryField.setAlignmentX(Component.CENTER_ALIGNMENT);
-                
         panelGameControlsButtons.setBackground(new Color(0,0,0, (float) 0.0));
         panelGameControlsButtons.setBorder(BorderFactory.createMatteBorder(0, 0, 5, 0, Color.WHITE));
         
@@ -294,11 +285,6 @@ public class GameBoard {
         textFieldGameGoX.setColumns(2);
         textFieldGameGoY.setColumns(2);
                                 
-        panelGameHistory.add(labelGameHistory);
-        panelGameHistory.add(Box.createRigidArea(new Dimension(350,10)));
-        panelGameHistory.add(panelGameHistoryField);
-        panelGameHistory.add(Box.createRigidArea(new Dimension(0,10)));
-        
         panelGameControlsTitle.add(labelGameControls);
         panelGameControlsTurnRight.add(buttonGameTurnRightCard);
         panelGameControlsTurnRight.add(textFieldGameTurnRightCardX);
@@ -331,8 +317,6 @@ public class GameBoard {
         panelGameControlsButtonsRightInner.add(panelGameControlsShiftUp);
         panelGameControlsButtonsRightInner.add(panelGameControlsGo);
         
-        panelGameHistory.setLayout(boxLayoutGameHistory);
-        panelGameHistoryField.setLayout(boxLayoutGameHistoryField);
         panelGameControlsButtonsLeftInner.setLayout(boxLayoutGameControlsButtonsLeftInner);
         panelGameControlsButtonsRightInner.setLayout(boxLayoutGameControlsButtonsRightInner);
     }
@@ -419,6 +403,41 @@ public class GameBoard {
         panelGameTreasureFreeCard.setLayout(new GridLayout(1,2));
         panelGameTreasureFreeCard.add(panelGameTreasure, BorderLayout.WEST);
         panelGameTreasureFreeCard.add(panelGameFreeCard, BorderLayout.EAST);
+    }
+    
+    public void printHistoryField(){
+        panelGameHistoryField = new JPanel();
+        
+        panelGameHistoryField.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        panelGameHistoryField.setMinimumSize(new Dimension(250, 200));
+        panelGameHistoryField.setMaximumSize(new Dimension(250, 200));
+        panelGameHistoryField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        //labelGameHistory1 = new JLabel(Game.player1.);
+        //labelGameHistory2
+        
+        // nastavit font, barvu, zarovnani pro kazdy label history
+        // vsechny labely pridat do panelus
+        
+        panelGameHistoryField.add(labelGameHistory1);
+        
+        BoxLayout boxLayoutGameHistoryField = new BoxLayout(panelGameHistoryField, BoxLayout.Y_AXIS);
+        panelGameHistoryField.setLayout(boxLayoutGameHistoryField);
+    }
+    
+    public void printHistory(){
+        panelGameHistory = new JPanel();
+        
+        panelGameHistory.setBackground(new Color(0,0,0, (float) 0.0));
+        panelGameHistory.setBorder(BorderFactory.createMatteBorder(0, 0, 5, 0, Color.WHITE));
+        
+        panelGameHistory.add(labelGameHistory);
+        panelGameHistory.add(Box.createRigidArea(new Dimension(350,10)));
+        panelGameHistory.add(panelGameHistoryField);
+        panelGameHistory.add(Box.createRigidArea(new Dimension(0,10)));
+        
+        BoxLayout boxLayoutGameHistory = new BoxLayout(panelGameHistory, BoxLayout.Y_AXIS);
+        panelGameHistory.setLayout(boxLayoutGameHistory);
     }
     
     public void printControls(){
