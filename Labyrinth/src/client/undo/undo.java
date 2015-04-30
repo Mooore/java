@@ -27,6 +27,10 @@ public class undo {
         lastCommand++;
     }
     
+    public void cleanCommands() {
+        commands =  new ArrayList<>();
+    }
+    
     public String readLastCommand() {
         return commands.get(lastCommand-1);
     }
