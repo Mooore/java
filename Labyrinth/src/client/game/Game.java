@@ -13,9 +13,9 @@ import client.treasure.*;
  * @author xpospi73, xdress00
  */
 public class Game {
-    public int boardSize, numberOfPlayers, numberOfTreasures;
+    public static int boardSize, numberOfPlayers, numberOfTreasures;
     
-    public Player player1, player2, player3, player4;
+    public static Player player1, player2, player3, player4;
     public int currentPlayer;
     
     public CardPack pack;
@@ -35,6 +35,7 @@ public class Game {
         numberOfTreasures = treasures;
         mazeboard = new MazeBoard();
         mazeboard = MazeBoard.createMazeBoard(boardSize);
+        pack = new CardPack(numberOfTreasures, numberOfTreasures);
     }
     
     public void setPlayers() {
@@ -62,7 +63,6 @@ public class Game {
     public void startNewGame(){
         undo = new undo();
         setPlayers();
-        pack = new CardPack(numberOfTreasures, numberOfTreasures);
         mazeboard.newGame();
     }
     

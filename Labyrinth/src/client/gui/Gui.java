@@ -141,7 +141,7 @@ public class Gui extends JFrame {
         if (newgame.radioButtonNewGameNumberOfPlayers2.isSelected()){
             numberOfPlayers = 2;
         }
-        else if (newgame.radioButtonNewGameNumberOfPlayers4.isSelected()){
+        else if (newgame.radioButtonNewGameNumberOfPlayers3.isSelected()){
             numberOfPlayers = 3;
         }
         else {
@@ -154,6 +154,7 @@ public class Gui extends JFrame {
         else {
             numberOfTreasures = 24;
         }
+        System.out.println(Integer.toString(numberOfPlayers));
         game = new Game(boardSize, numberOfPlayers, numberOfTreasures);
         game.startNewGame();
         setGame();
@@ -174,8 +175,9 @@ public class Gui extends JFrame {
             case "TurnRightCard":   x = Integer.parseInt(gameboard.textFieldGameTurnRightCardX.getText());
                                     y = Integer.parseInt(gameboard.textFieldGameTurnRightCardY.getText());
                                     
-                                    if (((x <= game.boardSize) && (x >= 0)) && ((y <= game.boardSize) && (y >= 0))){
+                                    if (((x <= Game.boardSize) && (x >= 0)) && ((y <= Game.boardSize) && (y >= 0))){
                                         game.turnRight(x, y);
+                                        storeTurnCommand();
                                     }
                                     
                                     break;
@@ -183,67 +185,206 @@ public class Gui extends JFrame {
             case "TurnLeftCard":    x = Integer.parseInt(gameboard.textFieldGameTurnLeftCardX.getText());
                                     y = Integer.parseInt(gameboard.textFieldGameTurnLeftCardY.getText());
                                     
-                                    if (((x <= game.boardSize) && (x >= 0)) && ((y <= game.boardSize) && (y >= 0))){
+                                    if (((x <= Game.boardSize) && (x >= 0)) && ((y <= Game.boardSize) && (y >= 0))){
                                         game.turnLeft(x, y);
+                                        storeTurnCommand();
                                     }
                                     
                                     break;
                 
             case "TurnRightFreeCard":   game.turnRightFreeCard();
+                                        storeTurnCommand();
                                         break;
                 
             case "TurnLeftFreeCard":    game.turnLeftFreeCard();
+                                        storeTurnCommand();
                                         break;
+                
             case "ShiftRight":  x = Integer.parseInt(gameboard.textFieldGameShiftRight.getText());
                                     
-                                if (((x <= game.boardSize) && (x >= 0))){
+                                if (((x <= Game.boardSize) && (x >= 0)) && (x % 2 == 0)){
                                     game.shift(x, 1);
+                                    storeShiftCommand();
                                 } 
                                 break;
                 
             case "ShiftLeft":   x = Integer.parseInt(gameboard.textFieldGameShiftLeft.getText());
                                     
-                                if (((x <= game.boardSize) && (x >= 0))){
-                                    game.shift(x, game.boardSize);
+                                if (((x <= Game.boardSize) && (x >= 0)) && (x % 2 == 0)){
+                                    game.shift(x, Game.boardSize);
+                                    storeShiftCommand();
                                 } 
                                 break;
                 
             case "ShiftDown":   x = Integer.parseInt(gameboard.textFieldGameShiftDown.getText());
                                     
-                                if (((x <= game.boardSize) && (x >= 0))){
+                                if (((x <= Game.boardSize) && (x >= 0)) && (x % 2 == 0)){
                                     game.shift(1, x);
+                                    storeShiftCommand();
                                 } 
                                 break;
                 
             case "ShiftUp":     x = Integer.parseInt(gameboard.textFieldGameShiftUp.getText());
                                     
-                                if (((x <= game.boardSize) && (x >= 0))){
-                                    game.shift(game.boardSize, x);
+                                if (((x <= Game.boardSize) && (x >= 0)) && (x % 2 == 0)){
+                                    game.shift(Game.boardSize, x);
+                                    storeShiftCommand();
                                 } 
                                 break;
                 
-            case "Go":   
+            case "Go":  storeGoCommand(); 
                         break;
+        }
+        
+        switch(Game.numberOfPlayers){
+            case 2: switch(game.currentPlayer){
+                        case 1: if ((Game.player1.turnCommand) && (Game.player1.shiftCommand) && (Game.player1.goCommand)){
+                                    game.currentPlayer = 2;
+                                    Game.player1.turnCommand = false;
+                                    Game.player1.shiftCommand = false;
+                                    Game.player1.goCommand = false;
+                                }
+                                break;
+                        
+                        case 2: if ((Game.player2.turnCommand) && (Game.player2.shiftCommand) && (Game.player2.goCommand)){
+                                    game.currentPlayer = 1;
+                                    Game.player2.turnCommand = false;
+                                    Game.player2.shiftCommand = false;
+                                    Game.player2.goCommand = false;
+                                }
+                                break;
+                    }
+                    break;
+                
+            case 3: switch(game.currentPlayer){
+                        case 1: if ((Game.player1.turnCommand) && (Game.player1.shiftCommand) && (Game.player1.goCommand)){
+                                    game.currentPlayer = 2;
+                                    Game.player1.turnCommand = false;
+                                    Game.player1.shiftCommand = false;
+                                    Game.player1.goCommand = false;
+                                }
+                                break;
+                        
+                        case 2: if ((Game.player2.turnCommand) && (Game.player2.shiftCommand) && (Game.player2.goCommand)){
+                                    game.currentPlayer = 3;
+                                    Game.player2.turnCommand = false;
+                                    Game.player2.shiftCommand = false;
+                                    Game.player2.goCommand = false;
+                                }
+                                break;
+                            
+                        case 3: if ((Game.player3.turnCommand) && (Game.player3.shiftCommand) && (Game.player3.goCommand)){
+                                    game.currentPlayer = 1;
+                                    Game.player3.turnCommand = false;
+                                    Game.player3.shiftCommand = false;
+                                    Game.player3.goCommand = false;
+                                }
+                                break;
+                    }
+                    break;
+            
+            case 4: switch(game.currentPlayer){
+                        case 1: if ((Game.player1.turnCommand) && (Game.player1.shiftCommand) && (Game.player1.goCommand)){
+                                    game.currentPlayer = 2;
+                                    Game.player1.turnCommand = false;
+                                    Game.player1.shiftCommand = false;
+                                    Game.player1.goCommand = false;
+                                }
+                                break;
+                        
+                        case 2: if ((Game.player2.turnCommand) && (Game.player2.shiftCommand) && (Game.player2.goCommand)){
+                                    game.currentPlayer = 3;
+                                    Game.player2.turnCommand = false;
+                                    Game.player2.shiftCommand = false;
+                                    Game.player2.goCommand = false;
+                                }
+                                break;
+                            
+                        case 3: if ((Game.player3.turnCommand) && (Game.player3.shiftCommand) && (Game.player3.goCommand)){
+                                    game.currentPlayer = 4;
+                                    Game.player3.turnCommand = false;
+                                    Game.player3.shiftCommand = false;
+                                    Game.player3.goCommand = false;
+                                }
+                                break;
+                        
+                        case 4: if ((Game.player4.turnCommand) && (Game.player4.shiftCommand) && (Game.player4.goCommand)){
+                                    game.currentPlayer = 1;
+                                    Game.player4.turnCommand = false;
+                                    Game.player4.shiftCommand = false;
+                                    Game.player4.goCommand = false;
+                                }
+                                break;
+                    }
+                    break;
         }
         
         refresh();
     }
     
+    public void storeTurnCommand(){
+        switch(game.currentPlayer){
+            case 1: Game.player1.turnCommand = true;
+                    break;
+                
+            case 2: Game.player2.turnCommand = true;
+                    break;
+            
+            case 3: Game.player3.turnCommand = true;
+                    break;
+                
+            case 4: Game.player4.turnCommand = true;
+                    break;
+        }
+    }
+    
+    public void storeShiftCommand(){
+        switch(game.currentPlayer){
+            case 1: Game.player1.shiftCommand = true;
+                    break;
+                
+            case 2: Game.player2.shiftCommand = true;
+                    break;
+            
+            case 3: Game.player3.shiftCommand = true;
+                    break;
+                
+            case 4: Game.player4.shiftCommand = true;
+                    break;
+        }
+    }
+    
+    public void storeGoCommand(){
+        switch(game.currentPlayer){
+            case 1: Game.player1.goCommand = true;
+                    break;
+                
+            case 2: Game.player2.goCommand = true;
+                    break;
+            
+            case 3: Game.player3.goCommand = true;
+                    break;
+                
+            case 4: Game.player4.goCommand = true;
+                    break;
+        }
+    }
+    
     public void refresh(){
         //gameboard.panelGame = gameboard.panelGameBoard = gameboard.panelGameHeader = null;
-        gameboard.printHeader();
+        gameboard.printHeader(game.currentPlayer);
         switch(game.currentPlayer){
-            case 1: gameboard.printObtainedTreasures(game.player1);
+            case 1: gameboard.printObtainedTreasures(Game.player1);
                     break;
-            case 2: gameboard.printObtainedTreasures(game.player2);
+            case 2: gameboard.printObtainedTreasures(Game.player2);
                     break;
-            case 3: gameboard.printObtainedTreasures(game.player3);
+            case 3: gameboard.printObtainedTreasures(Game.player3);
                     break;
-            case 4: gameboard.printObtainedTreasures(game.player4);
+            case 4: gameboard.printObtainedTreasures(Game.player4);
                     break;
         }
         gameboard.printGameBoard();
-        gameboard.printGameMatrix(game);
+        gameboard.printGameMatrix();
         gameboard.printFreeCard();
         gameboard.printTreasure();
         gameboard.printTreasureFreeCard();

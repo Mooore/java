@@ -15,6 +15,10 @@ public class Player {
     private int obtainedTreasures;
     //private Treasure
     
+    public boolean turnCommand = false;
+    public boolean shiftCommand = false;
+    public boolean goCommand = false;
+    
     public Player(int playerNumber) {
         setPlayerNumber(playerNumber);
         setPlayerColor();
