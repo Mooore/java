@@ -188,16 +188,40 @@ public class Gui extends JFrame {
                                     }
                                     
                                     break;
+                
             case "TurnRightFreeCard":   game.turnRightFreeCard();
                                         break;
+                
             case "TurnLeftFreeCard":    game.turnLeftFreeCard();
                                         break;
-            case "ShiftRight":   
+            case "ShiftRight":  x = Integer.parseInt(gameboard.textFieldGameShiftRight.getText());
+                                    
+                                if (((x <= game.boardSize) && (x >= 0))){
+                                    game.shift(x, 1);
+                                } 
                                 break;
-            case "ShiftLeft":   
+                
+            case "ShiftLeft":   x = Integer.parseInt(gameboard.textFieldGameShiftLeft.getText());
+                                    
+                                if (((x <= game.boardSize) && (x >= 0))){
+                                    game.shift(x, game.boardSize);
+                                } 
                                 break;
-            case "ShiftDown":   
+                
+            case "ShiftDown":   x = Integer.parseInt(gameboard.textFieldGameShiftDown.getText());
+                                    
+                                if (((x <= game.boardSize) && (x >= 0))){
+                                    game.shift(1, x);
+                                } 
                                 break;
+                
+            case "ShiftUp":     x = Integer.parseInt(gameboard.textFieldGameShiftUp.getText());
+                                    
+                                if (((x <= game.boardSize) && (x >= 0))){
+                                    game.shift(game.boardSize, x);
+                                } 
+                                break;
+                
             case "Go":   
                         break;
         }

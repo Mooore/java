@@ -48,10 +48,10 @@ public class GameBoard {
     public JTextField textFieldGameTurnRightCardY = new JTextField("1");
     public JTextField textFieldGameTurnLeftCardX = new JTextField("1");
     public JTextField textFieldGameTurnLeftCardY = new JTextField("1");
-    public JTextField textFieldGameShiftRight = new JTextField("1");
-    public JTextField textFieldGameShiftLeft = new JTextField("1");
-    public JTextField textFieldGameShiftDown = new JTextField("1");
-    public JTextField textFieldGameShiftUp = new JTextField("1");
+    public JTextField textFieldGameShiftRight = new JTextField("2");
+    public JTextField textFieldGameShiftLeft = new JTextField("2");
+    public JTextField textFieldGameShiftDown = new JTextField("2");
+    public JTextField textFieldGameShiftUp = new JTextField("2");
     public JTextField textFieldGameGoX = new JTextField("1");
     public JTextField textFieldGameGoY = new JTextField("1");
     
@@ -228,18 +228,46 @@ public class GameBoard {
         buttonGameShiftRight.setFont(new Font("Calibri", Font.BOLD, 13));
         buttonGameShiftRight.setAlignmentX(Component.LEFT_ALIGNMENT);
         buttonGameShiftRight.setMargin(new Insets(1,1,1,1));
+        buttonGameShiftRight.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gui.mainPlayingCycle("ShiftRight");
+            }
+        });
         
         buttonGameShiftLeft.setFont(new Font("Calibri", Font.BOLD, 13));
         buttonGameShiftLeft.setAlignmentX(Component.LEFT_ALIGNMENT);
         buttonGameShiftLeft.setMargin(new Insets(1,1,1,1));
+        buttonGameShiftLeft.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gui.mainPlayingCycle("ShiftLeft");
+            }
+        });
         
         buttonGameShiftDown.setFont(new Font("Calibri", Font.BOLD, 13));
         buttonGameShiftDown.setAlignmentX(Component.LEFT_ALIGNMENT);
         buttonGameShiftDown.setMargin(new Insets(1,1,1,1));
+        buttonGameShiftDown.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gui.mainPlayingCycle("ShiftDown");
+            }
+        });
         
         buttonGameShiftUp.setFont(new Font("Calibri", Font.BOLD, 13));
         buttonGameShiftUp.setAlignmentX(Component.LEFT_ALIGNMENT);
         buttonGameShiftUp.setMargin(new Insets(1,1,1,1));
+        buttonGameShiftUp.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gui.mainPlayingCycle("ShiftUp");
+            }
+        });
         
         buttonGameGo.setFont(new Font("Calibri", Font.BOLD, 15));
         buttonGameGo.setAlignmentX(Component.LEFT_ALIGNMENT);
