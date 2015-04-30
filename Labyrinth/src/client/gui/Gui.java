@@ -171,8 +171,7 @@ public class Gui extends JFrame {
             case "Start": 
                             break;
                 
-            case "TurnRightCard":   x = y = 0;
-                                    x = Integer.parseInt(gameboard.textFieldGameTurnRightCardX.getText());
+            case "TurnRightCard":   x = Integer.parseInt(gameboard.textFieldGameTurnRightCardX.getText());
                                     y = Integer.parseInt(gameboard.textFieldGameTurnRightCardY.getText());
                                     
                                     if (((x <= game.boardSize) && (x >= 0)) && ((y <= game.boardSize) && (y >= 0))){
@@ -181,8 +180,7 @@ public class Gui extends JFrame {
                                     
                                     break;
                 
-            case "TurnLeftCard":    x = y = 0;
-                                    x = Integer.parseInt(gameboard.textFieldGameTurnLeftCardX.getText());
+            case "TurnLeftCard":    x = Integer.parseInt(gameboard.textFieldGameTurnLeftCardX.getText());
                                     y = Integer.parseInt(gameboard.textFieldGameTurnLeftCardY.getText());
                                     
                                     if (((x <= game.boardSize) && (x >= 0)) && ((y <= game.boardSize) && (y >= 0))){
@@ -190,9 +188,9 @@ public class Gui extends JFrame {
                                     }
                                     
                                     break;
-            case "TurnRightFreeCard":   
+            case "TurnRightFreeCard":   game.turnRightFreeCard();
                                         break;
-            case "TurnLeftFreeCard":   
+            case "TurnLeftFreeCard":    game.turnLeftFreeCard();
                                         break;
             case "ShiftRight":   
                                 break;

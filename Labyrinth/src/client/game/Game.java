@@ -89,6 +89,16 @@ public class Game {
         mazeboard.get(r, c).getCard().turnLeft();
     }
     
+    public void turnRightFreeCard(){
+        undo.storeCommand("tf");
+        mazeboard.getFreeCard().turnRight();
+    }
+    
+    public void turnLeftFreeCard(){
+        undo.storeCommand("tlf");
+        mazeboard.getFreeCard().turnLeft();
+    }
+    
     public String undoCommand(boolean tuiflag){
         String undoCommand,rc;
         

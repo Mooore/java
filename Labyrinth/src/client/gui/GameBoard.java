@@ -206,10 +206,24 @@ public class GameBoard {
         buttonGameTurnRightFreeCard.setFont(new Font("Calibri", Font.BOLD, 13));
         buttonGameTurnRightFreeCard.setAlignmentX(Component.LEFT_ALIGNMENT);
         buttonGameTurnRightFreeCard.setMargin(new Insets(1,1,1,1));
+        buttonGameTurnRightFreeCard.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gui.mainPlayingCycle("TurnRightFreeCard");
+            }
+        });
         
         buttonGameTurnLeftFreeCard.setFont(new Font("Calibri", Font.BOLD, 13));
         buttonGameTurnLeftFreeCard.setAlignmentX(Component.LEFT_ALIGNMENT);
         buttonGameTurnLeftFreeCard.setMargin(new Insets(1,1,1,1));
+        buttonGameTurnLeftFreeCard.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gui.mainPlayingCycle("TurnLeftFreeCard");
+            }
+        });
         
         buttonGameShiftRight.setFont(new Font("Calibri", Font.BOLD, 13));
         buttonGameShiftRight.setAlignmentX(Component.LEFT_ALIGNMENT);
