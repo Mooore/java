@@ -48,7 +48,7 @@ public class Gui extends JFrame {
         pack();
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1150,850);
+        setSize(1000,700);
         setLocationRelativeTo(null);
         setResizable(false);
     }
@@ -196,7 +196,6 @@ public class Gui extends JFrame {
                                     break;
                 
             case "TurnRightFreeCard":   if(isAvailable("turn")){
-                                            System.out.println("otacim doprava ...");
                                             game.turnRightFreeCard();
                                             storeTurnCommand();
                                         }
@@ -344,7 +343,6 @@ public class Gui extends JFrame {
         switch(command){
             case "turn":    switch(game.currentPlayer){
                                 case 1: if(Game.player1.turnCommand == false){
-                                            System.out.println("FALSE vracim TRUE");
                                             return true;
                                         }
                                         return false;

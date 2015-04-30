@@ -338,7 +338,6 @@ public class GameBoard {
     
     void printHeader(int currentPlayer){
         panelGameHeader = new JPanel();
-        
         panelGameHeader.setBackground(new Color(0,0,0, (float) 0.7));
         panelGameHeader.setBorder(BorderFactory.createMatteBorder(0, 0, 5, 0, Color.WHITE));
         
@@ -482,9 +481,10 @@ public class GameBoard {
                 }
                 else {
                     panel[r][c] = new JPanel();
-                    panel[r][c].setPreferredSize(new Dimension(50,50));
+                    panel[r][c].setPreferredSize(new Dimension(42,42));
                     panel[r][c].setBackground(new Color(0,0,0, (float) 0.0));
                     panel[r][c].add(printImage(Game.mazeboard.get(r, c).getCard()));
+                    //panel[r][c].setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.WHITE));
                     panelBoard.add(panel[r][c]);
                 }
             }
@@ -506,13 +506,17 @@ public class GameBoard {
         }
         
         switch(Game.boardSize){
-            case 5:     panelGameBoard.setBorder(new EmptyBorder(170,230,170,0));
+            case 5:     panelGameBoard.setBorder(new EmptyBorder(150,170,150,0));
+                        panelBoard.setPreferredSize(new Dimension(320,200));
                         break;
-            case 7:     panelGameBoard.setBorder(new EmptyBorder(120,170,120,0));
+            case 7:     panelGameBoard.setBorder(new EmptyBorder(100,120,100,0));
+                        panelBoard.setPreferredSize(new Dimension(400,300));
                         break;
-            case 9:     panelGameBoard.setBorder(new EmptyBorder(70,110,70,0));
+            case 9:     panelGameBoard.setBorder(new EmptyBorder(50,70,50,0));
+                        panelBoard.setPreferredSize(new Dimension(500,400));
                         break;
-            case 11:    panelGameBoard.setBorder(new EmptyBorder(0,70,0,0));
+            case 11:    panelGameBoard.setBorder(new EmptyBorder(0,20,0,0));
+                        panelBoard.setPreferredSize(new Dimension(600,500));
                         break;
         }
         panelGameBoard.add(panelBoard);
