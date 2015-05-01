@@ -441,9 +441,6 @@ public class GameBoard {
         labelGameHistory4.setFont(new Font("Calibri", Font.PLAIN, 12));
         labelGameHistory4.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        // nastavit font, barvu, zarovnani pro kazdy label history
-        // vsechny labely pridat do panelus
-        
         panelGameHistoryField.add(Box.createRigidArea(new Dimension(0,25)));
         panelGameHistoryField.add(labelGameHistory1);
         panelGameHistoryField.add(Box.createRigidArea(new Dimension(0,10)));
@@ -532,13 +529,14 @@ public class GameBoard {
                     panelBoard.add(panel[r][Game.boardSize + 1]);
                 }
                 else {
-                    //panel[r][c] = new JPanel();
                     panel[r][c] = new BgPanel(Game.mazeboard.get(r, c).getCard());
                     panel[r][c].setPreferredSize(new Dimension(40,40));
-                    //panel[r][c].setBackground(new Color(0,0,0, (float) 0.0));
-                    if (Treasure.cards > 0){
-                        Treasure pom = Game.popTreasure();
-                        panel[r][c].add(printTreasure(pom.picture));
+                    
+                    for(int i = 1; i <= Treasure.cards; i++){
+                        if ((r == Game.treasuresPositions[0][i]) && (c == Game.treasuresPositions[1][i])) {
+                            panel[r][c].add(printTreasure(Game.pack[i].picture));
+                            break;
+                        }
                     }
                     panel[r][c].setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
                     panelBoard.add(panel[r][c]);

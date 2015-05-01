@@ -20,6 +20,7 @@ public class Game {
     public int currentPlayer;
     
     public static Treasure[] pack;
+    public static int[][] treasuresPositions;
     
     // Main GAME object representing game board.
     public static MazeBoard mazeboard;
@@ -46,18 +47,30 @@ public class Game {
             player2 = new Player(2);
             player3 = null;
             player4 = null;
+            
+            player1.setPosition(1, 1);
+            player2.setPosition(boardSize, boardSize);
         }
         else if(numberOfPlayers == 3) {
             player1 = new Player(1);
             player2 = new Player(2);
             player3 = new Player(3);
             player4 = null;
+            
+            player1.setPosition(1, 1);
+            player2.setPosition(1, boardSize);
+            player3.setPosition(boardSize, 1);
         }
         else {
             player1 = new Player(1);
             player2 = new Player(2);
             player3 = new Player(3);
             player4 = new Player(4);
+            
+            player1.setPosition(1, 1);
+            player2.setPosition(1, boardSize);
+            player3.setPosition(boardSize, 1);
+            player4.setPosition(boardSize, boardSize);
         }
     }
     
@@ -145,21 +158,60 @@ public class Game {
         Treasure.cards = cards;
         Random randomGenerator = new Random();
         
-        pack = new Treasure[Treasure.cards];
+        pack = new Treasure[Treasure.cards + 1];
         
         boolean pictures[] = new boolean[31];
         for(int i = 0; i < 31; i++){
             pictures[i] = false;
         }
         
-        for (int i = 0; i < Treasure.cards; i++){
+        for (int i = 1; i <= Treasure.cards; i++){
             int randomInt;
             do {
                 randomInt = randomGenerator.nextInt(31);
             } while((pictures[randomInt] == true) || (randomInt == 0));
             pack[i] = new Treasure(i, randomInt);
             pictures[randomInt] = true;
-            //System.out.println(Integer.toString(i) + " : " + Integer.toString(randomInt));
+        }
+    }
+    
+    public static void placeTreasures(){
+        Random randomGenerator = new Random();
+        Random randomGenerator2 = new Random();
+        treasuresPositions = new int[2][numberOfTreasures + 1];
+        boolean flag = false;
+        
+        for (int i = 1; i <= numberOfTreasures; i++){
+            treasuresPositions[0][i] = 0;
+            treasuresPositions[1][i] = 0;
+        }
+        
+        for (int i = 1; i <= numberOfTreasures; i++){
+            int randomInt, randomInt2;
+            do {
+                randomInt = randomGenerator.nextInt(boardSize + 1);
+                randomInt2 = randomGenerator2.nextInt(boardSize + 1);
+                
+                if ((randomInt > 0) && (randomInt2 > 0)){
+                    for(int j = 0; j <= i; j++){
+                        if (treasuresPositions[0][j] == randomInt){
+                            if (treasuresPositions[1][j] == randomInt2){
+                                flag = false;
+                                break;
+                            }
+                            else {
+                                flag = true;
+                            }
+                        }
+                        else {
+                            flag = true;
+                        }
+                    }
+                }
+            } while((flag == false) || (randomInt == 0) || (randomInt2 == 0));
+            treasuresPositions[0][i] = randomInt;
+            treasuresPositions[1][i] = randomInt2;
+            flag = false;
         }
     }
         

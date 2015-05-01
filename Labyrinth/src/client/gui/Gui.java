@@ -162,6 +162,7 @@ public class Gui extends JFrame {
     
     public void setGame() {
         gameboard = new GameBoard();
+        Game.placeTreasures();
         mainPlayingCycle("Start");
     }
     
@@ -253,89 +254,21 @@ public class Gui extends JFrame {
                         break;
         }
         
-        switch(Game.numberOfPlayers){
-            case 2: switch(game.currentPlayer){
-                        case 1: if ((Game.player1.turnCommand) && (Game.player1.shiftCommand) && (Game.player1.goCommand)){
-                                    game.currentPlayer = 2;
-                                    Game.player1.turnCommand = false;
-                                    Game.player1.shiftCommand = false;
-                                    Game.player1.goCommand = false;
-                                }
-                                break;
-                        
-                        case 2: if ((Game.player2.turnCommand) && (Game.player2.shiftCommand) && (Game.player2.goCommand)){
-                                    game.currentPlayer = 1;
-                                    Game.player2.turnCommand = false;
-                                    Game.player2.shiftCommand = false;
-                                    Game.player2.goCommand = false;
-                                }
-                                break;
-                    }
-                    break;
-                
-            case 3: switch(game.currentPlayer){
-                        case 1: if ((Game.player1.turnCommand) && (Game.player1.shiftCommand) && (Game.player1.goCommand)){
-                                    game.currentPlayer = 2;
-                                    Game.player1.turnCommand = false;
-                                    Game.player1.shiftCommand = false;
-                                    Game.player1.goCommand = false;
-                                }
-                                break;
-                        
-                        case 2: if ((Game.player2.turnCommand) && (Game.player2.shiftCommand) && (Game.player2.goCommand)){
-                                    game.currentPlayer = 3;
-                                    Game.player2.turnCommand = false;
-                                    Game.player2.shiftCommand = false;
-                                    Game.player2.goCommand = false;
-                                }
-                                break;
-                            
-                        case 3: if ((Game.player3.turnCommand) && (Game.player3.shiftCommand) && (Game.player3.goCommand)){
-                                    game.currentPlayer = 1;
-                                    Game.player3.turnCommand = false;
-                                    Game.player3.shiftCommand = false;
-                                    Game.player3.goCommand = false;
-                                }
-                                break;
-                    }
-                    break;
-            
-            case 4: switch(game.currentPlayer){
-                        case 1: if ((Game.player1.turnCommand) && (Game.player1.shiftCommand) && (Game.player1.goCommand)){
-                                    game.currentPlayer = 2;
-                                    Game.player1.turnCommand = false;
-                                    Game.player1.shiftCommand = false;
-                                    Game.player1.goCommand = false;
-                                }
-                                break;
-                        
-                        case 2: if ((Game.player2.turnCommand) && (Game.player2.shiftCommand) && (Game.player2.goCommand)){
-                                    game.currentPlayer = 3;
-                                    Game.player2.turnCommand = false;
-                                    Game.player2.shiftCommand = false;
-                                    Game.player2.goCommand = false;
-                                }
-                                break;
-                            
-                        case 3: if ((Game.player3.turnCommand) && (Game.player3.shiftCommand) && (Game.player3.goCommand)){
-                                    game.currentPlayer = 4;
-                                    Game.player3.turnCommand = false;
-                                    Game.player3.shiftCommand = false;
-                                    Game.player3.goCommand = false;
-                                }
-                                break;
-                        
-                        case 4: if ((Game.player4.turnCommand) && (Game.player4.shiftCommand) && (Game.player4.goCommand)){
-                                    game.currentPlayer = 1;
-                                    Game.player4.turnCommand = false;
-                                    Game.player4.shiftCommand = false;
-                                    Game.player4.goCommand = false;
-                                }
-                                break;
-                    }
-                    break;
-        }
+//        switch(game.currentPlayer){
+//            case 1: 
+//                    break;
+//                
+//            case 2: Game.player2.turnCommand = true;
+//                    break;
+//            
+//            case 3: Game.player3.turnCommand = true;
+//                    break;
+//                
+//            case 4: Game.player4.turnCommand = true;
+//                    break;
+//        }
         
+        switchPlayers();
         refresh();
     }
     
@@ -447,6 +380,91 @@ public class Gui extends JFrame {
                     break;
                 
             case 4: Game.player4.goCommand = true;
+                    break;
+        }
+    }
+    
+    public void switchPlayers(){
+        switch(Game.numberOfPlayers){
+            case 2: switch(game.currentPlayer){
+                        case 1: if ((Game.player1.turnCommand) && (Game.player1.shiftCommand) && (Game.player1.goCommand)){
+                                    game.currentPlayer = 2;
+                                    Game.player1.turnCommand = false;
+                                    Game.player1.shiftCommand = false;
+                                    Game.player1.goCommand = false;
+                                }
+                                break;
+                        
+                        case 2: if ((Game.player2.turnCommand) && (Game.player2.shiftCommand) && (Game.player2.goCommand)){
+                                    game.currentPlayer = 1;
+                                    Game.player2.turnCommand = false;
+                                    Game.player2.shiftCommand = false;
+                                    Game.player2.goCommand = false;
+                                }
+                                break;
+                    }
+                    break;
+                
+            case 3: switch(game.currentPlayer){
+                        case 1: if ((Game.player1.turnCommand) && (Game.player1.shiftCommand) && (Game.player1.goCommand)){
+                                    game.currentPlayer = 2;
+                                    Game.player1.turnCommand = false;
+                                    Game.player1.shiftCommand = false;
+                                    Game.player1.goCommand = false;
+                                }
+                                break;
+                        
+                        case 2: if ((Game.player2.turnCommand) && (Game.player2.shiftCommand) && (Game.player2.goCommand)){
+                                    game.currentPlayer = 3;
+                                    Game.player2.turnCommand = false;
+                                    Game.player2.shiftCommand = false;
+                                    Game.player2.goCommand = false;
+                                }
+                                break;
+                            
+                        case 3: if ((Game.player3.turnCommand) && (Game.player3.shiftCommand) && (Game.player3.goCommand)){
+                                    game.currentPlayer = 1;
+                                    Game.player3.turnCommand = false;
+                                    Game.player3.shiftCommand = false;
+                                    Game.player3.goCommand = false;
+                                }
+                                break;
+                    }
+                    break;
+            
+            case 4: switch(game.currentPlayer){
+                        case 1: if ((Game.player1.turnCommand) && (Game.player1.shiftCommand) && (Game.player1.goCommand)){
+                                    game.currentPlayer = 2;
+                                    Game.player1.turnCommand = false;
+                                    Game.player1.shiftCommand = false;
+                                    Game.player1.goCommand = false;
+                                }
+                                break;
+                        
+                        case 2: if ((Game.player2.turnCommand) && (Game.player2.shiftCommand) && (Game.player2.goCommand)){
+                                    game.currentPlayer = 3;
+                                    Game.player2.turnCommand = false;
+                                    Game.player2.shiftCommand = false;
+                                    Game.player2.goCommand = false;
+                                }
+                                break;
+                            
+                        case 3: if ((Game.player3.turnCommand) && (Game.player3.shiftCommand) && (Game.player3.goCommand)){
+                                    game.currentPlayer = 4;
+                                    Game.player3.turnCommand = false;
+                                    Game.player3.shiftCommand = false;
+                                    Game.player3.goCommand = false;
+                                }
+                                break;
+                        
+                        case 4: if ((Game.player4.turnCommand) && (Game.player4.shiftCommand) && (Game.player4.goCommand)){
+                                    game.currentPlayer = 1;
+                                    Game.player4.turnCommand = false;
+                                    Game.player4.shiftCommand = false;
+                                    Game.player4.goCommand = false;
+                                }
+                                break;
+                    }
                     break;
         }
     }

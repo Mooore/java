@@ -3,6 +3,7 @@
  */
 package client.gui;
 
+import client.treasure.Treasure;
 import java.awt.Color;
 
 /**
@@ -12,9 +13,13 @@ import java.awt.Color;
 public class Player {
     private int playerNumber;
     private Color playerColor;
-    private int obtainedTreasures;
-    //private Treasure
     
+    public int positionR;
+    public int positionC;
+    
+    private int obtainedTreasures;
+    private Treasure assignedTreasure = null;
+        
     public boolean turnCommand = false;
     public boolean shiftCommand = false;
     public boolean goCommand = false;
@@ -66,4 +71,22 @@ public class Player {
             this.playerColor = Color.YELLOW;
         }
     }
+    
+    public void assignTreasure(Treasure tr){
+        this.assignedTreasure = tr;
+    }
+    
+    public Treasure getAssignedTreasure(){
+        return this.assignedTreasure;
+    }
+    
+    public void removeTreasure(){
+        this.assignedTreasure = null;
+    }
+    
+    public void setPosition(int r, int c){
+        this.positionR = r;
+        this.positionC = c;
+    }
+    
 }
