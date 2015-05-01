@@ -446,10 +446,27 @@ public class GameBoard {
             int col = Character.getNumericValue(rc.charAt(1));
             commandText = " Turn left card [" + row + " : " + col + "] |";
         }
-        else if(command.matches("^(s|(-s))([0-9]{2})$") == true) {
+        else if(command.matches("^(s|(-s))(([0-9])([0-9])?([:])([0-9])([0-9])?)$") == true) {
             rc = command.replaceAll("(s|(-s))", "");
-            int row = Character.getNumericValue(rc.charAt(0));
-            int col = Character.getNumericValue(rc.charAt(1));
+            int row, col;
+            if(rc.length() == 3){
+                row = Character.getNumericValue(rc.charAt(0));
+                col = Character.getNumericValue(rc.charAt(1));
+            }
+            else if(rc.length() == 5){
+                row = Character.getNumericValue(rc.charAt(0) + rc.charAt(1));
+                col = Character.getNumericValue(rc.charAt(3) + rc.charAt(4));
+            }
+            else {
+                if(":".equals(String.valueOf(rc.charAt(1)))){
+                    row = Character.getNumericValue(rc.charAt(0));
+                    col = Character.getNumericValue(rc.charAt(2) + rc.charAt(3));
+                }
+                else {
+                    row = Character.getNumericValue(rc.charAt(0) + rc.charAt(1));
+                    col = Character.getNumericValue(rc.charAt(3));
+                }
+            }
             commandText = " Shift [" + row + " : " + col + "] |";
         }
         else if(command.matches("^(tf|(-tf))$") == true) {

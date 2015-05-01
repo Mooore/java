@@ -89,16 +89,16 @@ public class Game {
            ((field.col() == boardSize) && ((field.row() > 0) && (field.row() < boardSize)) && (field.row() % 2 == 0))) {
             
             if (currentPlayer == 1) {
-                player1.undo.storeCommand("s" + r + c);
+                player1.undo.storeCommand("s" + r + ":" + c);
             }
             else if (currentPlayer == 2) {
-                player2.undo.storeCommand("s" + r + c);
+                player2.undo.storeCommand("s" + r + ":" + c);
             }
             else if (currentPlayer == 3) {
-                player3.undo.storeCommand("s" + r + c);
+                player3.undo.storeCommand("s" + r + ":" + c);
             }
             else if (currentPlayer == 4) {
-                player4.undo.storeCommand("s" + r + c);
+                player4.undo.storeCommand("s" + r + ":" + c);
             }
         }  
     }
