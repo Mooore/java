@@ -168,6 +168,20 @@ public class Game {
         mazeboard.getFreeCard().turnLeft();
     }
     
+    public void go(String goX, String goY, int FromX, int FromY) {
+        if (currentPlayer == 1) {
+            player1.undo.storeCommand("go" + goX + goY + FromX + FromY);
+        }
+        else if (currentPlayer == 2) {
+            player2.undo.storeCommand("go" + goX + goY + FromX + FromY);
+        }
+        else if (currentPlayer == 3) {
+            player3.undo.storeCommand("go" + goX + goY + FromX + FromY);
+        }
+        else if (currentPlayer == 4) {
+            player4.undo.storeCommand("go" + goX + goY + FromX + FromY);
+        }
+    }
     public String undoCommand(boolean tuiflag){
         String undoCommand = "",rc;
         
@@ -208,6 +222,14 @@ public class Game {
         }
         else if(undoCommand.matches("^(tlf|(-tlf))$") == true) {
             mazeboard.getFreeCard().turnLeft();
+        }
+        else if(undoCommand.matches("^(go|(-go))([0-9]{4})$") == true) {
+            rc = undoCommand.replaceAll("(go|(-go))", "");
+            int goX = Character.getNumericValue(rc.charAt(0));
+            int goY = Character.getNumericValue(rc.charAt(1));
+            int FromX = Character.getNumericValue(rc.charAt(2));
+            int FromY = Character.getNumericValue(rc.charAt(3));
+            
         }
         
         String lastcommand = "";

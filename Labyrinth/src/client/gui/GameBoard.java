@@ -448,6 +448,15 @@ public class GameBoard {
         else if(command.matches("^(tlf|(-tlf))$") == true) {
             commandText = "Turn left free card | ";
         }
+        else if (command.matches("^(go|(-go))([0-9]{4})$") == true) {
+            rc = command.replaceAll("(go|(-go))", "");
+            int goX = Character.getNumericValue(rc.charAt(0));
+            int goY = Character.getNumericValue(rc.charAt(1));
+            int FromX = Character.getNumericValue(rc.charAt(2));
+            int FromY = Character.getNumericValue(rc.charAt(3));
+            
+            commandText = "Go from [" + FromX + " : " + FromY + "] to [" + goX + " : " + goY + "] | ";
+        }
         return commandText;
     }
     

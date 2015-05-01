@@ -73,6 +73,15 @@ public class undo {
         else if(command.matches("^(tlf|(-tlf))$") == true) {
             invertedCommand = "tf";
         }
+        else if(command.matches("^(go|(-go))([0-9]{4})$") == true) {
+            rc = command.replaceAll("(go|(-go))", "");
+            int goX = Character.getNumericValue(rc.charAt(0));
+            int goY = Character.getNumericValue(rc.charAt(1));
+            int FromX = Character.getNumericValue(rc.charAt(2));
+            int FromY = Character.getNumericValue(rc.charAt(3));
+            
+            invertedCommand = "go" + FromX + FromY + goX + goY;
+        }
         return invertedCommand;
     } 
 }

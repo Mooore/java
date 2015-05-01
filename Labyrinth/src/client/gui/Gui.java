@@ -249,8 +249,32 @@ public class Gui extends JFrame {
                                 break;
                 
             case "Go":  if(isAvailable("go")){ 
+                            String goX, goY;
+                            int FromX = 0, FromY = 0;
+                            
+                            goX = gameboard.textFieldGameGoX.getText();
+                            goY = gameboard.textFieldGameGoY.getText();
+                            
+                            if(Game.currentPlayer == 1) {
+                                FromX = Game.player1.positionC;
+                                FromY = Game.player1.positionR;
+                            }
+                            else if(Game.currentPlayer == 2) {
+                                FromX = Game.player2.positionC;
+                                FromY = Game.player2.positionR;
+                            }
+                            else if(Game.currentPlayer == 3) {
+                                FromX = Game.player3.positionC;
+                                FromY = Game.player3.positionR;
+                            }
+                            else if(Game.currentPlayer == 4) {
+                                FromX = Game.player4.positionC;
+                                FromY = Game.player4.positionR;
+                            }
+                            
+                            game.go(goX, goY, FromX, FromY);
+                            
                             storeGoCommand(); 
-                        //    gameboard.textFieldGameGoX.getText();
                         }
                         break;
         }
