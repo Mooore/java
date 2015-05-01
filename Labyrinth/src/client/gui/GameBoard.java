@@ -454,6 +454,7 @@ public class GameBoard {
     private String playerHistory(int playerNumber) {
         String commandHistory = " Player " + playerNumber + ": ";
         String command;
+        
         if(playerNumber == 1) {
             for(int i = 0; i < Game.player1.undo.lastCommand;i++) {
                 command = commandText(Game.player1.undo.commands.get(i));
@@ -491,45 +492,101 @@ public class GameBoard {
         panelGameHistoryField.setMaximumSize(new Dimension(340, 200));
         panelGameHistoryField.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        if(Game.currentPlayer == 1) {
-            if(cleanCommandHistory1) {
-                Game.player1.undo.cleanCommands();
-                cleanCommandHistory1 = false;
+        if(Game.numberOfPlayers == 2) {
+            if(Game.currentPlayer == 1) {
+                if(cleanCommandHistory1) {
+                    Game.player1.undo.cleanCommands();
+                    cleanCommandHistory1 = false;
+                }
+                if(cleanCommandHistory2 == false) {
+                    cleanCommandHistory2 = true;
+                }
+                player1_history = playerHistory(1);
             }
-            if(cleanCommandHistory2 == false) {
-                cleanCommandHistory2 = true;
+            else if(Game.currentPlayer == 2) {
+                if(cleanCommandHistory2) {
+                    Game.player2.undo.cleanCommands();
+                    cleanCommandHistory2 = false;
+                }
+                if(cleanCommandHistory1 == false) {
+                    cleanCommandHistory1 = true;
+                }
+                player2_history = playerHistory(2);
             }
-            player1_history = playerHistory(1);
         }
-        else if(Game.currentPlayer == 2) {
-            if(cleanCommandHistory2) {
-                Game.player2.undo.cleanCommands();
-                cleanCommandHistory2 = false;
+        else if(Game.numberOfPlayers == 3) {
+            if(Game.currentPlayer == 1) {
+                if(cleanCommandHistory1) {
+                    Game.player1.undo.cleanCommands();
+                    cleanCommandHistory1 = false;
+                }
+                if(cleanCommandHistory2 == false) {
+                    cleanCommandHistory2 = true;
+                }
+                player1_history = playerHistory(1);
             }
-            if(cleanCommandHistory3 == false) {
-                cleanCommandHistory3 = true;
+            else if(Game.currentPlayer == 2) {
+                if(cleanCommandHistory2) {
+                    Game.player2.undo.cleanCommands();
+                    cleanCommandHistory2 = false;
+                }
+                if(cleanCommandHistory3 == false) {
+                    cleanCommandHistory3 = true;
+                }
+                player2_history = playerHistory(2);
             }
-            player2_history = playerHistory(2);
+            else if(Game.currentPlayer == 3) {
+                if(cleanCommandHistory3) {
+                    Game.player3.undo.cleanCommands();
+                    cleanCommandHistory3 = false;
+                }
+                if(cleanCommandHistory1 == false) {
+                    cleanCommandHistory1 = true;
+                }
+                player3_history = playerHistory(3);
+            }
         }
-        else if(Game.currentPlayer == 3) {
-            if(cleanCommandHistory3) {
-                Game.player3.undo.cleanCommands();
-                cleanCommandHistory3 = false;
+        else if(Game.numberOfPlayers == 4) {
+            if(Game.currentPlayer == 1) {
+                if(cleanCommandHistory1) {
+                    Game.player1.undo.cleanCommands();
+                    cleanCommandHistory1 = false;
+                }
+                if(cleanCommandHistory2 == false) {
+                    cleanCommandHistory2 = true;
+                }
+                player1_history = playerHistory(1);
             }
-            if(cleanCommandHistory4 == false) {
-                cleanCommandHistory4 = true;
+            else if(Game.currentPlayer == 2) {
+                if(cleanCommandHistory2) {
+                    Game.player2.undo.cleanCommands();
+                    cleanCommandHistory2 = false;
+                }
+                if(cleanCommandHistory3 == false) {
+                    cleanCommandHistory3 = true;
+                }
+                player2_history = playerHistory(2);
             }
-            player3_history = playerHistory(3);
-        }
-        else if(Game.currentPlayer == 4) {
-            if(cleanCommandHistory4) {
-                Game.player4.undo.cleanCommands();
-                cleanCommandHistory4 = false;
+            else if(Game.currentPlayer == 3) {
+                if(cleanCommandHistory3) {
+                    Game.player3.undo.cleanCommands();
+                    cleanCommandHistory3 = false;
+                }
+                if(cleanCommandHistory4 == false) {
+                    cleanCommandHistory4 = true;
+                }
+                player3_history = playerHistory(3);
             }
-            if(cleanCommandHistory1 == false) {
-                cleanCommandHistory1 = true;
+            else if(Game.currentPlayer == 4) {
+                if(cleanCommandHistory4) {
+                    Game.player4.undo.cleanCommands();
+                    cleanCommandHistory4 = false;
+                }
+                if(cleanCommandHistory1 == false) {
+                    cleanCommandHistory1 = true;
+                }
+                player4_history = playerHistory(4);
             }
-            player4_history = playerHistory(4);
         }
         labelGameHistory1 = new JLabel(player1_history);
         
