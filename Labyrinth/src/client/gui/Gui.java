@@ -292,7 +292,7 @@ public class Gui extends JFrame {
 //            case 4: Game.player4.turnCommand = true;
 //                    break;
 //        }
-        
+        refresh();
         switchPlayers();
         refresh();
     }
