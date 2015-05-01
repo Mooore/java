@@ -16,7 +16,7 @@ public class Game {
     public static int boardSize, numberOfPlayers, numberOfTreasures;
     
     public static Player player1, player2, player3, player4;
-    public int currentPlayer;
+    public static int currentPlayer;
     
     public static Treasure[] pack;
     public static int[][] treasuresPositions;

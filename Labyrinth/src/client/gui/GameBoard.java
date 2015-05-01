@@ -88,7 +88,21 @@ public class GameBoard {
     private final BoxLayout boxLayoutGameControlsButtonsLeftInner = new BoxLayout(panelGameControlsButtonsLeftInner, BoxLayout.Y_AXIS);
     private final BoxLayout boxLayoutGameControlsButtonsRightInner = new BoxLayout(panelGameControlsButtonsRightInner, BoxLayout.Y_AXIS);
     
+    private String player1_history, player2_history, player3_history, player4_history;
+    private boolean cleanCommandHistory1, cleanCommandHistory2, cleanCommandHistory3, cleanCommandHistory4;
+    
     public GameBoard(){
+        
+        player1_history = "";
+        player2_history = "";
+        player3_history = "";
+        player4_history = "";
+        
+        cleanCommandHistory1 = false;
+        cleanCommandHistory2 = false;
+        cleanCommandHistory3 = false;
+        cleanCommandHistory4 = false;
+        
         buttonGameMenu.setFont(new Font("Calibri", Font.BOLD, 20));
         buttonGameMenu.addActionListener(new ActionListener(){
 
@@ -408,6 +422,66 @@ public class GameBoard {
         panelGameTreasureFreeCard.add(panelGameFreeCard, BorderLayout.EAST);
     }
     
+    private String commandText(String command) {
+        String commandText = "",rc;
+        if(command.matches("^(t|(-t))([0-9]{2})$") == true) {
+            rc = command.replaceAll("(t|(-t))", "");
+            int row = Character.getNumericValue(rc.charAt(0));
+            int col = Character.getNumericValue(rc.charAt(1));
+            commandText = "Turn right card [" + row + " : " + col + "] | ";
+        }
+        else if(command.matches("^(tl|(-tl))([0-9]{2})$") == true) {
+            rc = command.replaceAll("(tl|(-tl))", "");
+            int row = Character.getNumericValue(rc.charAt(0));
+            int col = Character.getNumericValue(rc.charAt(1));
+            commandText = "Turn left card [" + row + " : " + col + "] | ";
+        }
+        else if(command.matches("^(s|(-s))([0-9]{2})$") == true) {
+            rc = command.replaceAll("(s|(-s))", "");
+            int row = Character.getNumericValue(rc.charAt(0));
+            int col = Character.getNumericValue(rc.charAt(1));
+            commandText = "Shift [" + row + " : " + col + "] | ";
+        }
+        else if(command.matches("^(tf|(-tf))$") == true) {
+            commandText = "Turn right free card | ";
+        }
+        else if(command.matches("^(tlf|(-tlf))$") == true) {
+            commandText = "Turn left free card | ";
+        }
+        return commandText;
+    }
+    
+    private String playerHistory(int playerNumber) {
+        String commandHistory = " Player " + playerNumber + ": ";
+        String command;
+        if(playerNumber == 1) {
+            for(int i = 0; i < Game.player1.undo.lastCommand;i++) {
+                command = commandText(Game.player1.undo.commands.get(i));
+                commandHistory += command;
+            }
+        }
+        else if(playerNumber == 2) {
+            for(int i = 0; i < Game.player2.undo.lastCommand;i++) {
+                command = commandText(Game.player2.undo.commands.get(i));
+                commandHistory += command;
+            }
+        }
+        else if(playerNumber == 3) {
+            for(int i = 0; i < Game.player3.undo.lastCommand;i++) {
+                command = commandText(Game.player3.undo.commands.get(i));
+                commandHistory += command;
+            }
+        }
+        else if(playerNumber == 4) {
+            for(int i = 0; i < Game.player4.undo.lastCommand;i++) {
+                command = commandText(Game.player4.undo.commands.get(i));
+                commandHistory += command;
+            }
+        }
+       
+        return commandHistory;
+    }
+    
     public void printHistoryField(){
         panelGameHistoryField = new JPanel();
         
@@ -417,25 +491,65 @@ public class GameBoard {
         panelGameHistoryField.setMaximumSize(new Dimension(340, 200));
         panelGameHistoryField.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        labelGameHistory1 = new JLabel(" Player 1: Turn left [1;8] | Turn right free card | Shift down [10]");
+        if(Game.currentPlayer == 1) {
+            if(cleanCommandHistory1) {
+                Game.player1.undo.cleanCommands();
+                cleanCommandHistory1 = false;
+            }
+            if(cleanCommandHistory2 == false) {
+                cleanCommandHistory2 = true;
+            }
+            player1_history = playerHistory(1);
+        }
+        else if(Game.currentPlayer == 2) {
+            if(cleanCommandHistory2) {
+                Game.player2.undo.cleanCommands();
+                cleanCommandHistory2 = false;
+            }
+            if(cleanCommandHistory3 == false) {
+                cleanCommandHistory3 = true;
+            }
+            player2_history = playerHistory(2);
+        }
+        else if(Game.currentPlayer == 3) {
+            if(cleanCommandHistory3) {
+                Game.player3.undo.cleanCommands();
+                cleanCommandHistory3 = false;
+            }
+            if(cleanCommandHistory4 == false) {
+                cleanCommandHistory4 = true;
+            }
+            player3_history = playerHistory(3);
+        }
+        else if(Game.currentPlayer == 4) {
+            if(cleanCommandHistory4) {
+                Game.player4.undo.cleanCommands();
+                cleanCommandHistory4 = false;
+            }
+            if(cleanCommandHistory1 == false) {
+                cleanCommandHistory1 = true;
+            }
+            player4_history = playerHistory(4);
+        }
+        labelGameHistory1 = new JLabel(player1_history);
         
         labelGameHistory1.setForeground(Color.GREEN);
         labelGameHistory1.setFont(new Font("Calibri", Font.PLAIN, 12));
         labelGameHistory1.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        labelGameHistory2 = new JLabel(" Player 2: Turn left [1;8] | GO [6;6] | Shift down [10]");
+        labelGameHistory2 = new JLabel(player2_history);
         
         labelGameHistory2.setForeground(Color.RED);
         labelGameHistory2.setFont(new Font("Calibri", Font.PLAIN, 12));
         labelGameHistory2.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        labelGameHistory3 = new JLabel(" Player 3: Turn left [1;8] | GO [6;6] | Shift down [10]");
+        labelGameHistory3 = new JLabel(player3_history);
         
         labelGameHistory3.setForeground(Color.CYAN);
         labelGameHistory3.setFont(new Font("Calibri", Font.PLAIN, 12));
         labelGameHistory3.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        labelGameHistory4 = new JLabel(" Player 4: Turn left [1;8] | GO [6;6] | Shift down [10]");
+        labelGameHistory4 = new JLabel(player4_history);
         
         labelGameHistory4.setForeground(Color.YELLOW);
         labelGameHistory4.setFont(new Font("Calibri", Font.PLAIN, 12));
