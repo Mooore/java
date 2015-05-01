@@ -531,13 +531,131 @@ public class GameBoard {
                 else {
                     panel[r][c] = new BgPanel(Game.mazeboard.get(r, c).getCard());
                     panel[r][c].setPreferredSize(new Dimension(40,40));
-                    
-                    for(int i = 1; i <= Treasure.cards; i++){
-                        if ((r == Game.treasuresPositions[0][i]) && (c == Game.treasuresPositions[1][i])) {
-                            panel[r][c].add(printTreasure(Game.pack[i].picture));
-                            break;
+                   
+                    if(Game.numberOfPlayers == 4) {
+                        if((r == Game.player1.positionR) && (c == Game.player1.positionC)){
+                            if((r == Game.player2.positionR) && (c == Game.player2.positionC)){
+                                if((r == Game.player3.positionR) && (c == Game.player3.positionC)){
+                                    if((r == Game.player4.positionR) && (c == Game.player4.positionC)){
+                                        panel[r][c].add(printPlayer(1234));
+                                    }
+                                    else {
+                                        panel[r][c].add(printPlayer(123));
+                                    }
+                                }
+                                if((r == Game.player4.positionR) && (c == Game.player4.positionC)){
+                                    panel[r][c].add(printPlayer(124));
+                                }
+                                else {
+                                    panel[r][c].add(printPlayer(12));
+                                }
+                            }
+                            else if((r == Game.player3.positionR) && (c == Game.player3.positionC)){
+                                if((r == Game.player4.positionR) && (c == Game.player4.positionC)){
+                                    panel[r][c].add(printPlayer(134));
+                                }
+                                else {
+                                    panel[r][c].add(printPlayer(13));
+                                }
+                            }
+                            else if((r == Game.player4.positionR) && (c == Game.player4.positionC)){
+                                panel[r][c].add(printPlayer(14));
+                            }
+                            else {
+                                panel[r][c].add(printPlayer(1));
+                            }
+                        }
+                        else if((r == Game.player2.positionR) && (c == Game.player2.positionC)){
+                            if((r == Game.player3.positionR) && (c == Game.player3.positionC)){
+                                if((r == Game.player4.positionR) && (c == Game.player4.positionC)){
+                                    panel[r][c].add(printPlayer(234));
+                                }
+                                else {
+                                    panel[r][c].add(printPlayer(23));
+                                }
+                            }
+                            else if((r == Game.player4.positionR) && (c == Game.player4.positionC)){
+                                panel[r][c].add(printPlayer(24));
+                            }
+                            else {
+                                panel[r][c].add(printPlayer(2));
+                            }
+                        }
+                        else if((r == Game.player3.positionR) && (c == Game.player3.positionC)){
+                            panel[r][c].add(printPlayer(3));
+                        }
+                        else if((r == Game.player4.positionR) && (c == Game.player4.positionC)){
+                            panel[r][c].add(printPlayer(4));
+                        }
+                        else {
+                            for(int i = 1; i <= Treasure.cards; i++){
+                                if ((r == Game.treasuresPositions[0][i]) && (c == Game.treasuresPositions[1][i])) {
+                                    panel[r][c].add(printTreasure(Game.pack[i].picture));
+                                    break;
+                                }
+                            }
                         }
                     }
+                    if(Game.numberOfPlayers == 3) {
+                        if((r == Game.player1.positionR) && (c == Game.player1.positionC)){
+                            if((r == Game.player2.positionR) && (c == Game.player2.positionC)){
+                                if((r == Game.player3.positionR) && (c == Game.player3.positionC)){
+                                    panel[r][c].add(printPlayer(123));
+                                }
+                                else {
+                                    panel[r][c].add(printPlayer(12));
+                                }
+                            }
+                            else if((r == Game.player3.positionR) && (c == Game.player3.positionC)){
+                                panel[r][c].add(printPlayer(13));
+                            }
+                            else {
+                                panel[r][c].add(printPlayer(1));
+                            }
+                        }
+                        else if((r == Game.player2.positionR) && (c == Game.player2.positionC)){
+                            if((r == Game.player3.positionR) && (c == Game.player3.positionC)){
+                                panel[r][c].add(printPlayer(23));
+                            }
+                            else {
+                                panel[r][c].add(printPlayer(2));
+                            }
+                        }
+                        else if((r == Game.player3.positionR) && (c == Game.player3.positionC)){
+                            panel[r][c].add(printPlayer(3));
+                        }
+                        else {
+                            for(int i = 1; i <= Treasure.cards; i++){
+                                if ((r == Game.treasuresPositions[0][i]) && (c == Game.treasuresPositions[1][i])) {
+                                    panel[r][c].add(printTreasure(Game.pack[i].picture));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        if((r == Game.player1.positionR) && (c == Game.player1.positionC)){
+                            if((r == Game.player2.positionR) && (c == Game.player2.positionC)){
+                                panel[r][c].add(printPlayer(12));
+                            }
+                            else {
+                                panel[r][c].add(printPlayer(1));
+                            }
+                        }
+                        else if((r == Game.player2.positionR) && (c == Game.player2.positionC)){
+                            panel[r][c].add(printPlayer(2));
+                            
+                        }
+                        else {
+                            for(int i = 1; i <= Treasure.cards; i++){
+                                if ((r == Game.treasuresPositions[0][i]) && (c == Game.treasuresPositions[1][i])) {
+                                    panel[r][c].add(printTreasure(Game.pack[i].picture));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    
                     panel[r][c].setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
                     panelBoard.add(panel[r][c]);
                 }
@@ -639,6 +757,48 @@ public class GameBoard {
                 case 29:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure29.png"))));
                             break;
                 case 30:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/treasures/treasure30.png"))));
+                            break;
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return label;
+    }
+    
+    private static JLabel printPlayer(int player) {
+        JLabel label = new JLabel();
+        try {
+            switch(player){
+                case 1: label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/players/player_1.png"))));
+                        break;
+                case 2: label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/players/player_2.png"))));
+                        break;
+                case 3: label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/players/player_3.png"))));
+                        break;
+                case 4: label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/players/player_4.png"))));
+                        break;
+                case 12: label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/players/player_12.png"))));
+                        break;
+                case 13: label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/players/player_13.png"))));
+                        break;
+                case 14: label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/players/player_14.png"))));
+                        break;
+                case 23: label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/players/player_23.png"))));
+                        break;
+                case 24: label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/players/player_24.png"))));
+                        break;
+                case 34:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/players/player_34.png"))));
+                            break;
+                case 123:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/players/player_123.png"))));
+                            break;
+                case 124:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/players/player_124.png"))));
+                            break;
+                case 134:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/players/player_134.png"))));
+                            break;
+                case 234:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/players/player_234.png"))));
+                            break;
+                case 1234:    label.setIcon(new ImageIcon(ImageIO.read(new File(path + "/lib/players/player_1234.png"))));
                             break;
             }
         }
