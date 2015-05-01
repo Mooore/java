@@ -250,6 +250,7 @@ public class Gui extends JFrame {
                 
             case "Go":  if(isAvailable("go")){ 
                             storeGoCommand(); 
+                        //    gameboard.textFieldGameGoX.getText();
                         }
                         break;
         }
