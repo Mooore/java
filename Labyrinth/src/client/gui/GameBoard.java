@@ -48,6 +48,10 @@ public class GameBoard {
     private JLabel labelGameHistory2 = new JLabel("");
     private JLabel labelGameHistory3 = new JLabel("");
     private JLabel labelGameHistory4 = new JLabel("");
+    private JLabel labelGameHistoryPlayer1 = new JLabel("");
+    private JLabel labelGameHistoryPlayer2 = new JLabel("");
+    private JLabel labelGameHistoryPlayer3 = new JLabel("");
+    private JLabel labelGameHistoryPlayer4 = new JLabel("");
     
     public JTextField textFieldGameTurnRightCardX = new JTextField("1");
     public JTextField textFieldGameTurnRightCardY = new JTextField("1");
@@ -89,6 +93,7 @@ public class GameBoard {
     private final BoxLayout boxLayoutGameControlsButtonsRightInner = new BoxLayout(panelGameControlsButtonsRightInner, BoxLayout.Y_AXIS);
     
     private String player1_history, player2_history, player3_history, player4_history;
+    private String player1Text, player2Text, player3Text ,player4Text;
     private boolean cleanCommandHistory1, cleanCommandHistory2, cleanCommandHistory3, cleanCommandHistory4;
     
     public GameBoard(){
@@ -97,6 +102,11 @@ public class GameBoard {
         player2_history = "";
         player3_history = "";
         player4_history = "";
+        
+        player1Text = "";
+        player2Text = "";
+        player3Text = "";
+        player4Text = "";
         
         cleanCommandHistory1 = false;
         cleanCommandHistory2 = false;
@@ -428,25 +438,25 @@ public class GameBoard {
             rc = command.replaceAll("(t|(-t))", "");
             int row = Character.getNumericValue(rc.charAt(0));
             int col = Character.getNumericValue(rc.charAt(1));
-            commandText = "Turn right card [" + row + " : " + col + "] | ";
+            commandText = " Turn right card [" + row + " : " + col + "] |";
         }
         else if(command.matches("^(tl|(-tl))([0-9]{2})$") == true) {
             rc = command.replaceAll("(tl|(-tl))", "");
             int row = Character.getNumericValue(rc.charAt(0));
             int col = Character.getNumericValue(rc.charAt(1));
-            commandText = "Turn left card [" + row + " : " + col + "] | ";
+            commandText = " Turn left card [" + row + " : " + col + "] |";
         }
         else if(command.matches("^(s|(-s))([0-9]{2})$") == true) {
             rc = command.replaceAll("(s|(-s))", "");
             int row = Character.getNumericValue(rc.charAt(0));
             int col = Character.getNumericValue(rc.charAt(1));
-            commandText = "Shift [" + row + " : " + col + "] | ";
+            commandText = " Shift [" + row + " : " + col + "] |";
         }
         else if(command.matches("^(tf|(-tf))$") == true) {
-            commandText = "Turn right free card | ";
+            commandText = " Turn right free card |";
         }
         else if(command.matches("^(tlf|(-tlf))$") == true) {
-            commandText = "Turn left free card | ";
+            commandText = " Turn left free card |";
         }
         else if (command.matches("^(go|(-go))([0-9]{4})$") == true) {
             rc = command.replaceAll("(go|(-go))", "");
@@ -455,13 +465,14 @@ public class GameBoard {
             int FromX = Character.getNumericValue(rc.charAt(2));
             int FromY = Character.getNumericValue(rc.charAt(3));
             
-            commandText = "Go from [" + FromX + " : " + FromY + "] to [" + goX + " : " + goY + "] | ";
+            commandText = " Go from [" + FromX + " : " + FromY + "] to [" + goX + " : " + goY + "] |";
         }
         return commandText;
     }
     
     private String playerHistory(int playerNumber) {
-        String commandHistory = " Player " + playerNumber + ": ";
+       // String commandHistory = " Player " + playerNumber + ": ";
+        String commandHistory = "";
         String command;
         
         if(playerNumber == 1) {
@@ -510,6 +521,7 @@ public class GameBoard {
                 if(cleanCommandHistory2 == false) {
                     cleanCommandHistory2 = true;
                 }
+                player1Text = " Player 1:";
                 player1_history = playerHistory(1);
             }
             else if(Game.currentPlayer == 2) {
@@ -520,6 +532,7 @@ public class GameBoard {
                 if(cleanCommandHistory1 == false) {
                     cleanCommandHistory1 = true;
                 }
+                player2Text = " Player 2:";
                 player2_history = playerHistory(2);
             }
         }
@@ -532,6 +545,7 @@ public class GameBoard {
                 if(cleanCommandHistory2 == false) {
                     cleanCommandHistory2 = true;
                 }
+                player1Text = " Player 1:";
                 player1_history = playerHistory(1);
             }
             else if(Game.currentPlayer == 2) {
@@ -542,6 +556,7 @@ public class GameBoard {
                 if(cleanCommandHistory3 == false) {
                     cleanCommandHistory3 = true;
                 }
+                player2Text = " Player 2:";
                 player2_history = playerHistory(2);
             }
             else if(Game.currentPlayer == 3) {
@@ -552,6 +567,7 @@ public class GameBoard {
                 if(cleanCommandHistory1 == false) {
                     cleanCommandHistory1 = true;
                 }
+                player3Text = " Player 3:";
                 player3_history = playerHistory(3);
             }
         }
@@ -564,6 +580,7 @@ public class GameBoard {
                 if(cleanCommandHistory2 == false) {
                     cleanCommandHistory2 = true;
                 }
+                player1Text = " Player 1:";
                 player1_history = playerHistory(1);
             }
             else if(Game.currentPlayer == 2) {
@@ -574,6 +591,7 @@ public class GameBoard {
                 if(cleanCommandHistory3 == false) {
                     cleanCommandHistory3 = true;
                 }
+                player2Text = " Player 2:";
                 player2_history = playerHistory(2);
             }
             else if(Game.currentPlayer == 3) {
@@ -584,6 +602,7 @@ public class GameBoard {
                 if(cleanCommandHistory4 == false) {
                     cleanCommandHistory4 = true;
                 }
+                player3Text = " Player 3:";
                 player3_history = playerHistory(3);
             }
             else if(Game.currentPlayer == 4) {
@@ -594,14 +613,27 @@ public class GameBoard {
                 if(cleanCommandHistory1 == false) {
                     cleanCommandHistory1 = true;
                 }
+                player4Text = " Player 4:";
                 player4_history = playerHistory(4);
             }
         }
+        labelGameHistoryPlayer1 = new JLabel(player1Text);
+        
+        labelGameHistoryPlayer1.setForeground(Color.GREEN);
+        labelGameHistoryPlayer1.setFont(new Font("Calibri", Font.PLAIN, 12));
+        labelGameHistoryPlayer1.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
         labelGameHistory1 = new JLabel(player1_history);
         
         labelGameHistory1.setForeground(Color.GREEN);
         labelGameHistory1.setFont(new Font("Calibri", Font.PLAIN, 12));
         labelGameHistory1.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        labelGameHistoryPlayer2 = new JLabel(player2Text);
+        
+        labelGameHistoryPlayer2.setForeground(Color.RED);
+        labelGameHistoryPlayer2.setFont(new Font("Calibri", Font.PLAIN, 12));
+        labelGameHistoryPlayer2.setAlignmentX(Component.LEFT_ALIGNMENT);
         
         labelGameHistory2 = new JLabel(player2_history);
         
@@ -609,11 +641,23 @@ public class GameBoard {
         labelGameHistory2.setFont(new Font("Calibri", Font.PLAIN, 12));
         labelGameHistory2.setAlignmentX(Component.LEFT_ALIGNMENT);
         
+        labelGameHistoryPlayer3 = new JLabel(player3Text);
+        
+        labelGameHistoryPlayer3.setForeground(Color.CYAN);
+        labelGameHistoryPlayer3.setFont(new Font("Calibri", Font.PLAIN, 12));
+        labelGameHistoryPlayer3.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
         labelGameHistory3 = new JLabel(player3_history);
         
         labelGameHistory3.setForeground(Color.CYAN);
         labelGameHistory3.setFont(new Font("Calibri", Font.PLAIN, 12));
         labelGameHistory3.setAlignmentX(Component.LEFT_ALIGNMENT);
+        
+        labelGameHistoryPlayer4 = new JLabel(player4Text);
+        
+        labelGameHistoryPlayer4.setForeground(Color.YELLOW);
+        labelGameHistoryPlayer4.setFont(new Font("Calibri", Font.PLAIN, 12));
+        labelGameHistoryPlayer4.setAlignmentX(Component.LEFT_ALIGNMENT);
         
         labelGameHistory4 = new JLabel(player4_history);
         
@@ -621,13 +665,17 @@ public class GameBoard {
         labelGameHistory4.setFont(new Font("Calibri", Font.PLAIN, 12));
         labelGameHistory4.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        panelGameHistoryField.add(Box.createRigidArea(new Dimension(0,25)));
+        panelGameHistoryField.add(Box.createRigidArea(new Dimension(0,5)));
+        panelGameHistoryField.add(labelGameHistoryPlayer1);
         panelGameHistoryField.add(labelGameHistory1);
-        panelGameHistoryField.add(Box.createRigidArea(new Dimension(0,10)));
+        panelGameHistoryField.add(Box.createRigidArea(new Dimension(0,2)));
+        panelGameHistoryField.add(labelGameHistoryPlayer2);
         panelGameHistoryField.add(labelGameHistory2);
-        panelGameHistoryField.add(Box.createRigidArea(new Dimension(0,10)));
+        panelGameHistoryField.add(Box.createRigidArea(new Dimension(0,2)));
+        panelGameHistoryField.add(labelGameHistoryPlayer3);
         panelGameHistoryField.add(labelGameHistory3);
-        panelGameHistoryField.add(Box.createRigidArea(new Dimension(0,10)));
+        panelGameHistoryField.add(Box.createRigidArea(new Dimension(0,2)));
+        panelGameHistoryField.add(labelGameHistoryPlayer4);
         panelGameHistoryField.add(labelGameHistory4);
         
         BoxLayout boxLayoutGameHistoryField = new BoxLayout(panelGameHistoryField, BoxLayout.Y_AXIS);
