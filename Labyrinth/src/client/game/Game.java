@@ -5,7 +5,6 @@ package client.game;
 
 import client.board.*;
 import client.gui.Player;
-import client.undo.undo;
 import client.treasure.*;
 import java.util.Random;
 
@@ -29,7 +28,7 @@ public class Game {
      * Field object is required by MazeBoard.shift(MazeField field).
      */
     private static MazeField field = null;
-    public static undo undo;
+    //public static undo undo;
     
     public Game(int size, int players, int treasures){
         boardSize = size;
@@ -75,7 +74,7 @@ public class Game {
     }
     
     public void startNewGame(){
-        undo = new undo();
+       // undo = new undo();
         setPlayers();
         mazeboard.newGame();
     }
@@ -89,34 +88,102 @@ public class Game {
            ((field.col() == 1) && ((field.row() > 0) && (field.row() < boardSize)) && (field.row() % 2 == 0)) ||
            ((field.col() == boardSize) && ((field.row() > 0) && (field.row() < boardSize)) && (field.row() % 2 == 0))) {
             
-            undo.storeCommand("s" + r + c);
+            if (currentPlayer == 1) {
+                player1.undo.storeCommand("s" + r + c);
+            }
+            else if (currentPlayer == 2) {
+                player2.undo.storeCommand("s" + r + c);
+            }
+            else if (currentPlayer == 3) {
+                player3.undo.storeCommand("s" + r + c);
+            }
+            else if (currentPlayer == 4) {
+                player4.undo.storeCommand("s" + r + c);
+            }
         }  
     }
     
     public void turnRight(int r, int c){
-        undo.storeCommand("t" + r + c);
+        if (currentPlayer == 1) {
+            player1.undo.storeCommand("t" + r + c);
+        }
+        else if (currentPlayer == 2) {
+            player2.undo.storeCommand("t" + r + c);
+        }
+        else if (currentPlayer == 3) {
+            player3.undo.storeCommand("t" + r + c);
+        }
+        else if (currentPlayer == 4) {
+            player4.undo.storeCommand("t" + r + c);
+        }
+        
         mazeboard.get(r, c).getCard().turnRight();
     }
     
     public void turnLeft(int r, int c){
-        undo.storeCommand("tl" + r + c);
+        if (currentPlayer == 1) {
+            player1.undo.storeCommand("tl" + r + c);
+        }
+        else if (currentPlayer == 2) {
+            player2.undo.storeCommand("tl" + r + c);
+        }
+        else if (currentPlayer == 3) {
+            player3.undo.storeCommand("tl" + r + c);
+        }
+        else if (currentPlayer == 4) {
+            player4.undo.storeCommand("tl" + r + c);
+        }
         mazeboard.get(r, c).getCard().turnLeft();
     }
     
     public void turnRightFreeCard(){
-        undo.storeCommand("tf");
+        if (currentPlayer == 1) {
+            player1.undo.storeCommand("tf");
+        }
+        else if (currentPlayer == 2) {
+            player2.undo.storeCommand("tf");
+        }
+        else if (currentPlayer == 3) {
+            player3.undo.storeCommand("tf");
+        }
+        else if (currentPlayer == 4) {
+            player4.undo.storeCommand("tf");
+        }
         mazeboard.getFreeCard().turnRight();
     }
     
     public void turnLeftFreeCard(){
-        undo.storeCommand("tlf");
+        if (currentPlayer == 1) {
+            player1.undo.storeCommand("tlf");
+        }
+        else if (currentPlayer == 2) {
+            player2.undo.storeCommand("tlf");
+        }
+        else if (currentPlayer == 3) {
+            player3.undo.storeCommand("tlf");
+        }
+        else if (currentPlayer == 4) {
+            player4.undo.storeCommand("tlf");
+        }
         mazeboard.getFreeCard().turnLeft();
     }
     
     public String undoCommand(boolean tuiflag){
-        String undoCommand,rc;
+        String undoCommand = "",rc;
         
-        undoCommand = undo.invertCommand(undo.readLastCommand());
+        if (currentPlayer == 1) {
+            undoCommand = player1.undo.invertCommand(player1.undo.readLastCommand());
+        }
+        else if (currentPlayer == 2) {
+            undoCommand = player2.undo.invertCommand(player2.undo.readLastCommand());
+        }
+        else if (currentPlayer == 3) {
+            undoCommand = player3.undo.invertCommand(player3.undo.readLastCommand());
+        }
+        else if (currentPlayer == 4) {
+            undoCommand = player4.undo.invertCommand(player4.undo.readLastCommand());
+        }
+        
         if(undoCommand.matches("^(tl|(-tl))([0-9]{2})$") == true) {
             rc = undoCommand.replaceAll("(tl|(-tl))", "");
             int row = Character.getNumericValue(rc.charAt(0));
@@ -143,15 +210,34 @@ public class Game {
             mazeboard.getFreeCard().turnLeft();
         }
         
-        String lastcommand = undo.readLastCommand();
-        undo.commands.remove(undo.lastCommand - 1);
-        undo.lastCommand--;
+        String lastcommand = "";
+        if (currentPlayer == 1) {
+            lastcommand = player1.undo.readLastCommand();
+            player1.undo.commands.remove(player1.undo.lastCommand - 1);
+            player1.undo.lastCommand--;
+        }
+        else if (currentPlayer == 2) {
+            lastcommand = player2.undo.readLastCommand();
+            player2.undo.commands.remove(player2.undo.lastCommand - 1);
+            player2.undo.lastCommand--;
+        }
+        else if (currentPlayer == 3) {
+            lastcommand = player3.undo.readLastCommand();
+            player3.undo.commands.remove(player3.undo.lastCommand - 1);
+            player3.undo.lastCommand--;
+        }
+        else if (currentPlayer == 4) {
+            lastcommand = player4.undo.readLastCommand();
+            player4.undo.commands.remove(player4.undo.lastCommand - 1);
+            player4.undo.lastCommand--;
+        }
         
         if(tuiflag){
             return lastcommand;
         }
         
-        return null;
+        //return null;
+        return lastcommand;
     }
     
     public static void createSet(int cards){

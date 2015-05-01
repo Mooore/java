@@ -233,12 +233,12 @@ public class Tui {
     }   
     
     public static void undoLastCommand() {
-        if(Game.undo.lastCommand > 0) {
+       /* if(Game.undo.lastCommand > 0) {
             String lastCommand = game.undoCommand(true);         // boolean tuiflag
             System.out.println("Command " + lastCommand + " undone.");
         }
         else {
             System.out.println("Nothing to undo.");
-        }
+        }*/
     }
 }

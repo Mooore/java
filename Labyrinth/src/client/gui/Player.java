@@ -4,6 +4,7 @@
 package client.gui;
 
 import client.treasure.Treasure;
+import client.undo.undo;
 import java.awt.Color;
 
 /**
@@ -13,7 +14,7 @@ import java.awt.Color;
 public class Player {
     private int playerNumber;
     private Color playerColor;
-    
+    public undo undo;
     public int positionR;
     public int positionC;
     
@@ -28,6 +29,7 @@ public class Player {
         setPlayerNumber(playerNumber);
         setPlayerColor();
         obtainedTreasures = 0;
+        undo = new undo();
     }
     
     public int getPlayerNumber() {

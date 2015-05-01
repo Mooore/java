@@ -417,25 +417,25 @@ public class GameBoard {
         panelGameHistoryField.setMaximumSize(new Dimension(340, 200));
         panelGameHistoryField.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        labelGameHistory1 = new JLabel("Player 1: Turn left [1;8] | Turn right free card | Shift down [10]");
+        labelGameHistory1 = new JLabel(" Player 1: Turn left [1;8] | Turn right free card | Shift down [10]");
         
         labelGameHistory1.setForeground(Color.GREEN);
         labelGameHistory1.setFont(new Font("Calibri", Font.PLAIN, 12));
         labelGameHistory1.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        labelGameHistory2 = new JLabel("Player 2: Turn left [1;8] | GO [6;6] | Shift down [10]");
+        labelGameHistory2 = new JLabel(" Player 2: Turn left [1;8] | GO [6;6] | Shift down [10]");
         
         labelGameHistory2.setForeground(Color.RED);
         labelGameHistory2.setFont(new Font("Calibri", Font.PLAIN, 12));
         labelGameHistory2.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        labelGameHistory3 = new JLabel("Player 3: Turn left [1;8] | GO [6;6] | Shift down [10]");
+        labelGameHistory3 = new JLabel(" Player 3: Turn left [1;8] | GO [6;6] | Shift down [10]");
         
         labelGameHistory3.setForeground(Color.CYAN);
         labelGameHistory3.setFont(new Font("Calibri", Font.PLAIN, 12));
         labelGameHistory3.setAlignmentX(Component.LEFT_ALIGNMENT);
         
-        labelGameHistory4 = new JLabel("Player 4: Turn left [1;8] | GO [6;6] | Shift down [10]");
+        labelGameHistory4 = new JLabel(" Player 4: Turn left [1;8] | GO [6;6] | Shift down [10]");
         
         labelGameHistory4.setForeground(Color.YELLOW);
         labelGameHistory4.setFont(new Font("Calibri", Font.PLAIN, 12));
