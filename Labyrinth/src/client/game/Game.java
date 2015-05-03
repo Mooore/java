@@ -105,16 +105,16 @@ public class Game {
     
     public void turnRight(int r, int c){
         if (currentPlayer == 1) {
-            player1.undo.storeCommand("t" + r + c);
+            player1.undo.storeCommand("t" + r + ":" + c);
         }
         else if (currentPlayer == 2) {
-            player2.undo.storeCommand("t" + r + c);
+            player2.undo.storeCommand("t" + r + ":" + c);
         }
         else if (currentPlayer == 3) {
-            player3.undo.storeCommand("t" + r + c);
+            player3.undo.storeCommand("t" + r + ":" + c);
         }
         else if (currentPlayer == 4) {
-            player4.undo.storeCommand("t" + r + c);
+            player4.undo.storeCommand("t" + r + ":" + c);
         }
         
         mazeboard.get(r, c).getCard().turnRight();
@@ -122,16 +122,16 @@ public class Game {
     
     public void turnLeft(int r, int c){
         if (currentPlayer == 1) {
-            player1.undo.storeCommand("tl" + r + c);
+            player1.undo.storeCommand("tl" + r + ":" + c);
         }
         else if (currentPlayer == 2) {
-            player2.undo.storeCommand("tl" + r + c);
+            player2.undo.storeCommand("tl" + r + ":" + c);
         }
         else if (currentPlayer == 3) {
-            player3.undo.storeCommand("tl" + r + c);
+            player3.undo.storeCommand("tl" + r + ":" + c);
         }
         else if (currentPlayer == 4) {
-            player4.undo.storeCommand("tl" + r + c);
+            player4.undo.storeCommand("tl" + r + ":" + c);
         }
         mazeboard.get(r, c).getCard().turnLeft();
     }
@@ -170,16 +170,16 @@ public class Game {
     
     public void go(String goX, String goY, int FromX, int FromY) {
         if (currentPlayer == 1) {
-            player1.undo.storeCommand("go" + goX + goY + FromX + FromY);
+            player1.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
         }
         else if (currentPlayer == 2) {
-            player2.undo.storeCommand("go" + goX + goY + FromX + FromY);
+            player2.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
         }
         else if (currentPlayer == 3) {
-            player3.undo.storeCommand("go" + goX + goY + FromX + FromY);
+            player3.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
         }
         else if (currentPlayer == 4) {
-            player4.undo.storeCommand("go" + goX + goY + FromX + FromY);
+            player4.undo.storeCommand("go" + goX + ":" + goY + "-"+ FromX + ":" + FromY);
         }
     }
     public String undoCommand(boolean tuiflag){

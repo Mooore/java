@@ -299,7 +299,7 @@ public class Gui extends JFrame {
     
     public boolean isAvailable(String command){
         switch(command){
-            case "turn":    switch(game.currentPlayer){
+            case "turn":    switch(Game.currentPlayer){
                                 case 1: if(Game.player1.turnCommand == false){
                                             return true;
                                         }
@@ -318,7 +318,7 @@ public class Gui extends JFrame {
                                         return false;
                             }
                             break;
-            case "shift":   switch(game.currentPlayer){
+            case "shift":   switch(Game.currentPlayer){
                                 case 1: if(Game.player1.shiftCommand == false){
                                             return true;
                                         }
@@ -337,7 +337,7 @@ public class Gui extends JFrame {
                                         return false;
                             }
                             break;
-            case "go":  switch(game.currentPlayer){
+            case "go":  switch(Game.currentPlayer){
                             case 1: if(Game.player1.goCommand == false){
                                         return true;
                                     }
@@ -362,7 +362,7 @@ public class Gui extends JFrame {
     }
     
     public void storeTurnCommand(){
-        switch(game.currentPlayer){
+        switch(Game.currentPlayer){
             case 1: Game.player1.turnCommand = true;
                     break;
                 
@@ -378,7 +378,7 @@ public class Gui extends JFrame {
     }
     
     public void storeShiftCommand(){
-        switch(game.currentPlayer){
+        switch(Game.currentPlayer){
             case 1: Game.player1.shiftCommand = true;
                     break;
                 
@@ -394,7 +394,7 @@ public class Gui extends JFrame {
     }
     
     public void storeGoCommand(){
-        switch(game.currentPlayer){
+        switch(Game.currentPlayer){
             case 1: Game.player1.goCommand = true;
                     break;
                 
@@ -411,9 +411,9 @@ public class Gui extends JFrame {
     
     public void switchPlayers(){
         switch(Game.numberOfPlayers){
-            case 2: switch(game.currentPlayer){
+            case 2: switch(Game.currentPlayer){
                         case 1: if ((Game.player1.turnCommand) && (Game.player1.shiftCommand) && (Game.player1.goCommand)){
-                                    game.currentPlayer = 2;
+                                    Game.currentPlayer = 2;
                                     Game.player1.turnCommand = false;
                                     Game.player1.shiftCommand = false;
                                     Game.player1.goCommand = false;
@@ -421,7 +421,7 @@ public class Gui extends JFrame {
                                 break;
                         
                         case 2: if ((Game.player2.turnCommand) && (Game.player2.shiftCommand) && (Game.player2.goCommand)){
-                                    game.currentPlayer = 1;
+                                    Game.currentPlayer = 1;
                                     Game.player2.turnCommand = false;
                                     Game.player2.shiftCommand = false;
                                     Game.player2.goCommand = false;
@@ -430,9 +430,9 @@ public class Gui extends JFrame {
                     }
                     break;
                 
-            case 3: switch(game.currentPlayer){
+            case 3: switch(Game.currentPlayer){
                         case 1: if ((Game.player1.turnCommand) && (Game.player1.shiftCommand) && (Game.player1.goCommand)){
-                                    game.currentPlayer = 2;
+                                    Game.currentPlayer = 2;
                                     Game.player1.turnCommand = false;
                                     Game.player1.shiftCommand = false;
                                     Game.player1.goCommand = false;
@@ -440,7 +440,7 @@ public class Gui extends JFrame {
                                 break;
                         
                         case 2: if ((Game.player2.turnCommand) && (Game.player2.shiftCommand) && (Game.player2.goCommand)){
-                                    game.currentPlayer = 3;
+                                    Game.currentPlayer = 3;
                                     Game.player2.turnCommand = false;
                                     Game.player2.shiftCommand = false;
                                     Game.player2.goCommand = false;
@@ -448,7 +448,7 @@ public class Gui extends JFrame {
                                 break;
                             
                         case 3: if ((Game.player3.turnCommand) && (Game.player3.shiftCommand) && (Game.player3.goCommand)){
-                                    game.currentPlayer = 1;
+                                    Game.currentPlayer = 1;
                                     Game.player3.turnCommand = false;
                                     Game.player3.shiftCommand = false;
                                     Game.player3.goCommand = false;
@@ -457,9 +457,9 @@ public class Gui extends JFrame {
                     }
                     break;
             
-            case 4: switch(game.currentPlayer){
+            case 4: switch(Game.currentPlayer){
                         case 1: if ((Game.player1.turnCommand) && (Game.player1.shiftCommand) && (Game.player1.goCommand)){
-                                    game.currentPlayer = 2;
+                                    Game.currentPlayer = 2;
                                     Game.player1.turnCommand = false;
                                     Game.player1.shiftCommand = false;
                                     Game.player1.goCommand = false;
@@ -467,7 +467,7 @@ public class Gui extends JFrame {
                                 break;
                         
                         case 2: if ((Game.player2.turnCommand) && (Game.player2.shiftCommand) && (Game.player2.goCommand)){
-                                    game.currentPlayer = 3;
+                                    Game.currentPlayer = 3;
                                     Game.player2.turnCommand = false;
                                     Game.player2.shiftCommand = false;
                                     Game.player2.goCommand = false;
@@ -475,7 +475,7 @@ public class Gui extends JFrame {
                                 break;
                             
                         case 3: if ((Game.player3.turnCommand) && (Game.player3.shiftCommand) && (Game.player3.goCommand)){
-                                    game.currentPlayer = 4;
+                                    Game.currentPlayer = 4;
                                     Game.player3.turnCommand = false;
                                     Game.player3.shiftCommand = false;
                                     Game.player3.goCommand = false;
@@ -483,7 +483,7 @@ public class Gui extends JFrame {
                                 break;
                         
                         case 4: if ((Game.player4.turnCommand) && (Game.player4.shiftCommand) && (Game.player4.goCommand)){
-                                    game.currentPlayer = 1;
+                                    Game.currentPlayer = 1;
                                     Game.player4.turnCommand = false;
                                     Game.player4.shiftCommand = false;
                                     Game.player4.goCommand = false;
@@ -496,8 +496,8 @@ public class Gui extends JFrame {
     
     public void refresh(){
         //gameboard.panelGame = gameboard.panelGameBoard = gameboard.panelGameHeader = null;
-        gameboard.printHeader(game.currentPlayer);
-        switch(game.currentPlayer){
+        gameboard.printHeader(Game.currentPlayer);
+        switch(Game.currentPlayer){
             case 1: gameboard.printObtainedTreasures(Game.player1);
                     break;
             case 2: gameboard.printObtainedTreasures(Game.player2);
