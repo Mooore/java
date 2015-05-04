@@ -182,20 +182,37 @@ public class Game {
             player4.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
         }
     }
+    
+    public void undo() {
+        undoCommand(false);
+ 
+    }
     public String undoCommand(boolean tuiflag){
         String undoCommand = "",rc;
-        
+        System.out.println(undoCommand);
         if (currentPlayer == 1) {
-            undoCommand = player1.undo.invertCommand(player1.undo.readLastCommand());
+            if(player1.undoRight) {
+                undoCommand = player1.undo.invertCommand(player1.undo.readLastCommand());
+                player1.undoRight = false;
+            }
         }
         else if (currentPlayer == 2) {
-            undoCommand = player2.undo.invertCommand(player2.undo.readLastCommand());
+            if(player2.undoRight) {
+                undoCommand = player2.undo.invertCommand(player2.undo.readLastCommand());
+                player2.undoRight = false;
+            }
         }
         else if (currentPlayer == 3) {
-            undoCommand = player3.undo.invertCommand(player3.undo.readLastCommand());
+            if(player3.undoRight) {
+                undoCommand = player3.undo.invertCommand(player3.undo.readLastCommand());
+                player3.undoRight = false;
+            }
         }
         else if (currentPlayer == 4) {
-            undoCommand = player4.undo.invertCommand(player4.undo.readLastCommand());
+            if(player1.undoRight) {
+                undoCommand = player4.undo.invertCommand(player4.undo.readLastCommand());
+                player4.undoRight = false;
+            }
         }
         
         if(undoCommand.matches("^(tl|(-tl))(([0-9])([0-9])?([:])([0-9])([0-9])?)$") == true) {

@@ -248,6 +248,9 @@ public class Gui extends JFrame {
                                 } 
                                 break;
                 
+            case "Undo":        game.undo();
+                                break;
+                
             case "Go":  if(isAvailable("go")){ 
                             int goX = 0, goY = 0;
                             int FromX = 0, FromY = 0;

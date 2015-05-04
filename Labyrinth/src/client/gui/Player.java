@@ -24,6 +24,7 @@ public class Player {
     public boolean turnCommand = false;
     public boolean shiftCommand = false;
     public boolean goCommand = false;
+    public boolean undoRight = true;
     
     public Player(int playerNumber) {
         setPlayerNumber(playerNumber);

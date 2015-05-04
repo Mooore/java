@@ -127,7 +127,14 @@ public class GameBoard {
         buttonGameSave.setFont(new Font("Calibri", Font.BOLD, 20));
                 
         buttonGameUndo.setFont(new Font("Calibri", Font.BOLD, 20));
-                
+        buttonGameUndo.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gui.mainPlayingCycle("Undo");
+            }
+        });
+        
         labelGamePlaying.setFont(new Font("Calibri", Font.BOLD, 20));
         labelGamePlaying.setForeground(Color.WHITE);
         
