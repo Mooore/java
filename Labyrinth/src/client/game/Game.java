@@ -6,6 +6,8 @@ package client.game;
 import client.board.*;
 import client.gui.Player;
 import client.treasure.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -20,6 +22,7 @@ public class Game {
     
     public static Treasure[] pack;
     public static int[][] treasuresPositions;
+    public static int lastAssignedCard;
     
     // Main GAME object representing game board.
     public static MazeBoard mazeboard;
@@ -34,6 +37,7 @@ public class Game {
         boardSize = size;
         numberOfPlayers = players;
         numberOfTreasures = treasures;
+        lastAssignedCard = numberOfTreasures;
         mazeboard = new MazeBoard();
         mazeboard = MazeBoard.createMazeBoard(boardSize);
         createSet(numberOfTreasures);
@@ -49,6 +53,11 @@ public class Game {
             
             player1.setPosition(1, 1);
             player2.setPosition(boardSize, boardSize);
+            
+            player1.assignTreasure(pack[lastAssignedCard]);
+            lastAssignedCard--;
+            player2.assignTreasure(pack[lastAssignedCard]);
+            lastAssignedCard--;
         }
         else if(numberOfPlayers == 3) {
             player1 = new Player(1);
@@ -59,6 +68,13 @@ public class Game {
             player1.setPosition(1, 1);
             player2.setPosition(1, boardSize);
             player3.setPosition(boardSize, 1);
+            
+            player1.assignTreasure(pack[lastAssignedCard]);
+            lastAssignedCard--;
+            player2.assignTreasure(pack[lastAssignedCard]);
+            lastAssignedCard--;
+            player3.assignTreasure(pack[lastAssignedCard]);
+            lastAssignedCard--;
         }
         else {
             player1 = new Player(1);
@@ -70,6 +86,15 @@ public class Game {
             player2.setPosition(1, boardSize);
             player3.setPosition(boardSize, 1);
             player4.setPosition(boardSize, boardSize);
+            
+            player1.assignTreasure(pack[lastAssignedCard]);
+            lastAssignedCard--;
+            player2.assignTreasure(pack[lastAssignedCard]);
+            lastAssignedCard--;
+            player3.assignTreasure(pack[lastAssignedCard]);
+            lastAssignedCard--;
+            player4.assignTreasure(pack[lastAssignedCard]);
+            lastAssignedCard--;
         }
     }
     
@@ -171,16 +196,201 @@ public class Game {
     public void go(String goX, String goY, int FromX, int FromY) {
         if (currentPlayer == 1) {
             player1.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
+            if(canGo(player1, Integer.parseInt(goX), Integer.parseInt(goY))){
+                player1.setPosition(Integer.parseInt(goX), Integer.parseInt(goY));
+            }
         }
         else if (currentPlayer == 2) {
             player2.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
+            if(canGo(player2, Integer.parseInt(goX), Integer.parseInt(goY))){
+                player2.setPosition(Integer.parseInt(goX), Integer.parseInt(goY));
+            }
         }
         else if (currentPlayer == 3) {
             player3.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
+            if(canGo(player3, Integer.parseInt(goX), Integer.parseInt(goY))){
+                player3.setPosition(Integer.parseInt(goX), Integer.parseInt(goY));
+            }
         }
         else if (currentPlayer == 4) {
             player4.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
+            if(canGo(player4, Integer.parseInt(goX), Integer.parseInt(goY))){
+                player4.setPosition(Integer.parseInt(goX), Integer.parseInt(goY));
+            }
         }
+    }
+    
+    public boolean canGo(Player player, int x, int y){
+        boolean cango = false, canwrite = true;
+        int lastIndex;
+        
+        List<Integer> coordsX, coordsY, historyX, historyY;
+        List<MazeCard.CANGO> direction;
+        
+        coordsX = new ArrayList<>();
+        coordsY = new ArrayList<>();
+        historyX = new ArrayList<>();
+        historyY = new ArrayList<>();
+        direction = new ArrayList<>();
+        
+        historyX.add(player.positionR);
+        historyY.add(player.positionC);
+        for(int i = 0; i < 4; i++){
+            coordsX.add(player.positionR);
+            coordsY.add(player.positionC);
+            switch(i){
+                case 0: direction.add(MazeCard.CANGO.DOWN);
+                        break;
+                case 1: direction.add(MazeCard.CANGO.RIGHT);
+                        break;
+                case 2: direction.add(MazeCard.CANGO.UP);
+                        break;
+                case 3: direction.add(MazeCard.CANGO.LEFT);
+                        break;
+            }
+        }
+                
+        int tryX, tryY;
+        MazeCard.CANGO tryDir;
+        
+        while((cango == false) && (coordsX.isEmpty() == false)){
+            lastIndex = coordsX.size() - 1;
+            tryX = coordsX.remove(lastIndex);
+            tryY = coordsY.remove(lastIndex);
+            tryDir = direction.remove(lastIndex);
+            
+            //System.out.println(tryDir.toString());
+            //System.out.println(tryX + " : " + tryY);
+            
+            if(mazeboard.get(tryX, tryY).getCard().canGo(tryDir)){
+                if(tryDir == MazeCard.CANGO.LEFT){
+                    if((tryY - 1) >= 1) {
+                        //System.out.println("y - 1: " + tryX + " : " + (tryY - 1));
+                        if(mazeboard.get(tryX, tryY - 1).getCard().canGo(MazeCard.CANGO.RIGHT)){
+                            int h = 0;
+                            while (h < historyX.size()){
+                                if ((historyX.get(h) == tryX) && (historyY.get(h) == (tryY - 1))){
+                                    canwrite = false;
+                                    break;
+                                }
+                                h++;
+                            }
+                            if (canwrite) {
+                                for (int j = 0; j < 3; j++){
+                                    coordsX.add(tryX);
+                                    coordsY.add(tryY - 1);
+                                    switch(j){
+                                        case 0: direction.add(MazeCard.CANGO.DOWN);
+                                                break;
+                                        case 1: direction.add(MazeCard.CANGO.UP);
+                                                break;
+                                        case 2: direction.add(MazeCard.CANGO.LEFT);
+                                                break;
+                                    }
+                                }
+                            }
+                            canwrite = true;
+                        }
+                    }
+                }
+                else if(tryDir == MazeCard.CANGO.UP){
+                    if((tryX - 1) >= 1) {
+                        //System.out.println("x - 1: " + (tryX - 1) + " : " + tryY);
+                        if(mazeboard.get(tryX - 1, tryY).getCard().canGo(MazeCard.CANGO.DOWN)){
+                            int h = 0;
+                            while (h < historyX.size()){
+                                if ((historyX.get(h) == (tryX - 1)) && (historyY.get(h) == tryY)){
+                                    canwrite = false;
+                                    break;
+                                }
+                                h++;
+                            }
+                            if (canwrite) {
+                                for (int j = 0; j < 3; j++){
+                                    coordsX.add(tryX - 1);
+                                    coordsY.add(tryY);
+                                    switch(j){
+                                        case 0: direction.add(MazeCard.CANGO.RIGHT);
+                                                break;
+                                        case 1: direction.add(MazeCard.CANGO.UP);
+                                                break;
+                                        case 2: direction.add(MazeCard.CANGO.LEFT);
+                                                break;
+                                    }
+                                }
+                            }
+                            canwrite = true;
+                        }
+                    }
+                }
+                else if(tryDir == MazeCard.CANGO.RIGHT){
+                    if((tryY + 1) <= boardSize) {
+                        //System.out.println("y + 1: " + tryX + " : " + (tryY + 1));
+                        if(mazeboard.get(tryX, tryY + 1).getCard().canGo(MazeCard.CANGO.LEFT)){
+                            int h = 0;
+                            while (h < historyX.size()){
+                                if ((historyX.get(h) == tryX) && (historyY.get(h) == (tryY + 1))){
+                                    canwrite = false;
+                                    break;
+                                }
+                                h++;
+                            }
+                            if (canwrite) {
+                                for (int j = 0; j < 3; j++){
+                                    coordsX.add(tryX);
+                                    coordsY.add(tryY + 1);
+                                    switch(j){
+                                        case 0: direction.add(MazeCard.CANGO.DOWN);
+                                                break;
+                                        case 1: direction.add(MazeCard.CANGO.RIGHT);
+                                                break;
+                                        case 2: direction.add(MazeCard.CANGO.UP);
+                                                break;
+                                    }
+                                }
+                            }
+                            canwrite = true;
+                        }
+                    }
+                }
+                else /* if(tryDir == MazeCard.CANGO.DOWN)*/ {
+                    if((tryX + 1) <= boardSize) {
+                        //System.out.println("x + 1: " + (tryX + 1) + " : " + tryY);
+                        if(mazeboard.get(tryX + 1, tryY).getCard().canGo(MazeCard.CANGO.UP)){
+                            int h = 0;
+                            while (h < historyX.size()){
+                                if ((historyX.get(h) == (tryX + 1)) && (historyY.get(h) == tryY)){
+                                    canwrite = false;
+                                    break;
+                                }
+                                h++;
+                            }
+                            if (canwrite) {
+                                for (int j = 0; j < 3; j++){
+                                    coordsX.add(tryX + 1);
+                                    coordsY.add(tryY);
+                                    switch(j){
+                                        case 0: direction.add(MazeCard.CANGO.DOWN);
+                                                break;
+                                        case 1: direction.add(MazeCard.CANGO.RIGHT);
+                                                break;
+                                        case 2: direction.add(MazeCard.CANGO.LEFT);
+                                                break;
+                                    }
+                                }
+                            }
+                            canwrite = true;
+                        }
+                    }
+                }
+            }
+            
+            if((x == tryX) && (y == tryY)){
+                cango = true;
+            }
+        }
+        
+        return cango;
     }
     
     public void undo() {
@@ -364,6 +574,7 @@ public class Game {
                 randomInt = randomGenerator.nextInt(31);
             } while((pictures[randomInt] == true) || (randomInt == 0));
             pack[i] = new Treasure(i, randomInt);
+            //System.out.println(pack[i].picture);
             pictures[randomInt] = true;
         }
     }
@@ -409,10 +620,9 @@ public class Game {
     }
         
     public static Treasure popTreasure(){
-        Treasure tr = pack[0];              // pocet karet - 1 (indexace v poli od 0)
-        
-        for (int i = 0; i < Treasure.cards; i++){                    
-            if ((i + 1) < Treasure.cards){
+        Treasure tr = pack[1];              // pocet karet - 1 (indexace v poli od 0)
+        for (int i = 1; i <= Treasure.cards; i++){                    
+            if ((i + 1) <= Treasure.cards){
                 pack[i] = pack[i + 1];
             }
         }
