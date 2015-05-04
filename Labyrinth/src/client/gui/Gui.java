@@ -176,7 +176,7 @@ public class Gui extends JFrame {
                                     y = Integer.parseInt(gameboard.textFieldGameTurnRightCardY.getText());
                                     
                                     if(isAvailable("turn")){
-                                        if (((x <= Game.boardSize) && (x >= 0)) && ((y <= Game.boardSize) && (y >= 0))){
+                                        if (((x <= Game.boardSize) && (x >= 1)) && ((y <= Game.boardSize) && (y >= 1))){
                                             game.turnRight(x, y);
                                             storeTurnCommand();
                                         }
@@ -188,7 +188,7 @@ public class Gui extends JFrame {
                                     y = Integer.parseInt(gameboard.textFieldGameTurnLeftCardY.getText());
                                     
                                     if(isAvailable("turn")){
-                                        if (((x <= Game.boardSize) && (x >= 0)) && ((y <= Game.boardSize) && (y >= 0))){
+                                        if (((x <= Game.boardSize) && (x >= 1)) && ((y <= Game.boardSize) && (y >= 1))){
                                             game.turnLeft(x, y);
                                             storeTurnCommand();
                                         }
@@ -211,7 +211,7 @@ public class Gui extends JFrame {
             case "ShiftRight":  x = Integer.parseInt(gameboard.textFieldGameShiftRight.getText());
                                     
                                 if(isAvailable("shift")){                    
-                                    if (((x <= Game.boardSize) && (x >= 0)) && (x % 2 == 0)){
+                                    if (((x <= Game.boardSize) && (x >= 1)) && (x % 2 == 0)){
                                         game.shift(x, 1);
                                         storeShiftCommand();
                                     }
@@ -221,7 +221,7 @@ public class Gui extends JFrame {
             case "ShiftLeft":   x = Integer.parseInt(gameboard.textFieldGameShiftLeft.getText());
                                     
                                 if(isAvailable("shift")){ 
-                                    if (((x <= Game.boardSize) && (x >= 0)) && (x % 2 == 0)){
+                                    if (((x <= Game.boardSize) && (x >= 1)) && (x % 2 == 0)){
                                         game.shift(x, Game.boardSize);
                                         storeShiftCommand();
                                     }
@@ -231,7 +231,7 @@ public class Gui extends JFrame {
             case "ShiftDown":   x = Integer.parseInt(gameboard.textFieldGameShiftDown.getText());
                                     
                                 if(isAvailable("shift")){ 
-                                    if (((x <= Game.boardSize) && (x >= 0)) && (x % 2 == 0)){
+                                    if (((x <= Game.boardSize) && (x >= 1)) && (x % 2 == 0)){
                                         game.shift(1, x);
                                         storeShiftCommand();
                                     }
@@ -241,7 +241,7 @@ public class Gui extends JFrame {
             case "ShiftUp":     x = Integer.parseInt(gameboard.textFieldGameShiftUp.getText());
                                     
                                 if(isAvailable("shift")){ 
-                                    if (((x <= Game.boardSize) && (x >= 0)) && (x % 2 == 0)){
+                                    if (((x <= Game.boardSize) && (x >= 1)) && (x % 2 == 0)){
                                         game.shift(Game.boardSize, x);
                                         storeShiftCommand();
                                     }
@@ -249,11 +249,26 @@ public class Gui extends JFrame {
                                 break;
                 
             case "Go":  if(isAvailable("go")){ 
-                            String goX, goY;
+                            int goX = 0, goY = 0;
                             int FromX = 0, FromY = 0;
+                            String goXtmp,goYtmp;
                             
-                            goX = gameboard.textFieldGameGoX.getText();
-                            goY = gameboard.textFieldGameGoY.getText();
+                            goXtmp = gameboard.textFieldGameGoX.getText();
+                            goYtmp = gameboard.textFieldGameGoY.getText();
+                            
+                            if(goXtmp.length() == 1){
+                                goX = Character.getNumericValue(goXtmp.charAt(0));
+                            }
+                            else if(goXtmp.length() == 2){
+                                goX = Character.getNumericValue(goXtmp.charAt(0) + goXtmp.charAt(1));
+                            }
+                            
+                            if(goYtmp.length() == 1){
+                                goY = Character.getNumericValue(goYtmp.charAt(0));
+                            }
+                            else if(goYtmp.length() == 2){
+                                goY = Character.getNumericValue(goYtmp.charAt(0) + goYtmp.charAt(1));
+                            }
                             
                             if(Game.currentPlayer == 1) {
                                 FromX = Game.player1.positionC;
@@ -271,10 +286,10 @@ public class Gui extends JFrame {
                                 FromX = Game.player4.positionC;
                                 FromY = Game.player4.positionR;
                             }
-                            
-                            game.go(goX, goY, FromX, FromY);
-                            
-                            storeGoCommand(); 
+                            if (((goX <= Game.boardSize) && (goX  >= 1)) && ((goY <= Game.boardSize) && (goY >= 1))){
+                                game.go(goXtmp, goYtmp, FromX, FromY);
+                                storeGoCommand(); 
+                            }
                         }
                         break;
         }
