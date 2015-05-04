@@ -439,7 +439,7 @@ public class GameBoard {
             int row, col;
             if(rc.length() == 3){
                 row = Character.getNumericValue(rc.charAt(0));
-                col = Character.getNumericValue(rc.charAt(1));
+                col = Character.getNumericValue(rc.charAt(2));
             }
             else if(rc.length() == 5){
                 row = Character.getNumericValue(rc.charAt(0) + rc.charAt(1));
@@ -462,11 +462,13 @@ public class GameBoard {
             int row, col;
             if(rc.length() == 3){
                 row = Character.getNumericValue(rc.charAt(0));
-                col = Character.getNumericValue(rc.charAt(1));
+                col = Character.getNumericValue(rc.charAt(2));
+                
             }
             else if(rc.length() == 5){
                 row = Character.getNumericValue(rc.charAt(0) + rc.charAt(1));
                 col = Character.getNumericValue(rc.charAt(3) + rc.charAt(4));
+              
             }
             else {
                 if(":".equals(String.valueOf(rc.charAt(1)))){
@@ -485,7 +487,7 @@ public class GameBoard {
             int row, col;
             if(rc.length() == 3){
                 row = Character.getNumericValue(rc.charAt(0));
-                col = Character.getNumericValue(rc.charAt(1));
+                col = Character.getNumericValue(rc.charAt(2));
             }
             else if(rc.length() == 5){
                 row = Character.getNumericValue(rc.charAt(0) + rc.charAt(1));

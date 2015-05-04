@@ -179,7 +179,7 @@ public class Game {
             player3.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
         }
         else if (currentPlayer == 4) {
-            player4.undo.storeCommand("go" + goX + ":" + goY + "-"+ FromX + ":" + FromY);
+            player4.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
         }
     }
     public String undoCommand(boolean tuiflag){
@@ -198,23 +198,74 @@ public class Game {
             undoCommand = player4.undo.invertCommand(player4.undo.readLastCommand());
         }
         
-        if(undoCommand.matches("^(tl|(-tl))([0-9]{2})$") == true) {
+        if(undoCommand.matches("^(tl|(-tl))(([0-9])([0-9])?([:])([0-9])([0-9])?)$") == true) {
             rc = undoCommand.replaceAll("(tl|(-tl))", "");
-            int row = Character.getNumericValue(rc.charAt(0));
-            int col = Character.getNumericValue(rc.charAt(1));
+            int row, col;
+            if(rc.length() == 3){
+                row = Character.getNumericValue(rc.charAt(0));
+                col = Character.getNumericValue(rc.charAt(2));
+            }
+            else if(rc.length() == 5){
+                row = Character.getNumericValue(rc.charAt(0) + rc.charAt(1));
+                col = Character.getNumericValue(rc.charAt(3) + rc.charAt(4));
+            }
+            else {
+                if(":".equals(String.valueOf(rc.charAt(1)))){
+                    row = Character.getNumericValue(rc.charAt(0));
+                    col = Character.getNumericValue(rc.charAt(2) + rc.charAt(3));
+                }
+                else {
+                    row = Character.getNumericValue(rc.charAt(0) + rc.charAt(1));
+                    col = Character.getNumericValue(rc.charAt(3));
+                }
+            }
             mazeboard.get(row,col).getCard().turnLeft();
         }
-        else if(undoCommand.matches("^(t|(-t))([0-9]{2})$") == true) {
+        else if(undoCommand.matches("^(t|(-t))(([0-9])([0-9])?([:])([0-9])([0-9])?)$") == true) {
             rc = undoCommand.replaceAll("(t|(-t))", "");
-            int row = Character.getNumericValue(rc.charAt(0));
-            int col = Character.getNumericValue(rc.charAt(1));
+            int row, col;
+            if(rc.length() == 3){
+                row = Character.getNumericValue(rc.charAt(0));
+                col = Character.getNumericValue(rc.charAt(2));
+            }
+            else if(rc.length() == 5){
+                row = Character.getNumericValue(rc.charAt(0) + rc.charAt(1));
+                col = Character.getNumericValue(rc.charAt(3) + rc.charAt(4));
+            }
+            else {
+                if(":".equals(String.valueOf(rc.charAt(1)))){
+                    row = Character.getNumericValue(rc.charAt(0));
+                    col = Character.getNumericValue(rc.charAt(2) + rc.charAt(3));
+                }
+                else {
+                    row = Character.getNumericValue(rc.charAt(0) + rc.charAt(1));
+                    col = Character.getNumericValue(rc.charAt(3));
+                }
+            }
             mazeboard.get(row,col).getCard().turnRight();
         }
-        else if(undoCommand.matches("^(s|(-s))([0-9]{2})$") == true) {
+        else if(undoCommand.matches("^(s|(-s))(([0-9])([0-9])?([:])([0-9])([0-9])?)$") == true) {
             //System.out.println(undoCommand);
             rc = undoCommand.replaceAll("(s|(-s))", "");
-            field = new MazeField(  Character.getNumericValue(rc.charAt(0)),
-                                    Character.getNumericValue(rc.charAt(1)));
+            int row, col;
+            if(rc.length() == 3){
+                row = Character.getNumericValue(rc.charAt(0));
+                col = Character.getNumericValue(rc.charAt(2));
+            }
+            else if(rc.length() == 5){
+                row = Character.getNumericValue(rc.charAt(0) + rc.charAt(1));
+                col = Character.getNumericValue(rc.charAt(3) + rc.charAt(4));
+            }
+            else {
+                if(":".equals(String.valueOf(rc.charAt(1)))){
+                    row = Character.getNumericValue(rc.charAt(0));
+                    col = Character.getNumericValue(rc.charAt(2) + rc.charAt(3));
+                }
+                else {
+                    row = Character.getNumericValue(rc.charAt(0) + rc.charAt(1));
+                    col = Character.getNumericValue(rc.charAt(3));
+                }
+            }
             mazeboard.shift(field); 
         }
         else if(undoCommand.matches("^(tf|(-tf))$") == true) {
@@ -223,13 +274,30 @@ public class Game {
         else if(undoCommand.matches("^(tlf|(-tlf))$") == true) {
             mazeboard.getFreeCard().turnLeft();
         }
-        else if(undoCommand.matches("^(go|(-go))([0-9]{4})$") == true) {
+        else if(undoCommand.matches("^(go|(-go))([0-9])([0-9])?([:])([0-9])([0-9])?([-])([0-9])([0-9])?([:])([0-9])([0-9])?$") == true) {
             rc = undoCommand.replaceAll("(go|(-go))", "");
-            int goX = Character.getNumericValue(rc.charAt(0));
-            int goY = Character.getNumericValue(rc.charAt(1));
-            int FromX = Character.getNumericValue(rc.charAt(2));
-            int FromY = Character.getNumericValue(rc.charAt(3));
-            
+            int goX, goY, FromX, FromY;
+            goX = goY = FromX = FromY = 0;
+            String go[] = rc.split("-");
+            for(int i = 0; i < 2; i++){
+                if (go[i].equals("-") != true){
+                    String part[] = go[i].split(":");
+                    for(int j = 0; j < 2; j++){
+                        if((i == 0) && (j == 0)){
+                            goX = Integer.parseInt(part[j]);
+                        }
+                        else if((i == 0) && (j == 1)){
+                            goY = Integer.parseInt(part[j]);
+                        }
+                        else if((i == 1) && (j == 0)){
+                            FromX = Integer.parseInt(part[j]);
+                        }
+                        else if((i == 1) && (j == 1)){
+                            FromY = Integer.parseInt(part[j]);
+                        }
+                    }
+                }
+            }         
         }
         
         String lastcommand = "";
