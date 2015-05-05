@@ -193,31 +193,36 @@ public class Game {
         mazeboard.getFreeCard().turnLeft();
     }
     
-    public void go(String goX, String goY, int FromX, int FromY) {
+    public boolean go(String goX, String goY, int FromX, int FromY) {
         if (currentPlayer == 1) {
-            player1.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
             if(canGo(player1, Integer.parseInt(goX), Integer.parseInt(goY))){
                 player1.setPosition(Integer.parseInt(goX), Integer.parseInt(goY));
+                player1.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
+                return true;
             }
         }
         else if (currentPlayer == 2) {
-            player2.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
             if(canGo(player2, Integer.parseInt(goX), Integer.parseInt(goY))){
                 player2.setPosition(Integer.parseInt(goX), Integer.parseInt(goY));
+                player2.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
+                return true;
             }
         }
         else if (currentPlayer == 3) {
-            player3.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
             if(canGo(player3, Integer.parseInt(goX), Integer.parseInt(goY))){
                 player3.setPosition(Integer.parseInt(goX), Integer.parseInt(goY));
+                player3.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
+                return true;
             }
         }
         else if (currentPlayer == 4) {
-            player4.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
             if(canGo(player4, Integer.parseInt(goX), Integer.parseInt(goY))){
                 player4.setPosition(Integer.parseInt(goX), Integer.parseInt(goY));
+                player4.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
+                return true;
             }
         }
+        return false;
     }
     
     public boolean canGo(Player player, int x, int y){

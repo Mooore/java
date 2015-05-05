@@ -290,8 +290,9 @@ public class Gui extends JFrame {
                                 FromY = Game.player4.positionR;
                             }
                             if (((goX <= Game.boardSize) && (goX  >= 1)) && ((goY <= Game.boardSize) && (goY >= 1))){
-                                game.go(goXtmp, goYtmp, FromX, FromY);
-                                storeGoCommand(); 
+                                if (game.go(goXtmp, goYtmp, FromX, FromY)){
+                                    storeGoCommand(); 
+                                }
                             }
                         }
                         break;
