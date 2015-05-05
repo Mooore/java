@@ -126,6 +126,223 @@ public class Game {
                 player4.undo.storeCommand("s" + r + ":" + c);
             }
         }  
+        
+        if(c == 1){                 // shift right
+            for (int player = 1; player <= numberOfPlayers; player++){
+                switch(player){
+                    case 1: for(int i = 1; i <= boardSize; i++){
+                                if((player1.positionR == r) && (player1.positionC == i)){
+                                    if(i == boardSize){
+                                        player1.positionC = 1;
+                                    }
+                                    else {
+                                        player1.positionC++;
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                    case 2: for(int i = 1; i <= boardSize; i++){
+                                if((player2.positionR == r) && (player2.positionC == i)){
+                                    if(i == boardSize){
+                                        player2.positionC = 1;
+                                    }
+                                    else {
+                                        player2.positionC++;
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                    case 3: for(int i = 1; i <= boardSize; i++){
+                                if((player3.positionR == r) && (player3.positionC == i)){
+                                    if(i == boardSize){
+                                        player3.positionC = 1;
+                                    }
+                                    else {
+                                        player3.positionC++;
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                    case 4: for(int i = 1; i <= boardSize; i++){
+                                if((player4.positionR == r) && (player4.positionC == i)){
+                                    if(i == boardSize){
+                                        player4.positionC = 1;
+                                    }
+                                    else {
+                                        player4.positionC++;
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                }
+            }
+        }
+        else if(c == boardSize){                 // shift left
+            for (int player = 1; player <= numberOfPlayers; player++){
+                switch(player){
+                    case 1: for(int i = 1; i <= boardSize; i++){
+                                if((player1.positionR == r) && (player1.positionC == i)){
+                                    if(i == 1){
+                                        player1.positionC = boardSize;
+                                    }
+                                    else {
+                                        player1.positionC--;
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                    case 2: for(int i = 1; i <= boardSize; i++){
+                                if((player2.positionR == r) && (player2.positionC == i)){
+                                    if(i == 1){
+                                        player2.positionC = boardSize;
+                                    }
+                                    else {
+                                        player2.positionC--;
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                    case 3: for(int i = 1; i <= boardSize; i++){
+                                if((player3.positionR == r) && (player3.positionC == i)){
+                                    if(i == 1){
+                                        player3.positionC = boardSize;
+                                    }
+                                    else {
+                                        player3.positionC--;
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                    case 4: for(int i = 1; i <= boardSize; i++){
+                                if((player4.positionR == r) && (player4.positionC == i)){
+                                    if(i == 1){
+                                        player4.positionC = boardSize;
+                                    }
+                                    else {
+                                        player4.positionC--;
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                }
+            }
+        }
+        else if(r == 1){                 // shift down
+            for (int player = 1; player <= numberOfPlayers; player++){
+                switch(player){
+                    case 1: for(int i = 1; i <= boardSize; i++){
+                                if((player1.positionR == i) && (player1.positionC == c)){
+                                    if(i == boardSize){
+                                        player1.positionR = 1;
+                                    }
+                                    else {
+                                        player1.positionR++;
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                    case 2: for(int i = 1; i <= boardSize; i++){
+                                if((player2.positionR == i) && (player2.positionC == c)){
+                                    if(i == boardSize){
+                                        player2.positionR = 1;
+                                    }
+                                    else {
+                                        player2.positionR++;
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                    case 3: for(int i = 1; i <= boardSize; i++){
+                                if((player3.positionR == i) && (player3.positionC == c)){
+                                    if(i == boardSize){
+                                        player3.positionR = 1;
+                                    }
+                                    else {
+                                        player3.positionR++;
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                    case 4: for(int i = 1; i <= boardSize; i++){
+                                if((player4.positionR == i) && (player4.positionC == c)){
+                                    if(i == boardSize){
+                                        player4.positionR = 1;
+                                    }
+                                    else {
+                                        player4.positionR++;
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                }
+            }
+        }
+        else if(r == boardSize){                 // shift up
+            for (int player = 1; player <= numberOfPlayers; player++){
+                switch(player){
+                    case 1: for(int i = 1; i <= boardSize; i++){
+                                if((player1.positionR == i) && (player1.positionC == c)){
+                                    if(i == 1){
+                                        player1.positionR = boardSize;
+                                    }
+                                    else {
+                                        player1.positionR--;
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                    case 2: for(int i = 1; i <= boardSize; i++){
+                                if((player2.positionR == i) && (player2.positionC == c)){
+                                    if(i == 1){
+                                        player2.positionR = boardSize;
+                                    }
+                                    else {
+                                        player2.positionR--;
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                    case 3: for(int i = 1; i <= boardSize; i++){
+                                if((player3.positionR == i) && (player3.positionC == c)){
+                                    if(i == 1){
+                                        player3.positionR = boardSize;
+                                    }
+                                    else {
+                                        player3.positionR--;
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                    case 4: for(int i = 1; i <= boardSize; i++){
+                                if((player4.positionR == i) && (player4.positionC == c)){
+                                    if(i == 1){
+                                        player4.positionR = boardSize;
+                                    }
+                                    else {
+                                        player4.positionR--;
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
+                }
+            }
+        }
     }
     
     public void turnRight(int r, int c){
