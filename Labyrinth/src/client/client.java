@@ -4,26 +4,28 @@
 package client;
 
 import client.gui.Gui;
-import client.tui.*;
 
 /**
  *
  * @author xpospi73, xdress00
  */
+
+/**
+ * This class creates new Gui and menu after lauching the application.
+ */
 public class client {
     
+    /**
+     * Represents the Gui.
+     */
     public static Gui gui;
-    public static Tui tui;
     
+    /**
+     * Main method creates a new Gui and sets a game menu.
+     * @param args no arguments needed.
+     */
     public static void main(String[] args) {
-        if (args.length != 1){
-            gui = new Gui();
-            gui.setMenu();
-        }
-        else if("-tui".equals(args[0])){
-            tui = new Tui(7);
-            tui.tuiRun();
-        }
-    }
-    
+        gui = new Gui();
+        gui.setMenu();
+    }  
 }
