@@ -620,34 +620,42 @@ public class Game {
             lastcommand = player1.undo.readLastCommand();
             player1.undo.commands.remove(player1.undo.lastCommand - 1);
             player1.undo.lastCommand--;
-            player1.positionR = goX;
-            player1.positionC = goY;          
-            player1.goCommand = false;
+            if(lastcommand.matches("^(go|(-go))([0-9])([0-9])?([:])([0-9])([0-9])?([-])([0-9])([0-9])?([:])([0-9])([0-9])?$") == true) {
+                player1.positionR = goX;
+                player1.positionC = goY;          
+                player1.goCommand = false;
+            }
         }
         else if (currentPlayer == 2) {
             lastcommand = player2.undo.readLastCommand();
             player2.undo.commands.remove(player2.undo.lastCommand - 1);
             player2.undo.lastCommand--;
-            player2.positionR = goX;
-            player2.positionC = goY;          
-            player2.goCommand = false;
+            if(lastcommand.matches("^(go|(-go))([0-9])([0-9])?([:])([0-9])([0-9])?([-])([0-9])([0-9])?([:])([0-9])([0-9])?$") == true) {
+                player2.positionR = goX;
+                player2.positionC = goY;          
+                player2.goCommand = false;
+            }
         }
         else if (currentPlayer == 3) {
             lastcommand = player3.undo.readLastCommand();
             player3.undo.commands.remove(player3.undo.lastCommand - 1);
             player3.undo.lastCommand--;
-            player3.positionR = goX;
-            player3.positionC = goY;          
-            player3.goCommand = false;
+            if(lastcommand.matches("^(go|(-go))([0-9])([0-9])?([:])([0-9])([0-9])?([-])([0-9])([0-9])?([:])([0-9])([0-9])?$") == true) {
+                player3.positionR = goX;
+                player3.positionC = goY;          
+                player3.goCommand = false;
+            }
         }
         else if (currentPlayer == 4) {
             lastcommand = player4.undo.readLastCommand();
             player4.undo.commands.remove(player4.undo.lastCommand - 1);
             player4.undo.lastCommand--;
-            player4.positionR = goX;
-            player4.positionC = goY;          
-            player4.goCommand = false;
-        }
+            if(lastcommand.matches("^(go|(-go))([0-9])([0-9])?([:])([0-9])([0-9])?([-])([0-9])([0-9])?([:])([0-9])([0-9])?$") == true) {
+                player4.positionR = goX;
+                player4.positionC = goY;          
+                player4.goCommand = false;
+            }
+        }   
         
         if(tuiflag){
             return lastcommand;
