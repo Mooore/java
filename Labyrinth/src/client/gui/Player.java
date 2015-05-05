@@ -49,6 +49,10 @@ public class Player {
         obtainedTreasures++;
     }
     
+    public void disposeObtainedTreasures(){
+        obtainedTreasures = -1;
+    }
+    
     private void setPlayerNumber(int number) {
         if ((number > 4) || (number < 1)) {
             throw new IllegalArgumentException("Player's number must be in range 2 to 4.");

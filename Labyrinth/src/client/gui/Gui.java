@@ -149,7 +149,7 @@ public class Gui extends JFrame {
         }
         
         if (newgame.radioButtonNewGameNumberOfTreasures12.isSelected()){
-            numberOfTreasures = 12;
+            numberOfTreasures = 4;
         }
         else {
             numberOfTreasures = 24;
@@ -162,7 +162,6 @@ public class Gui extends JFrame {
     
     public void setGame() {
         gameboard = new GameBoard();
-        Game.placeTreasures();
         mainPlayingCycle("Start");
     }
     
@@ -297,20 +296,26 @@ public class Gui extends JFrame {
                         }
                         break;
         }
+        //System.out.println("Player " + Game.currentPlayer + ": " + Game.player1.getObtainedTreasures() + " == " + (Game.numberOfTreasures / Game.numberOfPlayers));
+        switch(Game.currentPlayer){
+            case 1: if(Game.player1.getObtainedTreasures() == ((int)(Game.numberOfTreasures / Game.numberOfPlayers))){
+                        ResultBoard board = new ResultBoard();
+                    }
+                    break;
+            case 2: if(Game.player2.getObtainedTreasures() == (Game.numberOfTreasures / Game.numberOfPlayers)){
+                        ResultBoard board = new ResultBoard();
+                    }
+                    break;
+            case 3: if(Game.player3.getObtainedTreasures() == (Game.numberOfTreasures / Game.numberOfPlayers)){
+                        ResultBoard board = new ResultBoard();
+                    }
+                    break;
+            case 4: if(Game.player4.getObtainedTreasures() == (Game.numberOfTreasures / Game.numberOfPlayers)){
+                        ResultBoard board = new ResultBoard();
+                    }
+                    break;
+        }
         
-//        switch(game.currentPlayer){
-//            case 1: 
-//                    break;
-//                
-//            case 2: Game.player2.turnCommand = true;
-//                    break;
-//            
-//            case 3: Game.player3.turnCommand = true;
-//                    break;
-//                
-//            case 4: Game.player4.turnCommand = true;
-//                    break;
-//        }
         refresh();
         switchPlayers();
         refresh();

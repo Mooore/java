@@ -433,23 +433,15 @@ public class GameBoard {
             case 2: switch(Game.currentPlayer){
                         case 1: picture = Game.player1.getAssignedTreasure().picture;
                                 treasure = printTreasure(picture);
-                                for (int i = 1; i <= Treasure.cards; i++){
-                                    if(Game.pack[i].picture == picture){
-                                        x = Game.treasuresPositions[0][i];
-                                        y = Game.treasuresPositions[1][i];
-                                    }
-                                }
+                                x = Game.treasuresPositions[0][Game.player1.getAssignedTreasure().code];
+                                y = Game.treasuresPositions[1][Game.player1.getAssignedTreasure().code];
                                 labelGameTreasureCoordinates = new JLabel("Positions: [" + x + ":" + y + "]");
                                 labelGameTreasureCoordinates.setForeground(Color.GREEN);
                                 break;
                         case 2: picture = Game.player2.getAssignedTreasure().picture;
                                 treasure = printTreasure(picture);
-                                for (int i = 1; i <= Treasure.cards; i++){
-                                    if(Game.pack[i].picture == picture){
-                                        x = Game.treasuresPositions[0][i];
-                                        y = Game.treasuresPositions[1][i];
-                                    }
-                                }
+                                x = Game.treasuresPositions[0][Game.player2.getAssignedTreasure().code];
+                                y = Game.treasuresPositions[1][Game.player2.getAssignedTreasure().code];
                                 labelGameTreasureCoordinates = new JLabel("Positions: [" + x + ":" + y + "]");
                                 labelGameTreasureCoordinates.setForeground(Color.RED);
                                 break;
@@ -458,34 +450,22 @@ public class GameBoard {
             case 3: switch(Game.currentPlayer){
                         case 1: picture = Game.player1.getAssignedTreasure().picture;
                                 treasure = printTreasure(picture);
-                                for (int i = 1; i <= Treasure.cards; i++){
-                                    if(Game.pack[i].picture == picture){
-                                        x = Game.treasuresPositions[0][i];
-                                        y = Game.treasuresPositions[1][i];
-                                    }
-                                }
+                                x = Game.treasuresPositions[0][Game.player1.getAssignedTreasure().code];
+                                y = Game.treasuresPositions[1][Game.player1.getAssignedTreasure().code];
                                 labelGameTreasureCoordinates = new JLabel("Positions: [" + x + ":" + y + "]");
                                 labelGameTreasureCoordinates.setForeground(Color.GREEN);
                                 break;
                         case 2: picture = Game.player2.getAssignedTreasure().picture;
                                 treasure = printTreasure(picture);
-                                for (int i = 1; i <= Treasure.cards; i++){
-                                    if(Game.pack[i].picture == picture){
-                                        x = Game.treasuresPositions[0][i];
-                                        y = Game.treasuresPositions[1][i];
-                                    }
-                                }
+                                x = Game.treasuresPositions[0][Game.player2.getAssignedTreasure().code];
+                                y = Game.treasuresPositions[1][Game.player2.getAssignedTreasure().code];
                                 labelGameTreasureCoordinates = new JLabel("Positions: [" + x + ":" + y + "]");
                                 labelGameTreasureCoordinates.setForeground(Color.RED);
                                 break;
                         case 3: picture = Game.player3.getAssignedTreasure().picture;
                                 treasure = printTreasure(picture);
-                                for (int i = 1; i <= Treasure.cards; i++){
-                                    if(Game.pack[i].picture == picture){
-                                        x = Game.treasuresPositions[0][i];
-                                        y = Game.treasuresPositions[1][i];
-                                    }
-                                }
+                                x = Game.treasuresPositions[0][Game.player3.getAssignedTreasure().code];
+                                y = Game.treasuresPositions[1][Game.player3.getAssignedTreasure().code];
                                 labelGameTreasureCoordinates = new JLabel("Positions: [" + x + ":" + y + "]");
                                 labelGameTreasureCoordinates.setForeground(Color.CYAN);
                                 break;
@@ -494,45 +474,29 @@ public class GameBoard {
             case 4: switch(Game.currentPlayer){
                         case 1: picture = Game.player1.getAssignedTreasure().picture;
                                 treasure = printTreasure(picture);
-                                for (int i = 1; i <= Treasure.cards; i++){
-                                    if(Game.pack[i].picture == picture){
-                                        x = Game.treasuresPositions[0][i];
-                                        y = Game.treasuresPositions[1][i];
-                                    }
-                                }
+                                x = Game.treasuresPositions[0][Game.player1.getAssignedTreasure().code];
+                                y = Game.treasuresPositions[1][Game.player1.getAssignedTreasure().code];
                                 labelGameTreasureCoordinates = new JLabel("Positions: [" + x + ":" + y + "]");
                                 labelGameTreasureCoordinates.setForeground(Color.GREEN);
                                 break;
                         case 2: picture = Game.player2.getAssignedTreasure().picture;
                                 treasure = printTreasure(picture);
-                                for (int i = 1; i <= Treasure.cards; i++){
-                                    if(Game.pack[i].picture == picture){
-                                        x = Game.treasuresPositions[0][i];
-                                        y = Game.treasuresPositions[1][i];
-                                    }
-                                }
+                                x = Game.treasuresPositions[0][Game.player2.getAssignedTreasure().code];
+                                y = Game.treasuresPositions[1][Game.player2.getAssignedTreasure().code];
                                 labelGameTreasureCoordinates = new JLabel("Positions: [" + x + ":" + y + "]");
                                 labelGameTreasureCoordinates.setForeground(Color.RED);
                                 break;
                         case 3: picture = Game.player3.getAssignedTreasure().picture;
                                 treasure = printTreasure(picture);
-                                for (int i = 1; i <= Treasure.cards; i++){
-                                    if(Game.pack[i].picture == picture){
-                                        x = Game.treasuresPositions[0][i];
-                                        y = Game.treasuresPositions[1][i];
-                                    }
-                                }
+                                x = Game.treasuresPositions[0][Game.player3.getAssignedTreasure().code];
+                                y = Game.treasuresPositions[1][Game.player3.getAssignedTreasure().code];
                                 labelGameTreasureCoordinates = new JLabel("Positions: [" + x + ":" + y + "]");
                                 labelGameTreasureCoordinates.setForeground(Color.CYAN);
                                 break;
                         case 4: picture = Game.player4.getAssignedTreasure().picture;
                                 treasure = printTreasure(picture);
-                                for (int i = 1; i <= Treasure.cards; i++){
-                                    if(Game.pack[i].picture == picture){
-                                        x = Game.treasuresPositions[0][i];
-                                        y = Game.treasuresPositions[1][i];
-                                    }
-                                }
+                                x = Game.treasuresPositions[0][Game.player4.getAssignedTreasure().code];
+                                y = Game.treasuresPositions[1][Game.player4.getAssignedTreasure().code];
                                 labelGameTreasureCoordinates = new JLabel("Positions: [" + x + ":" + y + "]");
                                 labelGameTreasureCoordinates.setForeground(Color.YELLOW);
                                 break;
@@ -1018,15 +982,39 @@ public class GameBoard {
                             panel[r][c].add(printPlayer(4));
                         }
                         else {
-                            for(int i = 1; i <= Treasure.cards; i++){
+                            for(int i = 1; i <= Game.numberOfPlayers; i++){
+                                switch(i){
+                                    case 1: if ((r == Game.treasuresPositions[0][Game.player1.getAssignedTreasure().code]) && 
+                                                (c == Game.treasuresPositions[1][Game.player1.getAssignedTreasure().code])) {
+                                                panel[r][c].add(printTreasure(Game.player1.getAssignedTreasure().picture));
+                                                break;
+                                            }
+                                    case 2: if ((r == Game.treasuresPositions[0][Game.player2.getAssignedTreasure().code]) && 
+                                                (c == Game.treasuresPositions[1][Game.player2.getAssignedTreasure().code])) {
+                                                panel[r][c].add(printTreasure(Game.player2.getAssignedTreasure().picture));
+                                                break;
+                                            }
+                                    case 3: if ((r == Game.treasuresPositions[0][Game.player3.getAssignedTreasure().code]) && 
+                                                (c == Game.treasuresPositions[1][Game.player3.getAssignedTreasure().code])) {
+                                                panel[r][c].add(printTreasure(Game.player3.getAssignedTreasure().picture));
+                                                break;
+                                            }
+                                    case 4: if ((r == Game.treasuresPositions[0][Game.player4.getAssignedTreasure().code]) && 
+                                                (c == Game.treasuresPositions[1][Game.player4.getAssignedTreasure().code])) {
+                                                panel[r][c].add(printTreasure(Game.player4.getAssignedTreasure().picture));
+                                                break;
+                                            }
+                                }
+                            }
+                            for(int i = 0; i < Treasure.cards; i++){
                                 if ((r == Game.treasuresPositions[0][i]) && (c == Game.treasuresPositions[1][i])) {
-                                    panel[r][c].add(printTreasure(Game.pack[i].picture));
+                                    panel[r][c].add(printTreasure(Game.pack.get(i).picture));
                                     break;
                                 }
                             }
                         }
                     }
-                    if(Game.numberOfPlayers == 3) {
+                    else if(Game.numberOfPlayers == 3) {
                         if((r == Game.player1.positionR) && (c == Game.player1.positionC)){
                             if((r == Game.player2.positionR) && (c == Game.player2.positionC)){
                                 if((r == Game.player3.positionR) && (c == Game.player3.positionC)){
@@ -1055,9 +1043,28 @@ public class GameBoard {
                             panel[r][c].add(printPlayer(3));
                         }
                         else {
-                            for(int i = 1; i <= Treasure.cards; i++){
+                            for(int i = 1; i <= Game.numberOfPlayers; i++){
+                                switch(i){
+                                    case 1: if ((r == Game.treasuresPositions[0][Game.player1.getAssignedTreasure().code]) && 
+                                                (c == Game.treasuresPositions[1][Game.player1.getAssignedTreasure().code])) {
+                                                panel[r][c].add(printTreasure(Game.player1.getAssignedTreasure().picture));
+                                                break;
+                                            }
+                                    case 2: if ((r == Game.treasuresPositions[0][Game.player2.getAssignedTreasure().code]) && 
+                                                (c == Game.treasuresPositions[1][Game.player2.getAssignedTreasure().code])) {
+                                                panel[r][c].add(printTreasure(Game.player2.getAssignedTreasure().picture));
+                                                break;
+                                            }
+                                    case 3: if ((r == Game.treasuresPositions[0][Game.player3.getAssignedTreasure().code]) && 
+                                                (c == Game.treasuresPositions[1][Game.player3.getAssignedTreasure().code])) {
+                                                panel[r][c].add(printTreasure(Game.player3.getAssignedTreasure().picture));
+                                                break;
+                                            }
+                                }
+                            }
+                            for(int i = 0; i < Treasure.cards; i++){
                                 if ((r == Game.treasuresPositions[0][i]) && (c == Game.treasuresPositions[1][i])) {
-                                    panel[r][c].add(printTreasure(Game.pack[i].picture));
+                                    panel[r][c].add(printTreasure(Game.pack.get(i).picture));
                                     break;
                                 }
                             }
@@ -1077,9 +1084,23 @@ public class GameBoard {
                             
                         }
                         else {
-                            for(int i = 1; i <= Treasure.cards; i++){
+                            for(int i = 1; i <= Game.numberOfPlayers; i++){
+                                switch(i){
+                                    case 1: if ((r == Game.treasuresPositions[0][Game.player1.getAssignedTreasure().code]) && 
+                                                (c == Game.treasuresPositions[1][Game.player1.getAssignedTreasure().code])) {
+                                                panel[r][c].add(printTreasure(Game.player1.getAssignedTreasure().picture));
+                                                break;
+                                            }
+                                    case 2: if ((r == Game.treasuresPositions[0][Game.player2.getAssignedTreasure().code]) && 
+                                                (c == Game.treasuresPositions[1][Game.player2.getAssignedTreasure().code])) {
+                                                panel[r][c].add(printTreasure(Game.player2.getAssignedTreasure().picture));
+                                                break;
+                                            }
+                                }
+                            }
+                            for(int i = 0; i < Treasure.cards; i++){
                                 if ((r == Game.treasuresPositions[0][i]) && (c == Game.treasuresPositions[1][i])) {
-                                    panel[r][c].add(printTreasure(Game.pack[i].picture));
+                                    panel[r][c].add(printTreasure(Game.pack.get(i).picture));
                                     break;
                                 }
                             }

@@ -20,27 +20,21 @@ public class Game {
     public static Player player1, player2, player3, player4;
     public static int currentPlayer;
     
-    public static Treasure[] pack;
+    public static List<Treasure> pack;
     public static int[][] treasuresPositions;
-    public static int lastAssignedCard;
     
-    // Main GAME object representing game board.
     public static MazeBoard mazeboard;
     
-    /* Field object for creating field with [row,col] gived by -sRC command.
-     * Field object is required by MazeBoard.shift(MazeField field).
-     */
     private static MazeField field = null;
-    //public static undo undo;
     
     public Game(int size, int players, int treasures){
         boardSize = size;
         numberOfPlayers = players;
         numberOfTreasures = treasures;
-        lastAssignedCard = numberOfTreasures;
         mazeboard = new MazeBoard();
         mazeboard = MazeBoard.createMazeBoard(boardSize);
         createSet(numberOfTreasures);
+        placeTreasures();
     }
     
     public void setPlayers() {
@@ -54,10 +48,8 @@ public class Game {
             player1.setPosition(1, 1);
             player2.setPosition(boardSize, boardSize);
             
-            player1.assignTreasure(pack[lastAssignedCard]);
-            lastAssignedCard--;
-            player2.assignTreasure(pack[lastAssignedCard]);
-            lastAssignedCard--;
+            player1.assignTreasure(popTreasure());
+            player2.assignTreasure(popTreasure());
         }
         else if(numberOfPlayers == 3) {
             player1 = new Player(1);
@@ -69,12 +61,9 @@ public class Game {
             player2.setPosition(1, boardSize);
             player3.setPosition(boardSize, 1);
             
-            player1.assignTreasure(pack[lastAssignedCard]);
-            lastAssignedCard--;
-            player2.assignTreasure(pack[lastAssignedCard]);
-            lastAssignedCard--;
-            player3.assignTreasure(pack[lastAssignedCard]);
-            lastAssignedCard--;
+            player1.assignTreasure(popTreasure());
+            player2.assignTreasure(popTreasure());
+            player3.assignTreasure(popTreasure());
         }
         else {
             player1 = new Player(1);
@@ -87,23 +76,26 @@ public class Game {
             player3.setPosition(boardSize, 1);
             player4.setPosition(boardSize, boardSize);
             
-            player1.assignTreasure(pack[lastAssignedCard]);
-            lastAssignedCard--;
-            player2.assignTreasure(pack[lastAssignedCard]);
-            lastAssignedCard--;
-            player3.assignTreasure(pack[lastAssignedCard]);
-            lastAssignedCard--;
-            player4.assignTreasure(pack[lastAssignedCard]);
-            lastAssignedCard--;
+            player1.assignTreasure(popTreasure());
+            player2.assignTreasure(popTreasure());
+            player3.assignTreasure(popTreasure());
+            player4.assignTreasure(popTreasure());
         }
     }
     
+    /**
+     * 
+     */
     public void startNewGame(){
-       // undo = new undo();
         setPlayers();
         mazeboard.newGame();
     }
     
+    /**
+     * 
+     * @param r
+     * @param c 
+     */
     public void shift(int r, int c){
         field = new MazeField(r, c);
         mazeboard.shift(field);      
@@ -411,9 +403,23 @@ public class Game {
     }
     
     public boolean go(String goX, String goY, int FromX, int FromY) {
+        int x, y;
+        
         if (currentPlayer == 1) {
             if(canGo(player1, Integer.parseInt(goX), Integer.parseInt(goY))){
                 player1.setPosition(Integer.parseInt(goX), Integer.parseInt(goY));
+                
+                int treasureCode = player1.getAssignedTreasure().code;
+                x = Game.treasuresPositions[0][treasureCode];
+                y = Game.treasuresPositions[1][treasureCode];
+                
+                if((player1.positionR == x) && (player1.positionC == y)){
+                    player1.icreaseObtainedTreasures();
+                    if(pack.size() > 0){
+                        player1.assignTreasure(popTreasure());
+                    }
+                }
+                
                 player1.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
                 return true;
             }
@@ -421,6 +427,18 @@ public class Game {
         else if (currentPlayer == 2) {
             if(canGo(player2, Integer.parseInt(goX), Integer.parseInt(goY))){
                 player2.setPosition(Integer.parseInt(goX), Integer.parseInt(goY));
+                
+                int treasureCode = player2.getAssignedTreasure().code;
+                x = Game.treasuresPositions[0][treasureCode];
+                y = Game.treasuresPositions[1][treasureCode];
+                
+                if((player2.positionR == x) && (player2.positionC == y)){
+                    player2.icreaseObtainedTreasures();
+                    if(pack.size() > 0){
+                        player2.assignTreasure(popTreasure());
+                    }
+                }
+                
                 player2.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
                 return true;
             }
@@ -428,6 +446,18 @@ public class Game {
         else if (currentPlayer == 3) {
             if(canGo(player3, Integer.parseInt(goX), Integer.parseInt(goY))){
                 player3.setPosition(Integer.parseInt(goX), Integer.parseInt(goY));
+                
+                int treasureCode = player3.getAssignedTreasure().code;
+                x = Game.treasuresPositions[0][treasureCode];
+                y = Game.treasuresPositions[1][treasureCode];
+                
+                if((player3.positionR == x) && (player3.positionC == y)){
+                    player3.icreaseObtainedTreasures();
+                    if(pack.size() > 0){
+                        player3.assignTreasure(popTreasure());
+                    }
+                }
+                
                 player3.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
                 return true;
             }
@@ -435,6 +465,18 @@ public class Game {
         else if (currentPlayer == 4) {
             if(canGo(player4, Integer.parseInt(goX), Integer.parseInt(goY))){
                 player4.setPosition(Integer.parseInt(goX), Integer.parseInt(goY));
+                
+                int treasureCode = player4.getAssignedTreasure().code;
+                x = Game.treasuresPositions[0][treasureCode];
+                y = Game.treasuresPositions[1][treasureCode];
+                
+                if((player4.positionR == x) && (player4.positionC == y)){
+                    player4.icreaseObtainedTreasures();
+                    if(pack.size() > 0){
+                        player4.assignTreasure(popTreasure());
+                    }
+                }
+                
                 player4.undo.storeCommand("go" + goX + ":" + goY + "-" + FromX + ":" + FromY);
                 return true;
             }
@@ -481,13 +523,9 @@ public class Game {
             tryY = coordsY.remove(lastIndex);
             tryDir = direction.remove(lastIndex);
             
-            //System.out.println(tryDir.toString());
-            //System.out.println(tryX + " : " + tryY);
-            
             if(mazeboard.get(tryX, tryY).getCard().canGo(tryDir)){
                 if(tryDir == MazeCard.CANGO.LEFT){
                     if((tryY - 1) >= 1) {
-                        //System.out.println("y - 1: " + tryX + " : " + (tryY - 1));
                         if(mazeboard.get(tryX, tryY - 1).getCard().canGo(MazeCard.CANGO.RIGHT)){
                             int h = 0;
                             while (h < historyX.size()){
@@ -517,7 +555,6 @@ public class Game {
                 }
                 else if(tryDir == MazeCard.CANGO.UP){
                     if((tryX - 1) >= 1) {
-                        //System.out.println("x - 1: " + (tryX - 1) + " : " + tryY);
                         if(mazeboard.get(tryX - 1, tryY).getCard().canGo(MazeCard.CANGO.DOWN)){
                             int h = 0;
                             while (h < historyX.size()){
@@ -547,7 +584,6 @@ public class Game {
                 }
                 else if(tryDir == MazeCard.CANGO.RIGHT){
                     if((tryY + 1) <= boardSize) {
-                        //System.out.println("y + 1: " + tryX + " : " + (tryY + 1));
                         if(mazeboard.get(tryX, tryY + 1).getCard().canGo(MazeCard.CANGO.LEFT)){
                             int h = 0;
                             while (h < historyX.size()){
@@ -577,7 +613,6 @@ public class Game {
                 }
                 else /* if(tryDir == MazeCard.CANGO.DOWN)*/ {
                     if((tryX + 1) <= boardSize) {
-                        //System.out.println("x + 1: " + (tryX + 1) + " : " + tryY);
                         if(mazeboard.get(tryX + 1, tryY).getCard().canGo(MazeCard.CANGO.UP)){
                             int h = 0;
                             while (h < historyX.size()){
@@ -606,6 +641,9 @@ public class Game {
                     }
                 }
             }
+            
+            historyX.add(tryX);
+            historyY.add(tryY);
             
             if((x == tryX) && (y == tryY)){
                 cango = true;
@@ -657,25 +695,21 @@ public class Game {
         if (currentPlayer == 1) {
             if(player1.undoRight) {
                 undoCommand = player1.undo.invertCommand(player1.undo.readLastCommand());
-               // player1.undoRight = false;
             }
         }
         else if (currentPlayer == 2) {
             if(player2.undoRight) {
                 undoCommand = player2.undo.invertCommand(player2.undo.readLastCommand());
-               // player2.undoRight = false;
             }
         }
         else if (currentPlayer == 3) {
             if(player3.undoRight) {
                 undoCommand = player3.undo.invertCommand(player3.undo.readLastCommand());
-                //player3.undoRight = false;
             }
         }
         else if (currentPlayer == 4) {
             if(player1.undoRight) {
                 undoCommand = player4.undo.invertCommand(player4.undo.readLastCommand());
-                //player4.undoRight = false;
             }
         }
         
@@ -850,8 +884,8 @@ public class Game {
             player1.undo.commands.remove(player1.undo.lastCommand - 1);
             player1.undo.lastCommand--;
             if(lastcommand.matches("^(go|(-go))([0-9])([0-9])?([:])([0-9])([0-9])?([-])([0-9])([0-9])?([:])([0-9])([0-9])?$") == true) {
-                player1.positionR = goX;
-                player1.positionC = goY;          
+                player1.positionR = goY;
+                player1.positionC = goX;          
                 player1.goCommand = false;
             }
         }
@@ -860,8 +894,8 @@ public class Game {
             player2.undo.commands.remove(player2.undo.lastCommand - 1);
             player2.undo.lastCommand--;
             if(lastcommand.matches("^(go|(-go))([0-9])([0-9])?([:])([0-9])([0-9])?([-])([0-9])([0-9])?([:])([0-9])([0-9])?$") == true) {
-                player2.positionR = goX;
-                player2.positionC = goY;          
+                player2.positionR = goY;
+                player2.positionC = goX;          
                 player2.goCommand = false;
             }
         }
@@ -870,8 +904,8 @@ public class Game {
             player3.undo.commands.remove(player3.undo.lastCommand - 1);
             player3.undo.lastCommand--;
             if(lastcommand.matches("^(go|(-go))([0-9])([0-9])?([:])([0-9])([0-9])?([-])([0-9])([0-9])?([:])([0-9])([0-9])?$") == true) {
-                player3.positionR = goX;
-                player3.positionC = goY;          
+                player3.positionR = goY;
+                player3.positionC = goX;          
                 player3.goCommand = false;
             }
         }
@@ -880,8 +914,8 @@ public class Game {
             player4.undo.commands.remove(player4.undo.lastCommand - 1);
             player4.undo.lastCommand--;
             if(lastcommand.matches("^(go|(-go))([0-9])([0-9])?([:])([0-9])([0-9])?([-])([0-9])([0-9])?([:])([0-9])([0-9])?$") == true) {
-                player4.positionR = goX;
-                player4.positionC = goY;          
+                player4.positionR = goY;
+                player4.positionC = goX;          
                 player4.goCommand = false;
             }
         }   
@@ -890,28 +924,25 @@ public class Game {
             return lastcommand;
         }
         
-        //return null;
         return lastcommand;
     }
     
     public static void createSet(int cards){
+        pack = new ArrayList<>();
         Treasure.cards = cards;
         Random randomGenerator = new Random();
-        
-        pack = new Treasure[Treasure.cards + 1];
         
         boolean pictures[] = new boolean[31];
         for(int i = 0; i < 31; i++){
             pictures[i] = false;
         }
         
-        for (int i = 1; i <= Treasure.cards; i++){
+        for (int i = 0; i < Treasure.cards; i++){
             int randomInt;
             do {
                 randomInt = randomGenerator.nextInt(31);
             } while((pictures[randomInt] == true) || (randomInt == 0));
-            pack[i] = new Treasure(i, randomInt);
-            //System.out.println(pack[i].picture);
+            pack.add(new Treasure(i, randomInt));
             pictures[randomInt] = true;
         }
     }
@@ -922,12 +953,12 @@ public class Game {
         treasuresPositions = new int[2][numberOfTreasures + 1];
         boolean flag = false;
         
-        for (int i = 1; i <= numberOfTreasures; i++){
+        for (int i = 0; i < numberOfTreasures; i++){
             treasuresPositions[0][i] = 0;
             treasuresPositions[1][i] = 0;
         }
         
-        for (int i = 1; i <= numberOfTreasures; i++){
+        for (int i = 0; i < numberOfTreasures; i++){
             int randomInt, randomInt2;
             do {
                 randomInt = randomGenerator.nextInt(boardSize + 1);
@@ -957,14 +988,8 @@ public class Game {
     }
         
     public static Treasure popTreasure(){
-        Treasure tr = pack[1];              // pocet karet - 1 (indexace v poli od 0)
-        for (int i = 1; i <= Treasure.cards; i++){                    
-            if ((i + 1) <= Treasure.cards){
-                pack[i] = pack[i + 1];
-            }
-        }
-        Treasure.cards--;
-        
+        Treasure tr = pack.remove(Treasure.cards - 1);
+        Treasure.cards = pack.size();
         return tr;
     }
 }
