@@ -3,7 +3,7 @@
  */
 package client.undo;
 
-import static client.client.tui;
+import client.game.Game;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,15 +109,15 @@ public class undo {
             }
             
             if (row == 1) {
-                invertedCommand = ("s" + tui.getSize() + ":" + col);
+                invertedCommand = ("s" + Game.boardSize + ":" + col);
             }
-            else if(row == tui.getSize()) {
+            else if(row == Game.boardSize) {
                 invertedCommand = ("s" + 1 + ":" + col);
             }
             else if (col == 1) {
-                invertedCommand = ("s" + row + ":" + tui.getSize());
+                invertedCommand = ("s" + row + ":" + Game.boardSize);
             }
-            else if (col == tui.getSize()) {
+            else if (col == Game.boardSize) {
                 invertedCommand = ("s" + row + ":" + 1);
             }
         }

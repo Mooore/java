@@ -537,7 +537,6 @@ public class Game {
             mazeboard.get(row,col).getCard().turnRight();
         }
         else if(undoCommand.matches("^(s|(-s))(([0-9])([0-9])?([:])([0-9])([0-9])?)$") == true) {
-            //System.out.println(undoCommand);
             rc = undoCommand.replaceAll("(s|(-s))", "");
             int row, col;
             if(rc.length() == 3){
@@ -558,7 +557,20 @@ public class Game {
                     col = Character.getNumericValue(rc.charAt(3));
                 }
             }
-            mazeboard.shift(field); 
+            MazeField fieldToShift = new MazeField(row,col);
+            mazeboard.shift(fieldToShift); 
+            if(currentPlayer == 1) {
+                player1.shiftCommand = false;
+            }
+            else if(currentPlayer == 2) {
+                player2.shiftCommand = false;
+            }
+            else if(currentPlayer == 3) {
+                player3.shiftCommand = false;
+            }
+            else if(currentPlayer == 4) {
+                player4.shiftCommand = false;
+            }
         }
         else if(undoCommand.matches("^(tf|(-tf))$") == true) {
             mazeboard.getFreeCard().turnRight();

@@ -828,7 +828,7 @@ public class GameBoard {
         labelGameHistory1 = new JLabel(player1_history);
         
         labelGameHistory1.setForeground(Color.GREEN);
-        labelGameHistory1.setFont(new Font("Calibri", Font.PLAIN, 12));
+        labelGameHistory1.setFont(new Font("Calibri", Font.PLAIN, 11));
         labelGameHistory1.setAlignmentX(Component.LEFT_ALIGNMENT);
         
         labelGameHistoryPlayer2 = new JLabel(player2Text);
@@ -840,7 +840,7 @@ public class GameBoard {
         labelGameHistory2 = new JLabel(player2_history);
         
         labelGameHistory2.setForeground(Color.RED);
-        labelGameHistory2.setFont(new Font("Calibri", Font.PLAIN, 12));
+        labelGameHistory2.setFont(new Font("Calibri", Font.PLAIN, 11));
         labelGameHistory2.setAlignmentX(Component.LEFT_ALIGNMENT);
         
         labelGameHistoryPlayer3 = new JLabel(player3Text);
@@ -852,7 +852,7 @@ public class GameBoard {
         labelGameHistory3 = new JLabel(player3_history);
         
         labelGameHistory3.setForeground(Color.CYAN);
-        labelGameHistory3.setFont(new Font("Calibri", Font.PLAIN, 12));
+        labelGameHistory3.setFont(new Font("Calibri", Font.PLAIN, 11));
         labelGameHistory3.setAlignmentX(Component.LEFT_ALIGNMENT);
         
         labelGameHistoryPlayer4 = new JLabel(player4Text);
@@ -864,7 +864,7 @@ public class GameBoard {
         labelGameHistory4 = new JLabel(player4_history);
         
         labelGameHistory4.setForeground(Color.YELLOW);
-        labelGameHistory4.setFont(new Font("Calibri", Font.PLAIN, 12));
+        labelGameHistory4.setFont(new Font("Calibri", Font.PLAIN, 11));
         labelGameHistory4.setAlignmentX(Component.LEFT_ALIGNMENT);
         
         panelGameHistoryField.add(Box.createRigidArea(new Dimension(0,5)));
