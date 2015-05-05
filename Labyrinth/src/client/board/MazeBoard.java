@@ -8,14 +8,35 @@ import java.util.Random;
  *
  * @author xpospi73, xdress00
  */
+
+/**
+ * MazeBoard class represents a game board. The game board is compound by fields.
+ * Also enable a new game generation and fields shifting.
+ */
 public class MazeBoard {
     
+    /** 
+     * Field of game fields.
+     */
     public static MazeField[][] field;
+    
+    /**
+     * Represents a freecard.
+     */
     public static MazeCard freeCard = null;
+    
+    /**
+     * For number generation.
+     */
     public static Random randomGenerator = new Random();
     
     private static int size;
     
+    /**
+     * This method creates a game board.
+     * @param n specify a game board size.
+     * @return the game board.
+     */
     public static MazeBoard createMazeBoard(int n){
         MazeBoard board = new MazeBoard();
         size = n;
@@ -28,6 +49,9 @@ public class MazeBoard {
         return board;
     }
     
+    /**
+     * This method generates a new rock of random type and rotation.
+     */
     private MazeCard getRandomNewCard(MazeCard c){
         int randomInt = randomGenerator.nextInt(3);
         switch (randomInt) {
@@ -50,6 +74,9 @@ public class MazeBoard {
         return c;
     }
     
+    /**
+     * This method generates a new rock of specific type and rotation.
+     */
     private MazeCard getSpecificNewCard(MazeCard c, String type){
         switch (type) {
             case "C": c = MazeCard.create("C");
@@ -62,6 +89,9 @@ public class MazeBoard {
         return c;
     }
     
+    /**
+     * This method creates a new game and generates fields, rocks and free rock.  
+     */
     public void newGame(){
         for (int r = 1; r <= size; r++){
             for (int c = 1; c <= size; c++){
@@ -110,14 +140,28 @@ public class MazeBoard {
         freeCard = getRandomNewCard(freeCard);
     }
     
+    /**
+     * This method is for getting a spefic field.
+     * @param r represents row of the field.
+     * @param c represents column of the field.
+     * @return the field or null (error).
+     */
     public MazeField get(int r, int c){
         return ((r > size) || (c > size)) ? null : field[r][c];
     }
     
+    /**
+     * This method is for getting a free rock.
+     * @return the free rock.
+     */
     public MazeCard getFreeCard(){
         return freeCard;
     }
-    
+   
+    /**
+     * This method is for field shifting.
+     * @param mf represents a position of the field, which is going to be shifted.
+     */
     public void shift(MazeField mf){
         if ((mf.row() == 1) && ((mf.col() > 0) && (mf.col() < size)) && (mf.col() % 2 == 0)){
             // Prvni radek [1, mf.col()]

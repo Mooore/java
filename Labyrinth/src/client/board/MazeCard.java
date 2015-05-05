@@ -7,14 +7,26 @@ package client.board;
  *
  * @author xpospi73, xdress00
  */
+
+/**
+ * MazeCard class represents one rock, which was placed on game field. 
+ */
 public class MazeCard {
     
     boolean canGoArr[];
     
+    /**
+     * This enum represents directions, in which can be leave.
+     */
     public static enum CANGO {
         LEFT, UP, RIGHT, DOWN;
     }
     
+    /**
+     * This method creates a new rock of given type.
+     * @param type Specific type of rock.
+     * @return the created rock.
+     */
     public static MazeCard create(String type){
         MazeCard square = new MazeCard();
         
@@ -33,10 +45,18 @@ public class MazeCard {
         return square;
     }
     
+    /**
+     * This method is for checking, if rock can be leave in specific direction.
+     * @param dir represents direction.
+     * @return true or false.
+     */
     public boolean canGo(MazeCard.CANGO dir){
         return canGoArr[dir.ordinal()];
     }
     
+    /**
+     * This method turns the rock right by 90°.
+     */
     public void turnRight(){
         boolean tmp[] = new boolean[4];
         for (int i = 0; i <= 3; i++){
@@ -52,6 +72,9 @@ public class MazeCard {
 	}
     }
     
+    /**
+     * This method turns the rock left by 90°.
+     */
     public void turnLeft(){
         boolean tmp[] = new boolean[4];
         for (int i = 0; i <= 3; i++){
