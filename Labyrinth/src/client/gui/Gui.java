@@ -436,6 +436,7 @@ public class Gui extends JFrame {
                                     Game.player1.turnCommand = false;
                                     Game.player1.shiftCommand = false;
                                     Game.player1.goCommand = false;
+                                    Game.player1.undoRight = true;
                                 }
                                 break;
                         
@@ -444,6 +445,7 @@ public class Gui extends JFrame {
                                     Game.player2.turnCommand = false;
                                     Game.player2.shiftCommand = false;
                                     Game.player2.goCommand = false;
+                                    Game.player2.undoRight = true;
                                 }
                                 break;
                     }
@@ -455,6 +457,7 @@ public class Gui extends JFrame {
                                     Game.player1.turnCommand = false;
                                     Game.player1.shiftCommand = false;
                                     Game.player1.goCommand = false;
+                                    Game.player1.undoRight = true;
                                 }
                                 break;
                         
@@ -463,6 +466,7 @@ public class Gui extends JFrame {
                                     Game.player2.turnCommand = false;
                                     Game.player2.shiftCommand = false;
                                     Game.player2.goCommand = false;
+                                    Game.player2.undoRight = true;
                                 }
                                 break;
                             
@@ -471,6 +475,7 @@ public class Gui extends JFrame {
                                     Game.player3.turnCommand = false;
                                     Game.player3.shiftCommand = false;
                                     Game.player3.goCommand = false;
+                                    Game.player3.undoRight = true;
                                 }
                                 break;
                     }
@@ -482,6 +487,7 @@ public class Gui extends JFrame {
                                     Game.player1.turnCommand = false;
                                     Game.player1.shiftCommand = false;
                                     Game.player1.goCommand = false;
+                                    Game.player1.undoRight = true;
                                 }
                                 break;
                         
@@ -490,6 +496,7 @@ public class Gui extends JFrame {
                                     Game.player2.turnCommand = false;
                                     Game.player2.shiftCommand = false;
                                     Game.player2.goCommand = false;
+                                    Game.player2.undoRight = true;
                                 }
                                 break;
                             
@@ -498,6 +505,7 @@ public class Gui extends JFrame {
                                     Game.player3.turnCommand = false;
                                     Game.player3.shiftCommand = false;
                                     Game.player3.goCommand = false;
+                                    Game.player3.undoRight = true;
                                 }
                                 break;
                         
@@ -506,6 +514,7 @@ public class Gui extends JFrame {
                                     Game.player4.turnCommand = false;
                                     Game.player4.shiftCommand = false;
                                     Game.player4.goCommand = false;
+                                    Game.player4.undoRight = true;
                                 }
                                 break;
                     }

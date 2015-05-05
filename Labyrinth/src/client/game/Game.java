@@ -399,34 +399,66 @@ public class Game {
     }
     
     public void undo() {
-        undoCommand(false);
- 
+        if(currentPlayer == 1) {
+            if(player1.undo.lastCommand > 0) {
+                if(player1.undoRight) {
+                    undoCommand(false);
+                    player1.undoRight = false;
+                }
+            }
+        }
+        else if(currentPlayer == 2) {
+            if(player2.undo.lastCommand > 0) {
+                if(player2.undoRight) {
+                    undoCommand(false);
+                    player2.undoRight = false;
+                }
+            }
+        }
+        else if(currentPlayer == 3) {
+            if(player3.undo.lastCommand > 0) {
+                if(player3.undoRight) {
+                    undoCommand(false);
+                    player3.undoRight = false;
+                }
+            }
+        }
+        else if(currentPlayer == 4) {
+            if(player4.undo.lastCommand > 0) {
+                if(player4.undoRight) {
+                    undoCommand(false);
+                    player4.undoRight = false;
+                }
+            }
+        }
     }
     public String undoCommand(boolean tuiflag){
         String undoCommand = "",rc;
+        int goX, goY, FromX, FromY;
+        goX = goY = FromX = FromY = 0;
         System.out.println(undoCommand);
         if (currentPlayer == 1) {
             if(player1.undoRight) {
                 undoCommand = player1.undo.invertCommand(player1.undo.readLastCommand());
-                player1.undoRight = false;
+               // player1.undoRight = false;
             }
         }
         else if (currentPlayer == 2) {
             if(player2.undoRight) {
                 undoCommand = player2.undo.invertCommand(player2.undo.readLastCommand());
-                player2.undoRight = false;
+               // player2.undoRight = false;
             }
         }
         else if (currentPlayer == 3) {
             if(player3.undoRight) {
                 undoCommand = player3.undo.invertCommand(player3.undo.readLastCommand());
-                player3.undoRight = false;
+                //player3.undoRight = false;
             }
         }
         else if (currentPlayer == 4) {
             if(player1.undoRight) {
                 undoCommand = player4.undo.invertCommand(player4.undo.readLastCommand());
-                player4.undoRight = false;
+                //player4.undoRight = false;
             }
         }
         
@@ -451,6 +483,20 @@ public class Game {
                     col = Character.getNumericValue(rc.charAt(3));
                 }
             }
+            
+            if(currentPlayer == 1) {
+                player1.turnCommand = false;
+            }
+            else if(currentPlayer == 2) {
+                player2.turnCommand = false;
+            }
+            else if(currentPlayer == 3) {
+                player3.turnCommand = false;
+            }
+            else if(currentPlayer == 4) {
+                player4.turnCommand = false;
+            }
+            
             mazeboard.get(row,col).getCard().turnLeft();
         }
         else if(undoCommand.matches("^(t|(-t))(([0-9])([0-9])?([:])([0-9])([0-9])?)$") == true) {
@@ -474,6 +520,20 @@ public class Game {
                     col = Character.getNumericValue(rc.charAt(3));
                 }
             }
+            
+            if(currentPlayer == 1) {
+                player1.turnCommand = false;
+            }
+            else if(currentPlayer == 2) {
+                player2.turnCommand = false;
+            }
+            else if(currentPlayer == 3) {
+                player3.turnCommand = false;
+            }
+            else if(currentPlayer == 4) {
+                player4.turnCommand = false;
+            }
+            
             mazeboard.get(row,col).getCard().turnRight();
         }
         else if(undoCommand.matches("^(s|(-s))(([0-9])([0-9])?([:])([0-9])([0-9])?)$") == true) {
@@ -502,14 +562,37 @@ public class Game {
         }
         else if(undoCommand.matches("^(tf|(-tf))$") == true) {
             mazeboard.getFreeCard().turnRight();
+            if(currentPlayer == 1) {
+                player1.turnCommand = false;
+            }
+            else if(currentPlayer == 2) {
+                player2.turnCommand = false;
+            }
+            else if(currentPlayer == 3) {
+                player3.turnCommand = false;
+            }
+            else if(currentPlayer == 4) {
+                player4.turnCommand = false;
+            }
         }
         else if(undoCommand.matches("^(tlf|(-tlf))$") == true) {
             mazeboard.getFreeCard().turnLeft();
+            if(currentPlayer == 1) {
+                player1.turnCommand = false;
+            }
+            else if(currentPlayer == 2) {
+                player2.turnCommand = false;
+            }
+            else if(currentPlayer == 3) {
+                player3.turnCommand = false;
+            }
+            else if(currentPlayer == 4) {
+                player4.turnCommand = false;
+            }
         }
         else if(undoCommand.matches("^(go|(-go))([0-9])([0-9])?([:])([0-9])([0-9])?([-])([0-9])([0-9])?([:])([0-9])([0-9])?$") == true) {
             rc = undoCommand.replaceAll("(go|(-go))", "");
-            int goX, goY, FromX, FromY;
-            goX = goY = FromX = FromY = 0;
+            
             String go[] = rc.split("-");
             for(int i = 0; i < 2; i++){
                 if (go[i].equals("-") != true){
@@ -537,21 +620,33 @@ public class Game {
             lastcommand = player1.undo.readLastCommand();
             player1.undo.commands.remove(player1.undo.lastCommand - 1);
             player1.undo.lastCommand--;
+            player1.positionR = goX;
+            player1.positionC = goY;          
+            player1.goCommand = false;
         }
         else if (currentPlayer == 2) {
             lastcommand = player2.undo.readLastCommand();
             player2.undo.commands.remove(player2.undo.lastCommand - 1);
             player2.undo.lastCommand--;
+            player2.positionR = goX;
+            player2.positionC = goY;          
+            player2.goCommand = false;
         }
         else if (currentPlayer == 3) {
             lastcommand = player3.undo.readLastCommand();
             player3.undo.commands.remove(player3.undo.lastCommand - 1);
             player3.undo.lastCommand--;
+            player3.positionR = goX;
+            player3.positionC = goY;          
+            player3.goCommand = false;
         }
         else if (currentPlayer == 4) {
             lastcommand = player4.undo.readLastCommand();
             player4.undo.commands.remove(player4.undo.lastCommand - 1);
             player4.undo.lastCommand--;
+            player4.positionR = goX;
+            player4.positionC = goY;          
+            player4.goCommand = false;
         }
         
         if(tuiflag){
