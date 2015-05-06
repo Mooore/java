@@ -7,13 +7,14 @@ import static client.client.gui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import javax.swing.*;
 
 /**
  *
  * @author xpospi73, xdress00
  */
-public class Menu {
+public class Menu implements Serializable {
     public JButton buttonMenuNewGame = new JButton("New Game");
     public JButton buttonMenuLoadGame = new JButton("Load Game");
     public JButton buttonMenuHelp = new JButton("Help");

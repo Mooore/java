@@ -3,6 +3,8 @@
  */
 package client.board;
 
+import java.io.Serializable;
+
 /**
  *
  * @author xpospi73, xdress00
@@ -11,7 +13,7 @@ package client.board;
 /**
  * MazeCard class represents one rock, which was placed on game field. 
  */
-public class MazeCard {
+public class MazeCard implements Serializable {
     
     boolean canGoArr[];
     

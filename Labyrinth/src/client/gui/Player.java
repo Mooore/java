@@ -6,12 +6,13 @@ package client.gui;
 import client.treasure.Treasure;
 import client.undo.undo;
 import java.awt.Color;
+import java.io.Serializable;
 
 /**
  *
  * @author xpospi73, xdress00
  */
-public class Player {
+public class Player implements Serializable {
     private int playerNumber;
     private Color playerColor;
     public undo undo;
@@ -19,7 +20,7 @@ public class Player {
     public int positionC;
     
     private int obtainedTreasures;
-    private Treasure assignedTreasure = null;
+    public Treasure assignedTreasure = null;
         
     public boolean turnCommand = false;
     public boolean shiftCommand = false;

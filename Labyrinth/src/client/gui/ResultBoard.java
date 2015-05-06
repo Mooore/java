@@ -8,14 +8,14 @@ import client.game.Game;
 import static client.gui.Gui.gameboard;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Arrays;
+import java.io.Serializable;
 import javax.swing.*;
 
 /**
  *
  * @author xpospi73, xdress00
  */
-public class ResultBoard  extends JFrame {
+public class ResultBoard  extends JFrame implements Serializable {
     public ResultBoard(){
         GridLayout layoutResultBoard = new GridLayout(2,0);
         

@@ -3,6 +3,8 @@
  */
 package client.board;
 
+import java.io.Serializable;
+
 /**
  *
  * @author xpospi73, xdress00
@@ -12,7 +14,7 @@ package client.board;
  * This class represents game field. Each field have to be identify by row and column.
  * Rocks are placed on the fields.
  */
-public class MazeField {
+public class MazeField implements Serializable {
     
     private final int r, c;
     private MazeCard card = null;

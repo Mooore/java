@@ -4,6 +4,7 @@
 package client.undo;
 
 import client.game.Game;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author xpospi73, xdress00
  */
-public class undo {
+public class undo implements Serializable {
     
     public List<String> commands;
     public int lastCommand;

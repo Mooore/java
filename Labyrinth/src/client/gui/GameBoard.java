@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -20,7 +21,7 @@ import javax.swing.border.EmptyBorder;
  *
  * @author xpospi73, xdress00
  */
-public class GameBoard {
+public class GameBoard implements Serializable {
     public JButton buttonGameMenu = new JButton("Menu");
     public JButton buttonGameSave = new JButton("Save");
     public JButton buttonGameUndo = new JButton("Undo");
@@ -34,25 +35,25 @@ public class GameBoard {
     public JButton buttonGameShiftUp = new JButton("Shift up");
     public JButton buttonGameGo = new JButton("Go");
     
-    private final JLabel labelGamePlaying = new JLabel("Playing: ");
-    private final JLabel labelGamePlayer1 = new JLabel("Player 1");
-    private final JLabel labelGamePlayer2 = new JLabel("Player 2");
-    private final JLabel labelGamePlayer3 = new JLabel("Player 3");
-    private final JLabel labelGamePlayer4 = new JLabel("Player 4");
-    private final JLabel labelGameObtainedTreasures = new JLabel("Obtained treasures: ");
-    private final JLabel labelGameHistory = new JLabel("History");
-    private final JLabel labelGameControls = new JLabel("Controls");
-    private final JLabel labelGameTreasure = new JLabel("Treasure");
-    private final JLabel labelGameFreeCard = new JLabel("Free card");
-    private JLabel labelGameHistory1 = new JLabel("");
-    private JLabel labelGameHistory2 = new JLabel("");
-    private JLabel labelGameHistory3 = new JLabel("");
-    private JLabel labelGameHistory4 = new JLabel("");
-    private JLabel labelGameHistoryPlayer1 = new JLabel("");
-    private JLabel labelGameHistoryPlayer2 = new JLabel("");
-    private JLabel labelGameHistoryPlayer3 = new JLabel("");
-    private JLabel labelGameHistoryPlayer4 = new JLabel("");
-    private JLabel labelGameTreasureCoordinates = new JLabel("");
+    public final JLabel labelGamePlaying = new JLabel("Playing: ");
+    public final JLabel labelGamePlayer1 = new JLabel("Player 1");
+    public final JLabel labelGamePlayer2 = new JLabel("Player 2");
+    public final JLabel labelGamePlayer3 = new JLabel("Player 3");
+    public final JLabel labelGamePlayer4 = new JLabel("Player 4");
+    public final JLabel labelGameObtainedTreasures = new JLabel("Obtained treasures: ");
+    public final JLabel labelGameHistory = new JLabel("History");
+    public final JLabel labelGameControls = new JLabel("Controls");
+    public final JLabel labelGameTreasure = new JLabel("Treasure");
+    public final JLabel labelGameFreeCard = new JLabel("Free card");
+    public JLabel labelGameHistory1 = new JLabel("");
+    public JLabel labelGameHistory2 = new JLabel("");
+    public JLabel labelGameHistory3 = new JLabel("");
+    public JLabel labelGameHistory4 = new JLabel("");
+    public JLabel labelGameHistoryPlayer1 = new JLabel("");
+    public JLabel labelGameHistoryPlayer2 = new JLabel("");
+    public JLabel labelGameHistoryPlayer3 = new JLabel("");
+    public JLabel labelGameHistoryPlayer4 = new JLabel("");
+    public JLabel labelGameTreasureCoordinates = new JLabel("");
     
     public JTextField textFieldGameTurnRightCardX = new JTextField("1");
     public JTextField textFieldGameTurnRightCardY = new JTextField("1");
@@ -126,6 +127,13 @@ public class GameBoard {
         });
                 
         buttonGameSave.setFont(new Font("Calibri", Font.BOLD, 20));
+        buttonGameSave.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Game.saveGame();
+            }
+        });
                 
         buttonGameUndo.setFont(new Font("Calibri", Font.BOLD, 20));
         buttonGameUndo.addActionListener(new ActionListener(){
@@ -1381,8 +1389,8 @@ public class GameBoard {
     }
 }
 
-class BgPanel extends JPanel {
-    public Image bg;
+class BgPanel extends JPanel implements Serializable {
+    public transient Image bg;
     
     public BgPanel(MazeCard card){
         //bg = new ImageIcon(ImageIO.read(new File(path + "/lib/wayL_true_false_true_false.jpg"))).getImage();

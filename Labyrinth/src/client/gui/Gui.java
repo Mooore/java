@@ -15,7 +15,7 @@ import javax.swing.*;
  *
  * @author xpospi73, xdress00
  */
-public class Gui extends JFrame {
+public class Gui extends JFrame implements Serializable {
     
     public static GridBagConstraints gbc;
     

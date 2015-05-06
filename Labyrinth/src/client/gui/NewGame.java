@@ -6,6 +6,7 @@ package client.gui;
 import static client.client.gui;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.Serializable;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -13,7 +14,7 @@ import javax.swing.border.EmptyBorder;
  *
  * @author xpospi73, xdress00
  */
-public class NewGame {
+public class NewGame implements Serializable {
     public JButton buttonNewGameStartGame = new JButton("Start Game");
     public JButton buttonNewGameBack = new JButton("Back");
     

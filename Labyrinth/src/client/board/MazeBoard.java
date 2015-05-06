@@ -3,6 +3,7 @@
  */
 package client.board;
 
+import java.io.Serializable;
 import java.util.Random;
 /**
  *
@@ -13,7 +14,7 @@ import java.util.Random;
  * MazeBoard class represents a game board. The game board is compound by fields.
  * Also enable a new game generation and fields shifting.
  */
-public class MazeBoard {
+public class MazeBoard implements Serializable {
     
     /** 
      * Field of game fields.
@@ -30,7 +31,7 @@ public class MazeBoard {
      */
     public static Random randomGenerator = new Random();
     
-    private static int size;
+    public static int size;
     
     /**
      * This method creates a game board.

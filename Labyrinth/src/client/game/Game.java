@@ -4,9 +4,18 @@
 package client.game;
 
 import client.board.*;
+import client.gui.Gui;
+import static client.gui.Gui.game;
+import static client.gui.Gui.gameboard;
 import client.gui.Player;
 import client.treasure.*;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -14,7 +23,7 @@ import java.util.Random;
  *
  * @author xpospi73, xdress00
  */
-public class Game {
+public class Game implements Serializable {
     public static int boardSize, numberOfPlayers, numberOfTreasures;
     
     public static Player player1, player2, player3, player4;
@@ -25,7 +34,7 @@ public class Game {
     
     public static MazeBoard mazeboard;
     
-    private static MazeField field = null;
+    public static MazeField field = null;
     
     public Game(int size, int players, int treasures){
         boardSize = size;
@@ -991,5 +1000,52 @@ public class Game {
         Treasure tr = pack.remove(Treasure.cards - 1);
         Treasure.cards = pack.size();
         return tr;
+    }
+    
+    public static void saveGame(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date dateDate = new Date();
+        String date = dateFormat.format(dateDate).replaceAll("[/ :]", "_");
+        String fileName = Gui.path + "/examples/SAVE_" + date + ".sav";
+        try {
+            FileOutputStream saveFile = new FileOutputStream(fileName);
+            ObjectOutputStream save = new ObjectOutputStream(saveFile);
+            save.writeObject(game);
+            save.writeObject(currentPlayer);
+            save.writeObject(numberOfPlayers);
+            save.writeObject(numberOfTreasures);
+            save.writeObject(boardSize);
+            save.writeObject(pack);
+            save.writeObject(treasuresPositions);
+            save.writeObject(gameboard);
+            save.writeObject(player1);
+            save.writeObject(player2);
+            save.writeObject(player3);
+            save.writeObject(player4);
+            save.writeObject(mazeboard);
+            save.writeObject(MazeBoard.field);
+            save.writeObject(MazeBoard.freeCard);
+            save.writeObject(MazeBoard.size);
+            save.writeObject(field);
+            save.writeObject(player1.undo);
+            save.writeObject(player1.assignedTreasure);
+            save.writeObject(player2.undo);
+            save.writeObject(player2.assignedTreasure);
+            if(numberOfPlayers == 3){
+                save.writeObject(player3.undo);
+                save.writeObject(player3.assignedTreasure);
+            }
+            if(numberOfPlayers == 4){
+                save.writeObject(player3.undo);
+                save.writeObject(player3.assignedTreasure);
+                save.writeObject(player4.undo);
+                save.writeObject(player4.assignedTreasure);
+            }
+                        
+            save.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

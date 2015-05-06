@@ -4,6 +4,7 @@
 package client;
 
 import client.gui.Gui;
+import java.io.Serializable;
 
 /**
  *
@@ -13,7 +14,7 @@ import client.gui.Gui;
 /**
  * This class creates new Gui and menu after lauching the application.
  */
-public class client {
+public class client implements Serializable{
     
     /**
      * Represents the Gui.
