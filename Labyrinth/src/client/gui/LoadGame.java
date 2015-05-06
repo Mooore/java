@@ -23,6 +23,7 @@ import client.treasure.Treasure;
 import client.undo.undo;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
@@ -73,51 +74,66 @@ public class LoadGame implements Serializable{
         
         buttonLoadGame1.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonLoadGame1.setFont(new Font("Calibri", Font.BOLD, 20));
+        buttonLoadGame1.setText("Saved Game 1.");
         buttonLoadGame1.addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                LoadGame("");
+                File folder = new File(Gui.path + "/examples/");
+                File[] listOfFiles = folder.listFiles();
+                LoadGame(listOfFiles[0].getName());
             }
         }); 
         
         buttonLoadGame2.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonLoadGame2.setFont(new Font("Calibri", Font.BOLD, 20));
+        buttonLoadGame2.setText("Saved Game 2.");
         buttonLoadGame2.addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                LoadGame("");
+                File folder = new File(Gui.path + "/examples/");
+                File[] listOfFiles = folder.listFiles();
+                LoadGame(listOfFiles[1].getName());
             }
         }); 
         
         buttonLoadGame3.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonLoadGame3.setFont(new Font("Calibri", Font.BOLD, 20));
+        buttonLoadGame3.setText("Saved Game 3.");
         buttonLoadGame3.addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                LoadGame("");
+                File folder = new File(Gui.path + "/examples/");
+                File[] listOfFiles = folder.listFiles();
+                LoadGame(listOfFiles[2].getName());
             }
         }); 
         
         buttonLoadGame4.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonLoadGame4.setFont(new Font("Calibri", Font.BOLD, 20));
+        buttonLoadGame4.setText("Saved Game 4.");
         buttonLoadGame4.addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                LoadGame("");
+                File folder = new File(Gui.path + "/examples/");
+                File[] listOfFiles = folder.listFiles();
+                LoadGame(listOfFiles[3].getName());
             }
         }); 
         
         buttonLoadGame5.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonLoadGame5.setFont(new Font("Calibri", Font.BOLD, 20));
+        buttonLoadGame5.setText("Saved Game 5.");
         buttonLoadGame5.addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                LoadGame("");
+                File folder = new File(Gui.path + "/examples/");
+                File[] listOfFiles = folder.listFiles();
+                LoadGame(listOfFiles[4].getName());
             }
         }); 
         

@@ -9,6 +9,7 @@ import static client.gui.Gui.game;
 import static client.gui.Gui.gameboard;
 import client.gui.Player;
 import client.treasure.*;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -1003,12 +1004,27 @@ public class Game implements Serializable {
     }
     
     public static void saveGame(){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date dateDate = new Date();
-        String date = dateFormat.format(dateDate).replaceAll("[/ :]", "_");
-        String fileName = Gui.path + "/examples/SAVE_" + date + ".sav";
+        //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        //Date dateDate = new Date();
+        //String date = dateFormat.format(dateDate).replaceAll("[/ :]", "_");
+        //String fileName = Gui.path + "/examples/SAVE_" + date + ".sav";
+        
+        File folder = new File(Gui.path + "/examples/");
+        File[] listOfFiles = folder.listFiles();
+        
+        long min = Long.MAX_VALUE;
+        int index = 0;
+        for(int i = 0; i < 5; i++){
+            //System.out.println(listOfFiles[i]);
+            if(listOfFiles[i].lastModified() < min){
+                index = i;
+                min = listOfFiles[i].lastModified();
+            }
+        }
+        String filename = listOfFiles[index].getName();
+        
         try {
-            FileOutputStream saveFile = new FileOutputStream(fileName);
+            FileOutputStream saveFile = new FileOutputStream(Gui.path + "/examples/" + filename);
             ObjectOutputStream save = new ObjectOutputStream(saveFile);
             save.writeObject(game);
             save.writeObject(currentPlayer);

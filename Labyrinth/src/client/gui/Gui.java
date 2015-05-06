@@ -149,7 +149,7 @@ public class Gui extends JFrame implements Serializable {
         }
         
         if (newgame.radioButtonNewGameNumberOfTreasures12.isSelected()){
-            numberOfTreasures = 4;
+            numberOfTreasures = 12;
         }
         else {
             numberOfTreasures = 24;
