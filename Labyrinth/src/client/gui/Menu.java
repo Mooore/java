@@ -14,11 +14,34 @@ import javax.swing.*;
  *
  * @author xpospi73, xdress00
  */
+
+/**
+ * This class represents menu with game options.
+ */
 public class Menu implements Serializable {
+    /**
+     * Start new game.
+     */
     public JButton buttonMenuNewGame = new JButton("New Game");
+    
+    /**
+     * Load saved games.
+     */
     public JButton buttonMenuLoadGame = new JButton("Load Game");
+    
+    /**
+     * Show help.
+     */
     public JButton buttonMenuHelp = new JButton("Help");
+    
+    /**
+     * Show credits.
+     */
     public JButton buttonMenuCredits = new JButton("Credits");
+    
+    /**
+     * Exit application.
+     */
     public JButton buttonMenuExit = new JButton("Exit");
     
     private final JLabel labelMenuTheLabyrinth = new JLabel("The Labyrinth");
@@ -28,6 +51,9 @@ public class Menu implements Serializable {
     
     private final BoxLayout boxLayoutMenu = new BoxLayout(panelMenuButtons, BoxLayout.Y_AXIS);
     
+    /**
+     * Constructor initializes Gui for menu.
+     */
     public Menu(){
         //panelMenuTitle.setBorder(new EmptyBorder(10,500,10,500));
         panelMenuTitle.setBackground(new Color(0,0,0, (float) 0.5));
