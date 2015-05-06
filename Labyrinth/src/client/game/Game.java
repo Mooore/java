@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -1004,24 +1005,20 @@ public class Game implements Serializable {
     }
     
     public static void saveGame(){
-        //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        //Date dateDate = new Date();
-        //String date = dateFormat.format(dateDate).replaceAll("[/ :]", "_");
-        //String fileName = Gui.path + "/examples/SAVE_" + date + ".sav";
-        
         File folder = new File(Gui.path + "/examples/");
         File[] listOfFiles = folder.listFiles();
         
         long min = Long.MAX_VALUE;
         int index = 0;
         for(int i = 0; i < 5; i++){
-            //System.out.println(listOfFiles[i]);
             if(listOfFiles[i].lastModified() < min){
                 index = i;
                 min = listOfFiles[i].lastModified();
             }
         }
         String filename = listOfFiles[index].getName();
+        
+        JOptionPane.showMessageDialog(null,"The game has been saved into GAME SAVED " + String.valueOf(index + 1)); 
         
         try {
             FileOutputStream saveFile = new FileOutputStream(Gui.path + "/examples/" + filename);
