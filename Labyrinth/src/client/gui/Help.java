@@ -14,6 +14,10 @@ import javax.swing.border.EmptyBorder;
  *
  * @author xpospi73, xdress00
  */
+
+/**
+ * This class is for help show.
+ */
 public class Help implements Serializable {
     public JButton buttonHelpBack = new JButton("Back");
     
