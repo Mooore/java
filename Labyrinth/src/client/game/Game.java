@@ -1015,7 +1015,7 @@ public class Game implements Serializable {
             save.writeObject(numberOfPlayers);
             save.writeObject(numberOfTreasures);
             save.writeObject(boardSize);
-            save.writeObject(pack);
+            //save.writeObject(pack);
             save.writeObject(treasuresPositions);
             save.writeObject(gameboard);
             save.writeObject(player1);
@@ -1027,6 +1027,7 @@ public class Game implements Serializable {
             save.writeObject(MazeBoard.freeCard);
             save.writeObject(MazeBoard.size);
             save.writeObject(field);
+            save.writeObject(Treasure.cards);
             save.writeObject(player1.undo);
             save.writeObject(player1.assignedTreasure);
             save.writeObject(player2.undo);
@@ -1040,6 +1041,11 @@ public class Game implements Serializable {
                 save.writeObject(player3.assignedTreasure);
                 save.writeObject(player4.undo);
                 save.writeObject(player4.assignedTreasure);
+            }
+            
+            save.writeObject(pack.size());
+            for(int i = 0; i < pack.size(); i++){
+                save.writeObject(pack.get(i));
             }
                         
             save.close();

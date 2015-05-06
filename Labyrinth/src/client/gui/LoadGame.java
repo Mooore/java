@@ -13,6 +13,7 @@ import static client.game.Game.boardSize;
 import static client.game.Game.mazeboard;
 import static client.game.Game.numberOfPlayers;
 import static client.game.Game.numberOfTreasures;
+import static client.game.Game.pack;
 import static client.game.Game.player1;
 import static client.game.Game.player2;
 import static client.game.Game.player3;
@@ -25,6 +26,7 @@ import java.awt.event.*;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -34,7 +36,11 @@ import javax.swing.border.EmptyBorder;
  */
 public class LoadGame implements Serializable{
     public JButton buttonLoadGameBack = new JButton("Back");
-    public JButton buttonLoadGame1 = new JButton("Load Game 1");
+    public JButton buttonLoadGame1 = new JButton();
+    public JButton buttonLoadGame2 = new JButton();
+    public JButton buttonLoadGame3 = new JButton();
+    public JButton buttonLoadGame4 = new JButton();
+    public JButton buttonLoadGame5 = new JButton();
     
     private final JLabel labelCreditsTitle = new JLabel("Load Game");
     
@@ -71,15 +77,77 @@ public class LoadGame implements Serializable{
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
-                    FileInputStream saveFile = new FileInputStream(Gui.path + "/examples/SAVE_2015_05_06_02_00_06.sav");
+                LoadGame("");
+            }
+        }); 
+        
+        buttonLoadGame2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buttonLoadGame2.setFont(new Font("Calibri", Font.BOLD, 20));
+        buttonLoadGame2.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoadGame("");
+            }
+        }); 
+        
+        buttonLoadGame3.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buttonLoadGame3.setFont(new Font("Calibri", Font.BOLD, 20));
+        buttonLoadGame3.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoadGame("");
+            }
+        }); 
+        
+        buttonLoadGame4.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buttonLoadGame4.setFont(new Font("Calibri", Font.BOLD, 20));
+        buttonLoadGame4.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoadGame("");
+            }
+        }); 
+        
+        buttonLoadGame5.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buttonLoadGame5.setFont(new Font("Calibri", Font.BOLD, 20));
+        buttonLoadGame5.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoadGame("");
+            }
+        }); 
+        
+        panelLoadGameTitle.add(labelCreditsTitle);
+        panelLoadGameTitle.add(Box.createRigidArea(new Dimension(0,50)));
+        panelLoadGameContent.add(Box.createRigidArea(new Dimension(0,20)));
+        panelLoadGameContent.add(buttonLoadGame1);
+        panelLoadGameContent.add(Box.createRigidArea(new Dimension(0,10)));
+        panelLoadGameContent.add(buttonLoadGame2);
+        panelLoadGameContent.add(Box.createRigidArea(new Dimension(0,10)));
+        panelLoadGameContent.add(buttonLoadGame3);
+        panelLoadGameContent.add(Box.createRigidArea(new Dimension(0,10)));
+        panelLoadGameContent.add(buttonLoadGame4);
+        panelLoadGameContent.add(Box.createRigidArea(new Dimension(0,10)));
+        panelLoadGameContent.add(buttonLoadGame5);
+        panelLoadGameContent.add(Box.createRigidArea(new Dimension(0,20)));
+        panelLoadGameContent.add(buttonLoadGameBack);
+        
+        panelLoadGameContent.setLayout(boxLayoutLoadGame);
+    }
+    
+    public void LoadGame(String pathToSave){
+        try{
+                    FileInputStream saveFile = new FileInputStream(Gui.path + "/examples/" + pathToSave);
                     ObjectInputStream restore = new ObjectInputStream(saveFile);
                     Gui.game = (Game) restore.readObject();
                     Game.currentPlayer = (int) restore.readObject();
                     Game.numberOfPlayers = (int) restore.readObject();
                     Game.numberOfTreasures = (int) restore.readObject();
                     Game.boardSize = (int) restore.readObject();
-                    Game.pack = (java.util.List<Treasure>) restore.readObject();
                     Game.treasuresPositions = (int[][]) restore.readObject();
                     Gui.gameboard = (GameBoard) restore.readObject();
                     Game.player1 = (Player) restore.readObject();
@@ -91,6 +159,7 @@ public class LoadGame implements Serializable{
                     MazeBoard.freeCard = (MazeCard) restore.readObject();
                     MazeBoard.size = (int) restore.readObject();
                     Game.field = (MazeField) restore.readObject();
+                    Treasure.cards = (int) restore.readObject();
                     Game.player1.undo = (undo) restore.readObject();
                     Game.player1.assignedTreasure = (Treasure) restore.readObject();
                     Game.player2.undo = (undo) restore.readObject();
@@ -106,6 +175,11 @@ public class LoadGame implements Serializable{
                         Game.player4.assignedTreasure = (Treasure) restore.readObject();
                     }
                     
+                    int packSize = (int) restore.readObject();
+                    Game.pack = new ArrayList<>();
+                    for(int i = 0; i < packSize; i++){
+                        Game.pack.add((Treasure) restore.readObject());
+                    }
                     
                     restore.close();
                     
@@ -214,16 +288,5 @@ public class LoadGame implements Serializable{
                 catch(Exception exc){
                     exc.printStackTrace();
                 }
-            }
-        }); 
-        
-        panelLoadGameTitle.add(labelCreditsTitle);
-        panelLoadGameTitle.add(Box.createRigidArea(new Dimension(0,50)));
-        panelLoadGameContent.add(Box.createRigidArea(new Dimension(0,20)));
-        panelLoadGameContent.add(buttonLoadGame1);
-        panelLoadGameContent.add(Box.createRigidArea(new Dimension(0,20)));
-        panelLoadGameContent.add(buttonLoadGameBack);
-        
-        panelLoadGameContent.setLayout(boxLayoutLoadGame);
     }
 }
