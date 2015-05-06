@@ -15,7 +15,14 @@ import javax.swing.*;
  *
  * @author xpospi73, xdress00
  */
+
+/**
+ * This class is for showing results after the game finished.
+ */
 public class ResultBoard  extends JFrame implements Serializable {
+    /**
+     * Constructor sets a window layouts.
+     */
     public ResultBoard(){
         GridLayout layoutResultBoard = new GridLayout(2,0);
         
