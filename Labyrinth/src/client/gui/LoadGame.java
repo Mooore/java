@@ -6,19 +6,8 @@ package client.gui;
 import client.board.MazeBoard;
 import client.board.MazeCard;
 import client.board.MazeField;
-import client.client;
 import static client.client.gui;
 import client.game.Game;
-import static client.game.Game.boardSize;
-import static client.game.Game.mazeboard;
-import static client.game.Game.numberOfPlayers;
-import static client.game.Game.numberOfTreasures;
-import static client.game.Game.pack;
-import static client.game.Game.player1;
-import static client.game.Game.player2;
-import static client.game.Game.player3;
-import static client.game.Game.player4;
-import static client.gui.Gui.gameboard;
 import client.treasure.Treasure;
 import client.undo.undo;
 import java.awt.*;
@@ -35,6 +24,10 @@ import javax.swing.border.EmptyBorder;
  *
  * @author xpospi73, xdress00
  */
+
+/**
+ *  This class represents window for loading games
+ */
 public class LoadGame implements Serializable{
     public JButton buttonLoadGameBack = new JButton("Back");
     public JButton buttonLoadGame1 = new JButton();
@@ -50,6 +43,9 @@ public class LoadGame implements Serializable{
     
     private final BoxLayout boxLayoutLoadGame = new BoxLayout(panelLoadGameContent, BoxLayout.Y_AXIS);
     
+    /**
+     * Constructor for initialize components and actions
+     */
     public LoadGame() {
         panelLoadGameTitle.setBorder(new EmptyBorder(50,50,50,50));
         panelLoadGameTitle.setBackground(new Color(0,0,0, (float) 0.5));
@@ -155,6 +151,10 @@ public class LoadGame implements Serializable{
         panelLoadGameContent.setLayout(boxLayoutLoadGame);
     }
     
+    /**
+     * Load specified game from pathToSave
+     * @param pathToSave Path of saved game
+     */
     public void LoadGame(String pathToSave){
         try{
                     FileInputStream saveFile = new FileInputStream(Gui.path + "/examples/" + pathToSave);
