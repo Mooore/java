@@ -14,6 +14,10 @@ import javax.swing.border.EmptyBorder;
  *
  * @author xpospi73, xdress00
  */
+
+/**
+ * This class is for credits show.
+ */
 public class Credits implements Serializable {
     public JButton buttonCreditsBack = new JButton("Back");
     
