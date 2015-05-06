@@ -15,8 +15,15 @@ import javax.swing.*;
  *
  * @author xpospi73, xdress00
  */
+
+/**
+ * This class represents Gui of application.
+ */
 public class Gui extends JFrame implements Serializable {
     
+    /**
+     * Represents graphic context for panels.
+     */
     public static GridBagConstraints gbc;
     
     public static Menu menu = new Menu();
@@ -25,11 +32,24 @@ public class Gui extends JFrame implements Serializable {
     public static Credits credits = new Credits();
     public static LoadGame loadgame = new LoadGame();
     
+    /**
+     * Represents current game.
+     */
     public static Game game;
+    
+    /**
+     * Represents current game board.
+     */
     public static GameBoard gameboard;
     
+    /**
+     * Path to images.
+     */
     public static String path = System.getProperty("user.dir");
     
+    /**
+     * Constructor initializes Gui.
+     */
     public Gui() {
         super("The Labyrinth");
         GridBagLayout layoutMenu;
@@ -53,6 +73,9 @@ public class Gui extends JFrame implements Serializable {
         setResizable(false);
     }
     
+    /**
+     * This method sets Gui for menu.
+     */
     public void setMenu(){
         gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
@@ -67,6 +90,9 @@ public class Gui extends JFrame implements Serializable {
         repaint();
     }
     
+     /**
+     * This method sets Gui for new game.
+     */
     public void setNewGame(){
         gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
@@ -80,7 +106,10 @@ public class Gui extends JFrame implements Serializable {
         validate();
         repaint();
     }
-
+    
+     /**
+     * This method sets Gui for help.
+     */
     public void setHelp() {
         gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
@@ -95,6 +124,9 @@ public class Gui extends JFrame implements Serializable {
         repaint();
     }
     
+     /**
+     * This method sets Gui for credits.
+     */
     public void setCredits() {
         gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
@@ -109,6 +141,9 @@ public class Gui extends JFrame implements Serializable {
         repaint();
     }
     
+     /**
+     * This method sets Gui for load game.
+     */
     public void setLoadGame() {
         gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
@@ -122,7 +157,10 @@ public class Gui extends JFrame implements Serializable {
         validate();
         repaint();
     }
-
+    
+    /**
+     * This method starts new game.
+     */
     public void startNewGame() {
         int boardSize, numberOfPlayers, numberOfTreasures;
         if (newgame.radioButtonNewGameBoardSize5.isSelected()){
@@ -160,11 +198,18 @@ public class Gui extends JFrame implements Serializable {
         
     }
     
+    /**
+     * This method sets the game board.
+     */
     public void setGame() {
         gameboard = new GameBoard();
         mainPlayingCycle("Start");
     }
     
+    /**
+     * This method manage the game.
+     * @param command to do.
+     */
     public void mainPlayingCycle(String command){
         int x, y;
         switch(command){
@@ -321,6 +366,11 @@ public class Gui extends JFrame implements Serializable {
         refresh();
     }
     
+    /**
+     * This method controls, if a command can be made.
+     * @param command to do.
+     * @return 
+     */
     public boolean isAvailable(String command){
         switch(command){
             case "turn":    switch(Game.currentPlayer){
@@ -385,6 +435,9 @@ public class Gui extends JFrame implements Serializable {
         return false;
     }
     
+    /**
+     * This method stores a turn command.
+     */
     public void storeTurnCommand(){
         switch(Game.currentPlayer){
             case 1: Game.player1.turnCommand = true;
@@ -401,6 +454,9 @@ public class Gui extends JFrame implements Serializable {
         }
     }
     
+    /**
+     * This method stores a shift command.
+     */
     public void storeShiftCommand(){
         switch(Game.currentPlayer){
             case 1: Game.player1.shiftCommand = true;
@@ -417,6 +473,9 @@ public class Gui extends JFrame implements Serializable {
         }
     }
     
+    /**
+     * This method stores a go command.
+     */
     public void storeGoCommand(){
         switch(Game.currentPlayer){
             case 1: Game.player1.goCommand = true;
@@ -433,6 +492,9 @@ public class Gui extends JFrame implements Serializable {
         }
     }
     
+    /**
+     * This method changes players after their turn.
+     */
     public void switchPlayers(){
         switch(Game.numberOfPlayers){
             case 2: switch(Game.currentPlayer){
@@ -527,6 +589,9 @@ public class Gui extends JFrame implements Serializable {
         }
     }
     
+    /**
+     * Refresh the Gui view.
+     */
     public void refresh(){
         //gameboard.panelGame = gameboard.panelGameBoard = gameboard.panelGameHeader = null;
         gameboard.printHeader(Game.currentPlayer);
