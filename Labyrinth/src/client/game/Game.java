@@ -13,10 +13,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import javax.swing.JOptionPane;
@@ -25,19 +22,52 @@ import javax.swing.JOptionPane;
  *
  * @author xpospi73, xdress00
  */
+
+/**
+ * This class represent main functionality of gameplay.
+ */
 public class Game implements Serializable {
+    /**
+     * Main attributes of the game.
+     */
     public static int boardSize, numberOfPlayers, numberOfTreasures;
     
+    /**
+     * Objects for players.
+     */
     public static Player player1, player2, player3, player4;
+    
+    /**
+     * Indicates current playing player.
+     */
     public static int currentPlayer;
     
+    /**
+     * List of Treasure objects. Represents pack of treasures in the game.
+     */
     public static List<Treasure> pack;
+    
+    /**
+     * Array with saved treasure positions.
+     */
     public static int[][] treasuresPositions;
     
+    /**
+     * Main object of game board.
+     */
     public static MazeBoard mazeboard;
     
+    /**
+     * Field for use as free card for shifting actions.
+     */
     public static MazeField field = null;
     
+    /**
+     * Constructor for sets main attributes of the game.
+     * @param size Size of board.
+     * @param players Number of players.
+     * @param treasures Number of treasures.
+     */
     public Game(int size, int players, int treasures){
         boardSize = size;
         numberOfPlayers = players;
@@ -48,6 +78,9 @@ public class Game implements Serializable {
         placeTreasures();
     }
     
+    /**
+     * Sets number of players and asigns treasures.
+     */
     public void setPlayers() {
         currentPlayer = 1;
         if(numberOfPlayers == 2) {
@@ -95,7 +128,7 @@ public class Game implements Serializable {
     }
     
     /**
-     * 
+     * Starts new game. Sets players and generates game board.
      */
     public void startNewGame(){
         setPlayers();
@@ -103,9 +136,9 @@ public class Game implements Serializable {
     }
     
     /**
-     * 
-     * @param r
-     * @param c 
+     * Action - shifts row or column by selected row and column coordinates.
+     * @param r Row coordinate.
+     * @param c Column coordinate.
      */
     public void shift(int r, int c){
         field = new MazeField(r, c);
@@ -348,6 +381,11 @@ public class Game implements Serializable {
         }
     }
     
+    /**
+     * Action - turn selected card to right by coordinates.
+     * @param r Row coordinate.
+     * @param c Column coordinate.
+     */
     public void turnRight(int r, int c){
         if (currentPlayer == 1) {
             player1.undo.storeCommand("t" + r + ":" + c);
@@ -365,6 +403,11 @@ public class Game implements Serializable {
         mazeboard.get(r, c).getCard().turnRight();
     }
     
+    /**
+     * Action - turn selected card to left by coordinates.
+     * @param r Row coordinate.
+     * @param c Column coordinate.
+     */
     public void turnLeft(int r, int c){
         if (currentPlayer == 1) {
             player1.undo.storeCommand("tl" + r + ":" + c);
@@ -381,6 +424,9 @@ public class Game implements Serializable {
         mazeboard.get(r, c).getCard().turnLeft();
     }
     
+    /**
+     * Action - turn free card to right.
+     */
     public void turnRightFreeCard(){
         if (currentPlayer == 1) {
             player1.undo.storeCommand("tf");
@@ -397,6 +443,9 @@ public class Game implements Serializable {
         mazeboard.getFreeCard().turnRight();
     }
     
+    /**
+     * Action - turn free card to left.
+     */
     public void turnLeftFreeCard(){
         if (currentPlayer == 1) {
             player1.undo.storeCommand("tlf");
@@ -413,6 +462,14 @@ public class Game implements Serializable {
         mazeboard.getFreeCard().turnLeft();
     }
     
+    /**
+     * Action - go try to go to new coordinates.
+     * @param goX Goal row coordinate.
+     * @param goY Goal column coordinate.
+     * @param FromX Start row coordinate.
+     * @param FromY Start column coordinate.
+     * @return Returns false when player cannot move to this coordinates. True otherwise.
+     */
     public boolean go(String goX, String goY, int FromX, int FromY) {
         int x, y;
         
@@ -495,6 +552,13 @@ public class Game implements Serializable {
         return false;
     }
     
+    /**
+     * Method for Action - go. Searching for way to move using stack.
+     * @param player Object of player.
+     * @param x Row coordinate.
+     * @param y Column coordinate.
+     * @return Returns false when way doesn't exists. True otherwise.
+     */
     public boolean canGo(Player player, int x, int y){
         boolean cango = false, canwrite = true;
         int lastIndex;
@@ -664,6 +728,9 @@ public class Game implements Serializable {
         return cango;
     }
     
+    /**
+     * Selecting player for undo command.
+     */
     public void undo() {
         if(currentPlayer == 1) {
             if(player1.undo.lastCommand > 0) {
@@ -698,6 +765,12 @@ public class Game implements Serializable {
             }
         }
     }
+    
+    /**
+     * Action - undo command.
+     * @param tuiflag Old parameter. Used for text user interface.
+     * @return 
+     */
     public String undoCommand(boolean tuiflag){
         String undoCommand = "",rc;
         int goX, goY, FromX, FromY;
@@ -938,6 +1011,10 @@ public class Game implements Serializable {
         return lastcommand;
     }
     
+    /**
+     * Creating set of treasures.
+     * @param cards Number of treasures.
+     */
     public static void createSet(int cards){
         pack = new ArrayList<>();
         Treasure.cards = cards;
@@ -958,6 +1035,9 @@ public class Game implements Serializable {
         }
     }
     
+    /**
+     * Places treasures to random coordinates.
+     */
     public static void placeTreasures(){
         Random randomGenerator = new Random();
         Random randomGenerator2 = new Random();
@@ -997,13 +1077,20 @@ public class Game implements Serializable {
             flag = false;
         }
     }
-        
+
+    /**
+     * Pop treasure from pack.
+     * @return Object of treasure.
+     */
     public static Treasure popTreasure(){
         Treasure tr = pack.remove(Treasure.cards - 1);
         Treasure.cards = pack.size();
         return tr;
     }
     
+    /**
+     * Function for save game.
+     */
     public static void saveGame(){
         File folder = new File(Gui.path + "/examples/");
         File[] listOfFiles = folder.listFiles();
