@@ -21,6 +21,10 @@ import javax.swing.border.EmptyBorder;
  *
  * @author xpospi73, xdress00
  */
+
+/**
+ * This class represents a game board.
+ */
 public class GameBoard implements Serializable {
     public JButton buttonGameMenu = new JButton("Menu");
     public JButton buttonGameSave = new JButton("Save");
@@ -98,6 +102,9 @@ public class GameBoard implements Serializable {
     private String player1Text, player2Text, player3Text ,player4Text;
     private boolean cleanCommandHistory1, cleanCommandHistory2, cleanCommandHistory3, cleanCommandHistory4;
     
+    /**
+     * Constructor inicializes the game board.
+     */
     public GameBoard(){
         
         player1_history = "";
@@ -364,6 +371,10 @@ public class GameBoard implements Serializable {
         panelGameControlsButtonsRightInner.setLayout(boxLayoutGameControlsButtonsRightInner);
     }
     
+    /**
+     * This method prints the header of current player.
+     * @param currentPlayer represents a number of current player.
+     */
     void printHeader(int currentPlayer){
         panelGameHeader = new JPanel();
         panelGameHeader.setBackground(new Color(0,0,0, (float) 0.7));
@@ -390,7 +401,10 @@ public class GameBoard implements Serializable {
         panelGameHeader.add(Box.createRigidArea(new Dimension(60,0)));
         panelGameHeader.add(labelGameObtainedTreasures);
     }
-    
+   
+    /**
+     * This method prints the game board.
+     */
     public void printGameBoard(){
         panelGameBoard = new JPanel();
         panelGameBoard.setBackground(new Color(0,0,0, (float) 0.0));
@@ -398,6 +412,9 @@ public class GameBoard implements Serializable {
         panelGameBoard.setLayout(boxLayoutGameBoard);
     }
     
+    /**
+     * This method prints the game.
+     */
     public void printGame(){
         panelGame = new JPanel(new BorderLayout());
         panelGame.setBackground(new Color(0,0,0, (float) 0.5));
@@ -405,6 +422,10 @@ public class GameBoard implements Serializable {
         panelGame.add(panelGameControls, BorderLayout.EAST);
     }
     
+    /**
+     * This method prints the player's obtained treasures.
+     * @param player current player.
+     */
     public void printObtainedTreasures(Player player){
         JLabel labelObtained = new JLabel(Integer.toString(player.getObtainedTreasures()));
         labelObtained.setFont(new Font("Calibri", Font.BOLD, 20));
@@ -413,6 +434,9 @@ public class GameBoard implements Serializable {
         panelGameHeader.add(labelObtained);
     }
     
+    /**
+     * This method prints the free card.
+     */
     public void printFreeCard(){
         panelGameFreeCard = new JPanel();
         panelGameFreeCard.setBackground(new Color(0,0,0, (float) 0.0));
@@ -429,6 +453,9 @@ public class GameBoard implements Serializable {
         panelGameFreeCard.setLayout(boxLayoutGameFreeCard);
     }
     
+    /**
+     * This method prints treasures.
+     */
     public void printTreasure(){
         panelGameTreasure = new JPanel();
         panelGameTreasure.setBackground(new Color(0,0,0, (float) 0.0));
@@ -525,6 +552,9 @@ public class GameBoard implements Serializable {
         panelGameTreasure.setLayout(boxLayoutGameTreasure);
     }
     
+    /**
+     * This method prints the panels of treasure and free card.
+     */
     public void printTreasureFreeCard(){
         panelGameTreasureFreeCard = new JPanel();
         panelGameTreasureFreeCard.setBackground(new Color(0,0,0, (float) 0.0));
@@ -534,6 +564,11 @@ public class GameBoard implements Serializable {
         panelGameTreasureFreeCard.add(panelGameFreeCard, BorderLayout.EAST);
     }
     
+    /**
+     * This method transforms command to printeble form.
+     * @param command command to print.
+     * @return transformed command.
+     */
     private String commandText(String command) {
         String commandText = "",rc;
         if(command.matches("^(t|(-t))(([0-9])([0-9])?([:])([0-9])([0-9])?)$") == true) {
@@ -644,6 +679,11 @@ public class GameBoard implements Serializable {
         return commandText;
     }
     
+    /**
+     * This method gets players command history.
+     * @param playerNumber number of player.
+     * @return command history.
+     */
     private String playerHistory(int playerNumber) {
        // String commandHistory = " Player " + playerNumber + ": ";
         String commandHistory = "";
@@ -677,6 +717,9 @@ public class GameBoard implements Serializable {
         return commandHistory;
     }
     
+    /**
+     * This method prints players histories.
+     */
     public void printHistoryField(){
         panelGameHistoryField = new JPanel();
         
@@ -856,6 +899,9 @@ public class GameBoard implements Serializable {
         panelGameHistoryField.setLayout(boxLayoutGameHistoryField);
     }
     
+    /**
+     * This method sets space for history.
+     */
     public void printHistory(){
         panelGameHistory = new JPanel();
         
@@ -871,6 +917,9 @@ public class GameBoard implements Serializable {
         panelGameHistory.setLayout(boxLayoutGameHistory);
     }
     
+    /**
+     * This method prints Gui panels.
+     */
     public void printControls(){
         panelGameControls = new JPanel();
         panelGameControls.setBackground(new Color(0,0,0, (float) 0.5));
@@ -882,6 +931,9 @@ public class GameBoard implements Serializable {
         panelGameControls.add(panelGameTreasureFreeCard, BorderLayout.SOUTH);
     }
     
+    /**
+     * This method prints whole game board.
+     */
     public void printGameMatrix(){
         JPanel panelBoard = new JPanel();
         panelBoard.setLayout(new GridLayout(Game.boardSize + 2, Game.boardSize + 2));
@@ -1153,6 +1205,11 @@ public class GameBoard implements Serializable {
         panelGameBoard.add(panelBoard);
     }
     
+    /**
+     * This method prints treasures.
+     * @param card represents treasure.
+     * @return 
+     */
     private static JLabel printTreasure(int card) {
         JLabel label = new JLabel();
         try {
@@ -1225,6 +1282,11 @@ public class GameBoard implements Serializable {
         return label;
     }
     
+    /**
+     * This method prints the players.
+     * @param player represents player.
+     * @return 
+     */
     private static JLabel printPlayer(int player) {
         JLabel label = new JLabel();
         try {
@@ -1266,7 +1328,12 @@ public class GameBoard implements Serializable {
         }
         return label;
     }
-    
+   
+    /**
+     * This method prints cards.
+     * @param card represents card.
+     * @return 
+     */
     public JLabel printCard(MazeCard card){
         JLabel label = new JLabel();
         if(card.canGo(MazeCard.CANGO.LEFT) == true) {
@@ -1389,9 +1456,16 @@ public class GameBoard implements Serializable {
     }
 }
 
+/**
+ * This class represents cleaned paths
+ */
 class BgPanel extends JPanel implements Serializable {
     public transient Image bg;
     
+    /**
+     * Constructor sets the cards.
+     * @param card specific card.
+     */
     public BgPanel(MazeCard card){
         //bg = new ImageIcon(ImageIO.read(new File(path + "/lib/wayL_true_false_true_false.jpg"))).getImage();
             
