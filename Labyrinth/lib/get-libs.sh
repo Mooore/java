@@ -1,4 +1,4 @@
-#!/bin/bash
+
 
 wget disk.mirvan.cz/temp/Labyrinth.jpg
 wget disk.mirvan.cz/temp/wayc_false_false_true_true.jpg
