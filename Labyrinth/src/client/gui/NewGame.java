@@ -14,8 +14,18 @@ import javax.swing.border.EmptyBorder;
  *
  * @author xpospi73, xdress00
  */
+
+/**
+ * This class represents options of a new game before game starts.
+ */
 public class NewGame implements Serializable {
+    /**
+     * Start game.
+     */
     public JButton buttonNewGameStartGame = new JButton("Start Game");
+    /**
+     * Back to main menu.
+     */
     public JButton buttonNewGameBack = new JButton("Back");
     
     private final JLabel labelNewGameTitle = new JLabel("New Game");
@@ -23,18 +33,64 @@ public class NewGame implements Serializable {
     private final JLabel labelNewGameBoardSize = new JLabel("Board size:");
     private final JLabel labelNewGameNumberOfTreasures = new JLabel("Number of treasures:");
     
+    /**
+     * For 2 players.
+     */
     public JRadioButton radioButtonNewGameNumberOfPlayers2 = new JRadioButton("2");
+    
+    /**
+     * For 3 players.
+     */
     public JRadioButton radioButtonNewGameNumberOfPlayers3 = new JRadioButton("3");
+    
+    /**
+     * For 4 players.
+     */
     public JRadioButton radioButtonNewGameNumberOfPlayers4 = new JRadioButton("4");
+    
+    /**
+     * Board size 5.
+     */
     public JRadioButton radioButtonNewGameBoardSize5 = new JRadioButton("5");
+    
+    /**
+     * Board size 7.
+     */
     public JRadioButton radioButtonNewGameBoardSize7 = new JRadioButton("7");
+    
+    /**
+     * Board size 9.
+     */
     public JRadioButton radioButtonNewGameBoardSize9 = new JRadioButton("9");
+    
+    /**
+     * Board size 11.
+     */
     public JRadioButton radioButtonNewGameBoardSize11 = new JRadioButton("11");
+    
+    /**
+     * 12 treasures.
+     */
     public JRadioButton radioButtonNewGameNumberOfTreasures12 = new JRadioButton("12");
+    
+    /**
+     * 24 treasures.
+     */
     public JRadioButton radioButtonNewGameNumberOfTreasures24 = new JRadioButton("24");
     
+    /**
+     * Change count of players.
+     */
     public ButtonGroup radioButtonsNumberOfPlayers = new ButtonGroup();
+    
+    /**
+     * Change size of game board.
+     */
     public ButtonGroup radioButtonsBoardSize = new ButtonGroup();
+    
+    /**
+     * Change count of treasures.
+     */
     public ButtonGroup radioButtonsNumberOfTreasures = new ButtonGroup();
     
     public JPanel panelNewGameTitle = new JPanel();
@@ -45,6 +101,9 @@ public class NewGame implements Serializable {
     private final BoxLayout boxLayoutLeft = new BoxLayout(panelNewGameControlsLeft, BoxLayout.Y_AXIS);
     private final BoxLayout boxLayoutRight = new BoxLayout(panelNewGameControlsRight, BoxLayout.Y_AXIS);
     
+    /**
+     * Constructor creates a new game Gui.
+     */
     public NewGame() {
         panelNewGameTitle.setBackground(new Color(0,0,0, (float) 0.5));
         panelNewGameControls.setBackground(new Color(0,0,0, (float) 0.5));
