@@ -13,30 +13,60 @@ import java.util.List;
  *
  * @author xpospi73, xdress00
  */
+
+/**
+ * This class represents undo command.
+ */
 public class undo implements Serializable {
     
+    /**
+     * This list contains used commands.
+     */
     public List<String> commands;
+    
+    /**
+     * Index of last used command.
+     */
     public int lastCommand;
     
+    /**
+     * Constructor inicializes lastCommand and commands list.
+     */
     public undo() {
         lastCommand = 0;   
         commands =  new ArrayList<>();
     }
     
+    /**
+     * This method stores specific command.
+     * @param command represents command for store.
+     */
     public void storeCommand(String command) {
         commands.add(command);
         lastCommand++;
     }
     
+    /**
+     * This method cleans the list of stored commands.
+     */
     public void cleanCommands() {
         commands =  new ArrayList<>();
         lastCommand = 0;
     }
     
+    /**
+     * This method reads the last used command.
+     * @return last used command.
+     */
     public String readLastCommand() {
         return commands.get(lastCommand-1);
     }
     
+   /**
+    * This method inverts specific command.
+    * @param command represents command for invert.
+    * @return inverted command.
+    */ 
     public String invertCommand(String command) {
         String invertedCommand = null,rc;
         if(command.matches("^(t|(-t))(([0-9])([0-9])?([:])([0-9])([0-9])?)$") == true) {
